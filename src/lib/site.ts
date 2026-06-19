@@ -13,8 +13,8 @@ export const site = {
   ],
   // Credibility strip, shown under the hero.
   proof: [
-    "PM @ Rekro",
     "MS AI @ UNSW",
+    "ex-PM @ Rekro",
     "Startmate Founder Fellow",
     "ex-Bewakoof · 50M users",
   ],
@@ -28,6 +28,7 @@ export const site = {
   nav: [
     { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
+    { href: "/lab", label: "Lab" },
     { href: "/water", label: "Water" },
     { href: "/writing", label: "Writing" },
     { href: "/about", label: "About" },

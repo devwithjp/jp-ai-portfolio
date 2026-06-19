@@ -16,11 +16,10 @@ export function SiteNav() {
   return (
     <header className="sticky top-0 z-50 border-b border-line/70 bg-bg/65 backdrop-blur-xl">
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-3 sm:px-8">
-        <Link href="/" className="flex items-center gap-2.5 font-semibold tracking-tight">
+        <Link href="/" aria-label="Home" className="flex items-center gap-2.5 font-semibold tracking-tight">
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-[var(--accent-2)] font-mono text-sm text-accent-fg shadow-[0_4px_16px_-4px_var(--accent)]">
             JP
           </span>
-          <span className="hidden sm:inline">{site.name}</span>
         </Link>
 
         <div className="hidden items-center gap-0.5 md:flex">
@@ -81,7 +80,7 @@ export function SiteFooter() {
     <footer className="mt-auto border-t border-line">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-4 px-5 py-10 sm:flex-row sm:items-center sm:px-8">
         <div className="text-sm text-muted">
-          © {new Date().getFullYear()} {site.name}, {site.role}
+          © {new Date().getFullYear()} {site.shortName} · {site.role}
         </div>
         <div className="flex items-center gap-4 text-sm">
           <a href={site.links.github} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-fg">

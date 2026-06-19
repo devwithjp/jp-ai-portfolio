@@ -7,7 +7,7 @@ export const resumeSummary =
 // Reverse-chronological. Tight bullets, real metrics.
 export const experience: ResumeEntry[] = [
   {
-    period: "May 2025 – Present",
+    period: "May 2025 – Jan 2026",
     title: "Product Manager",
     org: "Rekro · Sydney",
     points: [
@@ -101,7 +101,7 @@ export const education: ResumeEntry[] = [
 ];
 
 export const certifications: string[] = [
-  "Reforge: Mastering Product Management + PM Foundations (ongoing)",
+  "Reforge: Product Management Foundations (the PM-craft program taught by senior product leaders)",
   "Machine Learning, Andrew Ng (Coursera)",
   "UNSW Peter Farrell Cup 2025, Startup Pitch (Semi-Finalist)",
   "Leadership Foundations (UNSW) + Strategic Thinking (AGSM)",

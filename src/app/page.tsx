@@ -189,7 +189,7 @@ export default function Home() {
               Building something? Let&apos;s talk.
             </h2>
             <p className="relative mx-auto mt-4 max-w-xl text-muted">
-              I&apos;m {site.name}, open to AI engineering and product roles, and to people building interesting things.
+              I&apos;m {site.shortName}, open to AI engineering and product roles, and to people building interesting things.
             </p>
             <div className="relative mt-8 flex flex-wrap justify-center gap-3">
               <CTA href="/contact">Contact</CTA>
