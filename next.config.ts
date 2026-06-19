@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.join(__dirname),
   },
+  // Emit a self-contained server bundle for a lean Docker image (Vercel ignores this).
+  output: "standalone",
 };
 
 export default nextConfig;

@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.github
+npm-debug.log*
+.env*
+README.md
+BUILD_LOG.md
+*.md
+_golden
+public/screenshots/**/.gitkeep
+Dockerfile
+.dockerignore
+.vercel
