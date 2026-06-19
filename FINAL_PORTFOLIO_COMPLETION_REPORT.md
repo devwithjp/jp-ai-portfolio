@@ -19,10 +19,17 @@ All five repos: **lint clean, `tsc --noEmit` clean, `next build` passing.** Each
 
 ## Test / verification status
 
-- **AgentEval:** posted a suite to `/api/run` — improved variant (3.8) beat baseline (3.4); release gate correctly recommended HOLD at threshold 4.0.
-- **SignalDesk:** `/api/analyze` clustered feedback into correct themes; `/api/ask` returned cited answers; `/api/prd` enforced the ≥2-citation guardrail.
-- **ScreenSense:** `/api/analyze` returned distinct, severity-sorted critiques per rubric; invalid rubric rejected.
-- **WorkflowPilot:** plan → approve → execute verified; disallowed tools **blocked** (2 policy violations logged); simulated failure produced a rollback suggestion.
+All five verified two ways: (a) lint + `tsc --noEmit` + `next build` green, and (b) a **headless-browser smoke pass** confirming pages render, client interactions fire, and the console is clean (no errors, no hydration mismatch).
+
+- **Portfolio (browser):** home renders, 8 project links, case-study tabs swap (Product → Engineering → Metrics), theme toggle flips dark↔light, zero console errors.
+- **AgentEval (browser + API):** "Run eval" renders the release-gate banner (HOLD), variant comparison, and quality cards; API: improved variant (3.8) beat baseline (3.4).
+- **SignalDesk (browser + API):** load-sample → `/api/analyze` 200 → themes render; `/api/prd` 200 → PRD with "Evidence (3 cited)"; ≥2-citation guardrail holds.
+- **ScreenSense (browser + API):** Analyze renders summary + severity-ranked findings; rubric switch (UX → Accessibility) changes findings; invalid rubric rejected.
+- **WorkflowPilot (browser + API):** plan → approve → execute → audit trail; with dry-run off + simulate-failure on, a failure renders the rollback panel and **Retry re-runs the failed step** (verified second `/api/execute` call); disallowed tools blocked (policy violations logged).
+
+### Fixes found during browser QA
+- **Hydration mismatch** (theme toggle): reworked to render both glyphs and switch via CSS on the `html.light` class — server/client initial render now match. Synced across all 5 repos.
+- **WorkflowPilot retry** ran nothing after the first execution (executed steps were no longer `approved`); retry now re-approves failed/blocked steps so they re-run, while executed steps are skipped (no double side effects).
 
 ## Deployment status — TWO human-only steps remain
 
@@ -86,8 +93,8 @@ gh repo create <repo> --private --source=. --remote=origin --push
 
 ## Final checklist
 
-- [x] Portfolio builds & all routes render
-- [x] All 4 app demos work key-free (mock mode)
+- [x] Portfolio builds & all routes render (browser-verified)
+- [x] All 4 app demos work key-free in-browser (mock mode) — interactions fire, results render, console clean
 - [x] READMEs complete (all 5)
 - [x] `.env.example` in every repo
 - [x] Tests passing (lint + tsc + build, all 5)
