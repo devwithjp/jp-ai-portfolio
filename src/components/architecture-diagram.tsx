@@ -1,6 +1,6 @@
 import type { ArchitectureStep } from "@/lib/types";
 
-// Lightweight CSS architecture diagram — a labeled pipeline of steps with connectors.
+// Lightweight CSS architecture diagram, a labeled pipeline of steps with connectors.
 // No image asset needed; renders crisply in both themes.
 export function ArchitectureDiagram({ steps }: { steps: ArchitectureStep[] }) {
   return (

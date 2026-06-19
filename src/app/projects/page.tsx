@@ -14,7 +14,7 @@ export default function ProjectsPage() {
       <SectionHeader
         eyebrow="Projects"
         title="Four AI products, two role signals"
-        intro="Evaluation, RAG, multimodal, and safe agents. Each demonstrates both AI engineering depth and AI product thinking — with a working mock-first demo, an engineering case study, and a product case study."
+        intro="Evaluation, RAG, multimodal, and safe agents. Each demonstrates both AI engineering depth and AI product thinking, with a working mock-first demo, an engineering case study, and a product case study."
       />
       <div className="mt-10 grid gap-5 md:grid-cols-2">
         {projects.map((p) => (

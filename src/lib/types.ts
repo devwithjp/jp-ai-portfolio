@@ -71,10 +71,13 @@ export type ResumeEntry = {
   points: string[];
 };
 
+export type PostCategory = "tech" | "life";
+
 export type BlogPost = {
   slug: string;
   title: string;
   date: string;
+  category: PostCategory;
   summary: string;
   tags: string[];
   body: string[]; // paragraphs (markdown-lite: lines starting with "- " render as list items)

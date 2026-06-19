@@ -43,7 +43,7 @@ export default async function ProjectPage({
             <Eyebrow>{project.category}</Eyebrow>
             <StatusBadge status={project.status} />
           </div>
-          <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h1 className="font-display mt-4 max-w-3xl text-4xl font-medium tracking-tight sm:text-5xl">
             {project.title}
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{project.pitch}</p>

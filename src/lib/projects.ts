@@ -5,7 +5,7 @@ export const projects: Project[] = [
     slug: "agenteval-studio",
     title: "AgentEval Studio",
     pitch:
-      "An evaluation and observability workbench that compares AI prompt / RAG / agent variants on quality, cost, latency, and failure modes — and recommends a release gate.",
+      "An evaluation and observability workbench that compares AI prompt / RAG / agent variants on quality, cost, latency, and failure modes, and recommends a release gate.",
     category: "Evaluation / LLMOps",
     status: "mock-demo",
     roleSignals: ["AI Engineering", "AI Product Management"],
@@ -45,10 +45,10 @@ export const projects: Project[] = [
       {
         heading: "Architecture",
         body: [
-          "A Next.js app with API-route handlers — no separate backend was needed. Eval runs persist to a minimal projects/runs/feedback schema (Supabase in real mode, in-memory fixtures in mock mode).",
+          "A Next.js app with API-route handlers, no separate backend was needed. Eval runs persist to a minimal projects/runs/feedback schema (Supabase in real mode, in-memory fixtures in mock mode).",
         ],
         bullets: [
-          "Deterministic checks (schema validation, must-include/exclude, regex) run before any model call — they are free and catch the obvious failures.",
+          "Deterministic checks (schema validation, must-include/exclude, regex) run before any model call, they are free and catch the obvious failures.",
           "LLM-as-judge (claude-haiku-4-5) scores the remainder against an explicit rubric with confidence labels.",
           "Every run records latency and an estimated token cost so quality is never evaluated in isolation.",
         ],
@@ -82,7 +82,7 @@ export const projects: Project[] = [
       },
     ],
     learnings: [
-      "Deterministic checks remove most of the LLM-judge's workload and cost — run them first.",
+      "Deterministic checks remove most of the LLM-judge's workload and cost, run them first.",
       "A release-gate recommendation is more actionable than a wall of scores.",
       "Mock-first means the demo never breaks and CI stays free.",
     ],
@@ -110,7 +110,7 @@ export const projects: Project[] = [
     slug: "signaldesk-ai",
     title: "SignalDesk AI",
     pitch:
-      "An AI product-intelligence workspace that ingests user feedback, clusters pain points, finds evidence, and generates PRDs, roadmap bets, and experiment plans — every claim cited.",
+      "An AI product-intelligence workspace that ingests user feedback, clusters pain points, finds evidence, and generates PRDs, roadmap bets, and experiment plans, every claim cited.",
     category: "RAG / Product Strategy",
     status: "mock-demo",
     roleSignals: ["AI Engineering", "AI Product Management"],
@@ -181,12 +181,12 @@ export const projects: Project[] = [
       {
         heading: "Metrics & guardrails",
         body: [
-          "North star: validated opportunities converted into PRDs. The key guardrail — unsupported recommendation rate — directly protects trust, which is the whole value proposition of an evidence-first tool.",
+          "North star: validated opportunities converted into PRDs. The key guardrail, unsupported recommendation rate, directly protects trust, which is the whole value proposition of an evidence-first tool.",
         ],
       },
     ],
     learnings: [
-      "Citations are the product, not a nicety — they convert a generic summary into a defensible decision.",
+      "Citations are the product, not a nicety, they convert a generic summary into a defensible decision.",
       "Anthropic has no embeddings API, so RAG needs a second provider (or a mock) for vectors.",
       "Minimum cluster sizes and confidence labels keep insights from going generic.",
     ],
@@ -214,7 +214,7 @@ export const projects: Project[] = [
     slug: "screensense-qa",
     title: "ScreenSense QA",
     pitch:
-      "A multimodal UX/product QA tool that reviews UI screenshots for accessibility, friction, copy clarity, and visual hierarchy — and returns prioritised, severity-scored recommendations.",
+      "A multimodal UX/product QA tool that reviews UI screenshots for accessibility, friction, copy clarity, and visual hierarchy, and returns prioritised, severity-scored recommendations.",
     category: "Multimodal / Product UX",
     status: "mock-demo",
     roleSignals: ["AI Engineering", "AI Product Management"],
@@ -248,7 +248,7 @@ export const projects: Project[] = [
       {
         heading: "Problem",
         body: [
-          "Small teams ship interfaces without design review, accessibility checks, or PM-grade critique. They need fast, structured feedback before launch — not a generic 'looks good'.",
+          "Small teams ship interfaces without design review, accessibility checks, or PM-grade critique. They need fast, structured feedback before launch, not a generic 'looks good'.",
         ],
       },
       {
@@ -257,7 +257,7 @@ export const projects: Project[] = [
           "A single-call vision pipeline: upload → preprocess → multimodal critique → rubric scoring → severity-ranked report. No tool-calling needed; the model returns a strict JSON contract.",
         ],
         bullets: [
-          "Structured output: summary, findings[], recommendations[], risks[], confidence — validated before render.",
+          "Structured output: summary, findings[], recommendations[], risks[], confidence, validated before render.",
           "Mock mode serves pre-computed critiques from fixtures, so the demo works with no key and CI is deterministic.",
           "Real mode uses claude-opus-4-8 vision behind the same interface, gated on an API key.",
         ],
@@ -285,7 +285,7 @@ export const projects: Project[] = [
       {
         heading: "Metrics & guardrails",
         body: [
-          "North star: actionable issues found per review. The guardrail — false/unsupported design claims — keeps the tool honest; a confidence field on every finding makes uncertainty visible.",
+          "North star: actionable issues found per review. The guardrail, false/unsupported design claims, keeps the tool honest; a confidence field on every finding makes uncertainty visible.",
         ],
       },
     ],
@@ -336,7 +336,7 @@ export const projects: Project[] = [
     architecture: [
       { label: "Goal", detail: "User states a plain-language objective." },
       { label: "Planner", detail: "claude-opus-4-8 proposes ordered steps with tool, args, reasoning." },
-      { label: "Approval queue", detail: "No tool runs until a human approves — the core safety gate." },
+      { label: "Approval queue", detail: "No tool runs until a human approves, the core safety gate." },
       { label: "Execution", detail: "Approved steps run against mock tools (send_email_mock, create_ticket_mock, …)." },
       { label: "Audit log", detail: "Every proposal, approval, execution, and failure is recorded." },
       { label: "Recovery", detail: "Failure report + rollback suggestions; policy violations are never auto-retried." },
@@ -361,7 +361,7 @@ export const projects: Project[] = [
           "A planner proposes a tool-call plan; nothing executes until a human approves. Tools are mock by default (dry-run), and every state transition is written to an append-only audit log.",
         ],
         bullets: [
-          "Human approval queue is the load-bearing safety mechanism — the manual agentic loop intercepts every tool call.",
+          "Human approval queue is the load-bearing safety mechanism, the manual agentic loop intercepts every tool call.",
           "Mock tools (send_email_mock, create_ticket_mock, summarise_doc_mock, update_crm_mock) return realistic results without touching anything real.",
           "Permissions model + safety settings define what may run; policy violations are surfaced as errors, never auto-retried.",
         ],
@@ -369,7 +369,7 @@ export const projects: Project[] = [
       {
         heading: "Trade-offs",
         body: [
-          "No real Gmail / Slack / Jira integration ships in the demo by design — autonomy is the risk, so the MVP proves the safety scaffolding (approval, audit, rollback) against mock tools first.",
+          "No real Gmail / Slack / Jira integration ships in the demo by design, autonomy is the risk, so the MVP proves the safety scaffolding (approval, audit, rollback) against mock tools first.",
         ],
       },
     ],
@@ -389,19 +389,19 @@ export const projects: Project[] = [
       {
         heading: "Trust by design",
         body: [
-          "The guardrail metric — unauthorized tool/action attempts — has a target of zero. Trust isn't a feature here; it's the product. The safety settings and audit trail are the things a buyer actually evaluates.",
+          "The guardrail metric, unauthorized tool/action attempts, has a target of zero. Trust isn't a feature here; it's the product. The safety settings and audit trail are the things a buyer actually evaluates.",
         ],
       },
     ],
     learnings: [
-      "Human-in-the-loop approval is the feature, not friction — it's what makes agents shippable.",
+      "Human-in-the-loop approval is the feature, not friction, it's what makes agents shippable.",
       "An append-only audit trail is what turns 'an agent did something' into accountability.",
       "Mock tools + dry-run default let you demo agent safety without any real blast radius.",
     ],
     interviewTalkingPoints: [
       "Why I used a manual agentic loop (not an auto tool-runner) to intercept every call for approval.",
       "How the audit log + permissions model establish trust.",
-      "What it takes to safely connect a real tool — and why the demo doesn't.",
+      "What it takes to safely connect a real tool, and why the demo doesn't.",
     ],
     screenshots: [
       { src: "/screenshots/workflowpilot-safe-agents/plan.png", caption: "Agent-proposed tool-call plan" },

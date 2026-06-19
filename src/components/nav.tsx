@@ -81,7 +81,7 @@ export function SiteFooter() {
     <footer className="mt-auto border-t border-line">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-4 px-5 py-10 sm:flex-row sm:items-center sm:px-8">
         <div className="text-sm text-muted">
-          © {new Date().getFullYear()} {site.name} — {site.role}
+          © {new Date().getFullYear()} {site.name}, {site.role}
         </div>
         <div className="flex items-center gap-4 text-sm">
           <a href={site.links.github} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-fg">

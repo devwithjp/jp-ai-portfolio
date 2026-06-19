@@ -61,7 +61,7 @@ export function CaseStudyTabs({ project }: { project: Project }) {
           <div className="space-y-6">
             <p className="leading-relaxed text-muted">
               {project.liveUrl
-                ? "Live demo (runs in mock mode — no API key required):"
+                ? "Live demo (runs in mock mode, no API key required):"
                 : "Live demo deploying soon. Planned captures of the core flow:"}
             </p>
             <ScreenshotGallery shots={project.screenshots} />

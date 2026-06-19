@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { SiteNav, SiteFooter } from "@/components/nav";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+// Editorial serif for display headings, warm, human, a little wonky.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://example.com"), // replaced with live domain at deploy
   title: {
-    default: `${site.name} — ${site.role}`,
-    template: `%s — ${site.name}`,
+    default: `${site.name}, ${site.role}`,
+    template: `%s, ${site.name}`,
   },
   description: site.positioning,
   keywords: [
@@ -24,7 +31,7 @@ export const metadata: Metadata = {
     "AI agents",
   ],
   openGraph: {
-    title: `${site.name} — ${site.role}`,
+    title: `${site.name}, ${site.role}`,
     description: site.positioning,
     type: "website",
   },
@@ -35,7 +42,7 @@ const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t===
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

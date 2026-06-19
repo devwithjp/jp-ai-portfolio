@@ -44,14 +44,14 @@ function EntryList({ entries }: { entries: typeof experience }) {
 export default function ResumePage() {
   return (
     <Section>
-      <SectionHeader eyebrow="Resume" title={`${site.name} — ${site.role}`} intro={resumeSummary} />
+      <SectionHeader eyebrow="Resume" title={`${site.name}, ${site.role}`} intro={resumeSummary} />
 
       <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,320px)_1fr]">
         <div className="space-y-10">
           <div>
             <Eyebrow>Experience</Eyebrow>
             <p className="mb-3 mt-2 text-xs text-muted/70">
-              (Placeholder entries — replace with your real roles.)
+              (Placeholder entries, replace with your real roles.)
             </p>
             <EntryList entries={experience} />
           </div>

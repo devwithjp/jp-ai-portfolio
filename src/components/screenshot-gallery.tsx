@@ -1,7 +1,7 @@
 import type { Screenshot } from "@/lib/types";
 
 // Renders a browser-chrome framed placeholder per planned screenshot. We don't ship
-// fabricated screenshots — these are intentional placeholders captioned with what each
+// fabricated screenshots, these are intentional placeholders captioned with what each
 // capture will show, swapped for real <img> once the app is deployed and captured.
 export function ScreenshotGallery({ shots }: { shots: Screenshot[] }) {
   return (

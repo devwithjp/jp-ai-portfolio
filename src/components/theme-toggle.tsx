@@ -3,7 +3,7 @@
 // Toggles the `light` class on <html>. Default (no class) is the dark brand theme.
 // Renders BOTH glyphs and lets CSS show the right one based on the html.light class
 // (set pre-hydration by the inline script in layout). This keeps server and client
-// initial render identical — no hydration mismatch, no setState-in-effect.
+// initial render identical, no hydration mismatch, no setState-in-effect.
 export function ThemeToggle() {
   function toggle() {
     const next = !document.documentElement.classList.contains("light");

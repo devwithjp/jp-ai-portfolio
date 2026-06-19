@@ -10,7 +10,7 @@ export const skillTracks: Record<string, SkillTrack> = {
       "vector search", "observability", "deployment", "cost", "security", "full-stack AI",
     ],
     skills: [
-      { skill: "Hosted LLM products", description: "Full-stack, deployed AI apps — not demos in a notebook.", projects: ["agenteval-studio", "signaldesk-ai", "screensense-qa", "workflowpilot-safe-agents"] },
+      { skill: "Hosted LLM products", description: "Full-stack, deployed AI apps, not demos in a notebook.", projects: ["agenteval-studio", "signaldesk-ai", "screensense-qa", "workflowpilot-safe-agents"] },
       { skill: "RAG & source-grounded output", description: "Ingest, chunk, embed, retrieve, and generate with citations.", projects: ["signaldesk-ai"] },
       { skill: "Agentic workflows & tool calling", description: "Planner + manual tool-calling loop with human approval.", projects: ["workflowpilot-safe-agents"] },
       { skill: "LLM evals & regression testing", description: "Deterministic checks + LLM-as-judge, scorecards, release gates.", projects: ["agenteval-studio"] },
@@ -32,7 +32,7 @@ export const skillTracks: Record<string, SkillTrack> = {
       "AI UX", "trust", "safety", "model quality", "launch readiness", "GTM",
     ],
     skills: [
-      { skill: "PRD writing", description: "Problem, ICP, scope, metrics, guardrails — one per project.", projects: ["agenteval-studio", "signaldesk-ai", "screensense-qa", "workflowpilot-safe-agents"] },
+      { skill: "PRD writing", description: "Problem, ICP, scope, metrics, guardrails, one per project.", projects: ["agenteval-studio", "signaldesk-ai", "screensense-qa", "workflowpilot-safe-agents"] },
       { skill: "User-problem discovery", description: "Sharp problem statements grounded in a real user job.", projects: ["signaldesk-ai", "screensense-qa"] },
       { skill: "ICP & persona definition", description: "Named target segment and the job they're hiring the product for.", projects: ["agenteval-studio", "signaldesk-ai", "screensense-qa", "workflowpilot-safe-agents"] },
       { skill: "MVP scoping", description: "Explicit in/out decisions that keep the build shippable.", projects: ["agenteval-studio", "signaldesk-ai", "screensense-qa", "workflowpilot-safe-agents"] },

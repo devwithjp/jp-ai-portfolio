@@ -2,7 +2,7 @@ import type { Metric } from "@/lib/types";
 import { metricKindLabel } from "@/lib/site";
 
 // Presents the metric *framework* a product is measured by (north star, activation,
-// retention, quality, guardrail). Deliberately definitions, not fabricated numbers —
+// retention, quality, guardrail). Deliberately definitions, not fabricated numbers , 
 // no unmeasured metric is claimed as real.
 export function MetricPanel({ metrics }: { metrics: Metric[] }) {
   return (

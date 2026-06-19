@@ -1,31 +1,30 @@
 export const site = {
   name: "Jyothiprakash S",
   shortName: "JP",
-  role: "AI Product Engineer",
-  // Positioning: bridges AI engineering and AI product management.
-  tagline: "I define, build, evaluate, and ship AI products — and prove it with hosted demos.",
+  role: "AI & Product Builder",
+  // Voice: plain, declarative, specific. Say the true thing in few words.
+  tagline: "I started with code. I stayed for building.",
   positioning:
-    "Full-stack AI engineer with product sense. I turn ambiguous AI opportunities into scoped products with metrics, evals, and live, hosted demos — across RAG, agents, evaluation, and multimodal UX.",
+    "I build AI products end to end. I care as much about whether a thing is worth building as whether it works.",
   altPositionings: [
-    "Full-stack AI engineer with product sense: I build, evaluate, and launch AI workflows that solve real user problems.",
-    "AI PM + builder: I turn ambiguous AI opportunities into scoped products, metrics, evals, and hosted demos.",
-    "Applied AI engineer focused on agents, RAG, evals, multimodal UX, and production deployment.",
+    "Engineering got me in the door. Product is why I stayed.",
+    "I like making things people actually want, and finding out fast when they don't.",
+    "Most of what I do lives at the edge of AI, product, and starting things.",
   ],
   email: "jyothiprakash21.au@gmail.com",
   location: "Sydney, Australia",
   links: {
     github: "https://github.com/devwithjp",
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/jyothiprakashs",
     email: "mailto:jyothiprakash21.au@gmail.com",
   },
   nav: [
     { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
-    { href: "/skills/ai-engineering", label: "AI Engineering" },
-    { href: "/skills/ai-product-management", label: "AI PM" },
+    { href: "/water", label: "Water" },
+    { href: "/writing", label: "Writing" },
     { href: "/about", label: "About" },
     { href: "/resume", label: "Resume" },
-    { href: "/blog", label: "Notes" },
     { href: "/contact", label: "Contact" },
   ],
 };

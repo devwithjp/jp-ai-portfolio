@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { site } from "@/lib/site";
+import { whyIBuild, whyIBuildIntro } from "@/lib/story";
 import { Section, SectionHeader, CTA, Eyebrow } from "@/components/ui";
+import { Reveal } from "@/components/reveal";
 
 export const metadata: Metadata = {
   title: "About",
@@ -10,43 +13,56 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <Section>
-      <SectionHeader eyebrow="About" title={`I'm ${site.name} — an ${site.role}.`} />
-      <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_minmax(0,300px)]">
-        <div className="space-y-5 text-lg leading-relaxed text-muted">
-          <p>
-            I sit in the overlap between AI engineering and product management: I can scope an
-            ambiguous AI opportunity into a real product, build it end-to-end, evaluate whether
-            it actually works, and explain the trade-offs to both engineers and stakeholders.
-          </p>
-          <p>
-            My portfolio is four hosted AI products — an evaluation workbench, a RAG product-
-            intelligence workspace, a multimodal UX reviewer, and a safe agent demo. Each one
-            pairs working engineering (RAG, agents, evals, multimodal, deployment, security)
-            with the product artifacts that make it real: a PRD, a metric framework, a roadmap,
-            and a clear-eyed account of what I&apos;d build next.
-          </p>
-          <p>
-            I build every demo mock-first, so it runs with zero API keys and never breaks for
-            the person clicking the link. That&apos;s a small thing that says a lot about how I
-            think about shipping: reliability and reviewer experience first.
-          </p>
+      <Reveal>
+        <SectionHeader eyebrow="Why I build" title={`I'm ${site.name}.`} intro={whyIBuildIntro} />
+      </Reveal>
+
+      <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_minmax(0,280px)]">
+        {/* Story */}
+        <div className="space-y-12">
+          {whyIBuild.map((beat, i) => (
+            <Reveal key={beat.heading} delay={i * 60}>
+              <div className="border-l border-line pl-6">
+                <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">{beat.heading}</div>
+                <div className="mt-3 space-y-4 text-lg leading-relaxed text-muted">
+                  {beat.body.map((p, j) => (
+                    <p key={j}>{p}</p>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
-        <aside className="space-y-6">
-          <div className="rounded-xl border border-line bg-surface p-5">
-            <Eyebrow>Other ways I frame it</Eyebrow>
-            <ul className="mt-3 space-y-3 text-sm leading-relaxed text-muted">
-              {site.altPositionings.map((p, i) => (
-                <li key={i}>{p}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="rounded-xl border border-line bg-surface p-5">
-            <Eyebrow>Based in</Eyebrow>
-            <p className="mt-2 text-muted">{site.location}</p>
-            <div className="mt-4">
-              <CTA href="/contact" variant="secondary">Get in touch</CTA>
+
+        {/* Aside */}
+        <aside className="space-y-6 lg:sticky lg:top-24 lg:h-fit">
+          <Reveal>
+            <div className="rounded-2xl border border-line bg-surface p-5">
+              <Eyebrow>How I say it</Eyebrow>
+              <ul className="mt-3 space-y-3 text-sm leading-relaxed text-muted">
+                {site.altPositionings.map((p, i) => (
+                  <li key={i}>{p}</li>
+                ))}
+              </ul>
             </div>
-          </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <div className="rounded-2xl border border-line bg-surface p-5">
+              <Eyebrow>Based in</Eyebrow>
+              <p className="mt-2 text-muted">{site.location}</p>
+              <p className="mt-4 text-sm leading-relaxed text-muted">
+                There&apos;s another side of me too:{" "}
+                <Link href="/water" className="text-link hover:underline">
+                  the water
+                </Link>
+                .
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <CTA href="/resume" variant="secondary">Resume</CTA>
+                <CTA href="/contact" variant="secondary">Contact</CTA>
+              </div>
+            </div>
+          </Reveal>
         </aside>
       </div>
     </Section>

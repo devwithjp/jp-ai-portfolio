@@ -4,7 +4,7 @@ import { projects } from "@/lib/projects";
 
 const titleOf = (slug: string) => projects.find((p) => p.slug === slug)?.title ?? slug;
 
-// Maps each skill to the concrete projects that prove it — the portfolio IS the evidence.
+// Maps each skill to the concrete projects that prove it, the portfolio IS the evidence.
 export function SkillEvidenceMap({ track }: { track: SkillTrack }) {
   return (
     <div className="grid gap-3 md:grid-cols-2">
