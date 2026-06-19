@@ -211,6 +211,29 @@ body::after {
 }
 .lift:hover .hairline::before { opacity: 1; }
 
+/* ---- Top nav tabs ---- */
+.nav-link {
+  position: relative;
+  border-radius: 9999px;
+  font-weight: 500;
+  color: var(--muted);
+  transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.25s ease;
+}
+.nav-link:hover {
+  color: var(--fg);
+  background: color-mix(in oklab, var(--fg) 8%, transparent);
+}
+.nav-link[data-active="true"] {
+  color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 15%, transparent);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in oklab, var(--accent) 34%, transparent),
+    0 6px 18px -10px color-mix(in oklab, var(--accent) 70%, transparent);
+}
+.nav-link[data-active="true"]:hover {
+  background: color-mix(in oklab, var(--accent) 20%, transparent);
+}
+
 /* Animated link underline. */
 .link-underline {
   background-image: linear-gradient(var(--accent), var(--accent));

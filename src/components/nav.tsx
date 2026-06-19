@@ -22,21 +22,19 @@ export function SiteNav() {
           </span>
         </Link>
 
-        <div className="hidden items-center gap-0.5 md:flex">
+        <div className="hidden items-center gap-1 md:flex">
           {site.nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`rounded-full px-3 py-1.5 text-sm transition-colors ${
-                isActive(item.href)
-                  ? "bg-elevated text-accent"
-                  : "text-muted hover:text-fg"
-              }`}
+              data-active={isActive(item.href)}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className="nav-link px-3.5 py-1.5 text-sm"
             >
               {item.label}
             </Link>
           ))}
-          <div className="ml-2">
+          <div className="ml-2 border-l border-line/70 pl-3">
             <ThemeToggle />
           </div>
         </div>
@@ -61,9 +59,9 @@ export function SiteNav() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className={`rounded-lg px-3 py-2 text-sm ${
-                  isActive(item.href) ? "bg-elevated text-fg" : "text-muted"
-                }`}
+                data-active={isActive(item.href)}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                className="nav-link my-0.5 px-3 py-2 text-sm"
               >
                 {item.label}
               </Link>
