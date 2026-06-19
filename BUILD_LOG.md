@@ -29,3 +29,15 @@ Running log of completed steps, decisions, blockers, and next actions.
 ### Human-only / blocked
 - `gh` not authenticated → GitHub repo creation + push pending JP login.
 - Vercel deploy pending JP approval.
+
+## 2026-06-19 — Milestone 5 (final integration)
+
+### Completed
+- All 5 repos built + verified: lint clean, `tsc --noEmit` clean, `next build` passing. Each app's engine verified end-to-end via its API.
+- Added integration docs: `FINAL_PORTFOLIO_COMPLETION_REPORT.md` (full status + go-live steps + resume bullets + interview readiness), `2_MINUTE_DEMO.md`, `5_MINUTE_DEMO.md`, `RECRUITER_WALKTHROUGH.md`, `SCREENSHOT_PLAN.md`.
+- Created `public/screenshots/<slug>/` folders (placeholders until post-deploy capture).
+
+### Pending (human-only)
+- `gh auth login` → then `gh repo create <repo> --private --source=. --push` for all 5.
+- Vercel import per repo (no env vars needed for mock mode).
+- After deploy: fill `liveUrl`/`githubUrl` in `src/lib/projects.ts` + each app `src/lib/site.ts`; capture screenshots; replace resume placeholders in `src/lib/resume.ts` with real roles.
