@@ -1,68 +1,134 @@
 import type { ResumeEntry } from "./types";
 
-// Real roles from JP's story. Dates are placeholders ("20XX"), fill in exact ones.
+// Real history from JP's resume + LinkedIn. Voice: plain, declarative, no em dashes.
 export const resumeSummary =
-  "I build AI products end to end, and I care most about whether they're worth building. Engineer turned product person; equally at home in a codebase, a PRD, and a room full of users.";
+  "Product Manager with an engineer's hands. I spent 2+ years building fullstack products for millions of users, then moved toward deciding what to build. Now doing a Master's in AI at UNSW and building AI products end to end.";
 
+// Reverse-chronological. Tight bullets, real metrics.
 export const experience: ResumeEntry[] = [
   {
-    period: "20XX",
-    title: "Product Manager Intern",
-    org: "0→1 startup · Sydney",
+    period: "May 2025 – Present",
+    title: "Product Manager",
+    org: "Rekro · Sydney",
     points: [
-      "Ran discovery to spec on an early-stage product, user interviews, problem framing, scoping, and the metrics to judge it by.",
-      "The internship that made the pivot obvious: I like deciding what to build at least as much as building it.",
+      "Drive discovery into PRDs, Figma flows, and an OKR-aligned roadmap; prioritise the backlog toward a 0→1 MVP.",
+      "Lead a six-person engineering team, run Agile sprints in Linear, and own final PR review and prod merges. Cut cycle time ~20%.",
+      "Run competitor tear-downs and lean experiments (smoke, concierge) to de-risk bets before building.",
     ],
   },
   {
-    period: "20XX – 20XX",
-    title: "Frontend Engineer",
-    org: "Bewakoof (consumer ecommerce, ~50M users)",
+    period: "Jun 2025 – Aug 2025",
+    title: "Founder Fellow",
+    org: "Startmate Student Founder Bootcamp",
     points: [
-      "Built and shipped UI for a consumer product at real scale.",
-      "Learned the lesson I keep relearning: products win on user empathy, design, and positioning, not engineering alone.",
+      "Full-scholarship fellow. A two-week sprint from idea and team formation to MVP, customer interviews, and investor-style pitching with 1:1 coaching.",
     ],
   },
   {
-    period: "Pre-grad",
-    title: "Founder (attempted)",
-    org: "Logistics startup, “Uber for trucks”",
-    points: [
-      "Built and pitched a logistics platform for small and mid-size factories.",
-      "Applied to Y Combinator; reached the top 10% of rejected applications. An early, useful taste of thinking past the code.",
-    ],
-  },
-  {
-    period: "Ongoing",
+    period: "Oct 2024 – Present",
     title: "Swim Teacher",
     org: "In The Deep Swim School · Sydney",
     points: [
-      "Teach children aged 3–10 with a confidence-before-skill method.",
-      "An ongoing lesson in patience, calm, and earning trust, skills I use well beyond the pool.",
+      "Teach children aged 3 to 10. Keep classes safe and structured. An ongoing lesson in patience, communication, and earning trust.",
+    ],
+  },
+  {
+    period: "Jan 2025 – Feb 2025",
+    title: "Software Engineer Intern",
+    org: "Rekro · Sydney",
+    points: [
+      "Built 0→1 site components in Next.js and Convex; partnered with the CTO on the near-term roadmap and developer workflows.",
+    ],
+  },
+  {
+    period: "Apr 2023 – Jul 2023",
+    title: "Full Stack Engineer",
+    org: "Blue Sky Analytics · India",
+    points: [
+      "Built React/Gatsby UIs and Node/Sequelize REST APIs for an API-first geospatial climate-data product.",
+      "Used MapLibre and D3 to make satellite datasets usable in client workflows.",
+    ],
+  },
+  {
+    period: "Jan 2021 – Mar 2022",
+    title: "Senior Software Engineer (SDE1)",
+    org: "Bewakoof.com · India",
+    points: [
+      "Shipped the listing, product-detail, and homepage journeys used by 50M+ recurring users.",
+      "Led frontend for gift-card redemption; supported a festive spike that lifted revenue 65%.",
+      "Cut JS bundle 20% and raised Lighthouse Performance 15% via code-splitting, memoization, and route-level lazy loading.",
+      "Led Localization (Shopping in Hindi). Won 'Fastest Rookie to Rockstar'.",
+    ],
+  },
+  {
+    period: "Mar 2022 – Jan 2024",
+    title: "Freelance Consultant",
+    org: "EdTech / Moodle",
+    points: [
+      "Automated enrolment, credentialing, and reporting with Moodle plugins, themes, and APIs. +30% engagement, -40% grading time.",
+      "Led tech strategy and mentored a team of 5 interns; +25% efficiency with JIRA.",
+    ],
+  },
+  {
+    period: "May 2018 – Jul 2018",
+    title: "AI Intern",
+    org: "The Inkers · India",
+    points: [
+      "Trained a DenseNet to 79% on CIFAR-10; prototyped behavior cloning for steering-angle prediction; explored Winograd convolutions with skip connections.",
     ],
   },
 ];
 
 export const education: ResumeEntry[] = [
   {
-    period: "20XX – 20XX",
-    title: "Master of Artificial Intelligence",
+    period: "2024 – Present",
+    title: "Master of IT, AI & Data Science",
     org: "UNSW · Sydney",
-    points: ["Plus founder programs and pitch competitions in the UNSW startup ecosystem."],
+    points: ["AI, deep learning, big data, NLP, and AI product design."],
   },
   {
-    period: "20XX – 20XX",
-    title: "B.E. Computer Science",
-    org: "India",
+    period: "",
+    title: "B.Tech, Computer Science",
+    org: "M.S. Ramaiah University of Applied Sciences · Bangalore",
     points: [],
+  },
+  {
+    period: "2020",
+    title: "UX Design + Front-End Developer Nanodegrees",
+    org: "Udacity",
+    points: [],
+  },
+];
+
+export const certifications: string[] = [
+  "Reforge: Mastering Product Management + PM Foundations (ongoing)",
+  "Machine Learning, Andrew Ng (Coursera)",
+  "UNSW Peter Farrell Cup 2025, Startup Pitch (Semi-Finalist)",
+  "Leadership Foundations (UNSW) + Strategic Thinking (AGSM)",
+  "Swim Australia Teacher · CPR/AED/First Aid",
+  "SSI Rescue Scuba Diver",
+];
+
+export const skillGroups: { label: string; items: string[] }[] = [
+  {
+    label: "Product",
+    items: ["Discovery", "User interviews", "PRDs", "Figma flows", "OKRs / backlog", "Competitor analysis", "Experiment design (smoke / concierge)", "Stakeholder comms"],
+  },
+  {
+    label: "AI / Engineering",
+    items: ["React", "Next.js", "Node.js", "TypeScript", "LLMs", "RAG", "Prompt engineering", "REST APIs", "MapLibre / D3", "Webpack"],
+  },
+  {
+    label: "Data / Process",
+    items: ["Metrics instrumentation", "Agile (Linear)", "Performance audits", "Hypothesis testing", "Spreadsheet analysis"],
   },
 ];
 
 // Resume bullets pulled from the portfolio projects, ready to paste into a CV.
 export const resumeBulletsAiEngineer: string[] = [
-  "Built and shipped four hosted AI apps (Next.js + TypeScript, Vercel) across evaluation, RAG, multimodal, and agents, each mock-first, so the demos run with zero API keys.",
+  "Built and shipped four hosted AI apps (Next.js + TypeScript, Vercel) across evaluation, RAG, multimodal, and agents, each mock-first so the demos run with zero API keys.",
   "Built an LLM evaluation harness: deterministic checks plus an LLM judge with per-run cost and latency, surfaced as a ship/hold release gate.",
-  "Built a RAG pipeline (chunk → embed → cluster → retrieve → generate) over user feedback with pgvector and a ≥2-citation grounding rule.",
+  "Built a RAG pipeline (chunk to embed to cluster to retrieve to generate) over user feedback with pgvector and a 2-plus-citation grounding rule.",
   "Built a human-in-the-loop agent with a manual tool-calling loop, approval gates, and an append-only audit trail.",
 ];
 

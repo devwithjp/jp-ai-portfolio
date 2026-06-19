@@ -31,15 +31,20 @@ export function SectionHeader({
   eyebrow,
   title,
   intro,
+  index,
 }: {
   eyebrow?: string;
   title: string;
   intro?: string;
+  index?: string;
 }) {
   return (
     <div className="max-w-2xl">
-      {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-      <h2 className="font-display mt-3 text-3xl font-medium tracking-tight sm:text-4xl">{title}</h2>
+      <div className="flex items-center gap-3">
+        {index ? <span className="font-mono text-xs text-muted/60">{index}</span> : null}
+        {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
+      </div>
+      <h2 className="font-display mt-3 text-3xl font-medium leading-[1.1] tracking-tight sm:text-[2.7rem]">{title}</h2>
       {intro ? <p className="mt-4 text-lg leading-relaxed text-muted">{intro}</p> : null}
     </div>
   );
@@ -54,13 +59,7 @@ export function Card({
   className?: string;
   as?: "div" | "article" | "li";
 }) {
-  return (
-    <As
-      className={`rounded-xl border border-line bg-surface p-6 transition-colors ${className}`}
-    >
-      {children}
-    </As>
-  );
+  return <As className={`glass hairline lift p-6 ${className}`}>{children}</As>;
 }
 
 export function Tag({ children }: { children: ReactNode }) {
@@ -96,11 +95,11 @@ type CTAProps = {
 
 export function CTA({ href, children, variant = "primary", external, className = "" }: CTAProps) {
   const base =
-    "inline-flex h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-all";
+    "group inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5";
   const styles =
     variant === "primary"
-      ? "bg-accent text-accent-fg hover:opacity-90"
-      : "border border-line bg-transparent text-fg hover:bg-elevated";
+      ? "bg-accent text-accent-fg shadow-[0_8px_30px_-8px_var(--accent)] hover:shadow-[0_14px_44px_-10px_var(--accent)]"
+      : "glass text-fg hover:border-accent/50";
   const cls = `${base} ${styles} ${className}`;
   if (external) {
     return (

@@ -14,23 +14,23 @@ export function SiteNav() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-bg/80 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-line/70 bg-bg/65 backdrop-blur-xl">
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-3 sm:px-8">
-        <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-          <span className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-accent font-mono text-sm text-accent-fg">
+        <Link href="/" className="flex items-center gap-2.5 font-semibold tracking-tight">
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-[var(--accent-2)] font-mono text-sm text-accent-fg shadow-[0_4px_16px_-4px_var(--accent)]">
             JP
           </span>
           <span className="hidden sm:inline">{site.name}</span>
         </Link>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-0.5 md:flex">
           {site.nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={`rounded-full px-3 py-1.5 text-sm transition-colors ${
                 isActive(item.href)
-                  ? "bg-elevated text-fg"
+                  ? "bg-elevated text-accent"
                   : "text-muted hover:text-fg"
               }`}
             >

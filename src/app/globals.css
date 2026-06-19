@@ -9,30 +9,39 @@
 
 :root {
   /* dark, deep ocean (default) */
-  --bg: #08191f;
-  --surface: #0e2630;
-  --elevated: #15303b;
+  --bg: #07161c;
+  --surface: #0d2430;
+  --elevated: #14313c;
   --line: #21404c;
-  --fg: #e7f1f3;
-  --muted: #8aa6ae;
-  --accent: #3fe0c4;        /* aqua, fills carry deep-ink text */
-  --accent-fg: #06181e;
-  --link: #63e6d0;          /* aqua as readable text on dark */
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px rgb(0 0 0 / 0.35);
+  --fg: #eaf4f5;
+  --muted: #92aeb6;
+  --accent: #45e6cb;        /* aqua, fills carry deep-ink text */
+  --accent-2: #38bdf2;      /* secondary current, for gradients */
+  --accent-fg: #04161c;
+  --link: #6fefd8;
+  --glass: rgb(13 36 48 / 0.55);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 24px 60px -20px rgb(0 0 0 / 0.55);
+  --glow: 0 0 0 1px color-mix(in oklab, var(--accent) 30%, transparent), 0 18px 50px -18px color-mix(in oklab, var(--accent) 45%, transparent);
+  --radius: 16px;
 }
 
 html.light {
   /* light, foam */
-  --bg: #f1f7f8;
+  --bg: #eef6f7;
   --surface: #ffffff;
-  --elevated: #e7f0f1;
-  --line: #d6e4e6;
-  --fg: #0b2430;
-  --muted: #51707a;
-  --accent: #0e8c8c;        /* deeper teal, fills carry foam text */
+  --elevated: #e6f0f1;
+  --line: #d3e2e4;
+  --fg: #082530;
+  --muted: #4d6e78;
+  --accent: #0c8c8c;        /* deeper teal, fills carry foam text */
+  --accent-2: #1c7fb8;
   --accent-fg: #ffffff;
-  --link: #0b7676;          /* deep teal for contrast on foam */
-  --shadow: 0 1px 2px rgb(11 36 48 / 0.06), 0 16px 40px rgb(11 36 48 / 0.10);
+  --link: #0a7676;
+  --glass: rgb(255 255 255 / 0.6);
+  --shadow-sm: 0 1px 2px rgb(8 37 48 / 0.06);
+  --shadow-lg: 0 24px 60px -20px rgb(8 37 48 / 0.18);
+  --glow: 0 0 0 1px color-mix(in oklab, var(--accent) 28%, transparent), 0 18px 50px -18px color-mix(in oklab, var(--accent) 30%, transparent);
 }
 
 @theme inline {
@@ -43,6 +52,7 @@ html.light {
   --color-fg: var(--fg);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
   --color-accent-fg: var(--accent-fg);
   --color-link: var(--link);
   --font-sans: var(--font-geist-sans);
@@ -58,70 +68,183 @@ html {
 }
 html.light { color-scheme: light; }
 
+/* Lenis smooth scroll. */
+html.lenis,
+html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
 body {
   background: var(--bg);
   color: var(--fg);
 }
 
-/* Display headings, Fraunces, with a soft optical feel. */
+/* Grain overlay, fixed, very subtle texture for richness. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Display headings, Fraunces. */
 .font-display {
   font-family: var(--font-display), Georgia, serif;
   font-optical-sizing: auto;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
-/* Depth gradient, surface (shallow) fading into deep water, top → bottom. */
-.bg-depth {
+/* Gradient accent text, for emphasis words in headlines. */
+.text-gradient {
+  background: linear-gradient(100deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---- Hero / water atmosphere ---- */
+
+/* A slow-drifting caustic-gradient ocean, layered. */
+.ocean {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.ocean::before,
+.ocean::after {
+  content: "";
+  position: absolute;
+  inset: -30%;
   background:
-    radial-gradient(120% 80% at 50% -10%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 60%),
-    linear-gradient(to bottom, color-mix(in oklab, var(--accent) 5%, transparent), transparent 45%);
+    radial-gradient(40% 50% at 25% 20%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 60%),
+    radial-gradient(45% 55% at 80% 15%, color-mix(in oklab, var(--accent-2) 22%, transparent), transparent 60%),
+    radial-gradient(50% 60% at 60% 80%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 65%);
+  filter: blur(40px);
+  animation: drift 26s ease-in-out infinite alternate;
+  will-change: transform;
 }
-
-/* Caustic light-ripple texture for hero / water surfaces. */
-.bg-ripple {
-  background-image:
-    repeating-radial-gradient(circle at 20% 0%, color-mix(in oklab, var(--accent) 8%, transparent) 0 1px, transparent 1px 22px),
-    repeating-radial-gradient(circle at 80% 10%, color-mix(in oklab, var(--accent) 6%, transparent) 0 1px, transparent 1px 28px);
-  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 100%);
+.ocean::after {
+  animation-duration: 38s;
+  animation-direction: alternate-reverse;
   opacity: 0.7;
 }
+@keyframes drift {
+  0%   { transform: translate3d(-4%, -2%, 0) scale(1.05) rotate(0deg); }
+  100% { transform: translate3d(5%, 4%, 0) scale(1.15) rotate(8deg); }
+}
 
-/* subtle grid texture (used by screenshot frames). */
+/* Caustic light streaks. */
+.caustics {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(115deg, transparent 0 18px, color-mix(in oklab, var(--accent) 6%, transparent) 18px 19px, transparent 19px 40px),
+    repeating-linear-gradient(65deg, transparent 0 24px, color-mix(in oklab, var(--accent-2) 5%, transparent) 24px 25px, transparent 25px 52px);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 20%, transparent 95%);
+  opacity: 0.5;
+  animation: shimmer 14s linear infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 200px 80px, -160px 100px; }
+}
+
+/* Depth gradient, shallow at top to deep below. */
+.bg-depth {
+  background:
+    radial-gradient(120% 80% at 50% -10%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 55%),
+    linear-gradient(to bottom, color-mix(in oklab, var(--accent) 4%, transparent), transparent 40%);
+}
+
+.accent-glow {
+  background: radial-gradient(ellipse 55% 60% at 50% 0%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 70%);
+}
+
+/* subtle grid (screenshot frames). */
 .bg-grid {
   background-image:
     linear-gradient(to right, color-mix(in oklab, var(--line) 60%, transparent) 1px, transparent 1px),
     linear-gradient(to bottom, color-mix(in oklab, var(--line) 60%, transparent) 1px, transparent 1px);
-  background-size: 48px 48px;
+  background-size: 44px 44px;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
 }
 
-.accent-glow {
-  background: radial-gradient(ellipse 50% 50% at 50% 0%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 70%);
+/* ---- Glass surface + gradient hairline + hover glow ---- */
+.glass {
+  position: relative;
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
+  border-radius: var(--radius);
 }
-
-/* A thin wave rule for section dividers. */
-.wave-rule {
-  height: 8px;
-  width: 100%;
-  background:
-    radial-gradient(circle at 6px -3px, transparent 7px, color-mix(in oklab, var(--line) 90%, transparent) 7px 8px, transparent 8px) repeat-x;
-  background-size: 16px 8px;
+/* gradient hairline border via mask */
+.hairline {
+  position: relative;
+}
+.hairline::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(140deg, color-mix(in oklab, var(--accent) 55%, transparent), transparent 45%, color-mix(in oklab, var(--accent-2) 35%, transparent));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
   opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
 }
+.lift {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glow);
+  border-color: color-mix(in oklab, var(--accent) 50%, var(--line));
+}
+.lift:hover .hairline::before { opacity: 1; }
 
-/* Scrollytelling: reveal on scroll (JS toggles .is-visible via IntersectionObserver). */
+/* Animated link underline. */
+.link-underline {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline:hover { background-size: 100% 1.5px; }
+
+/* ---- Scrollytelling reveal ---- */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(22px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Marquee. */
+.marquee {
+  display: flex;
+  gap: 2.5rem;
+  width: max-content;
+  animation: marquee 36s linear infinite;
 }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
+  .ocean::before, .ocean::after, .caustics, .marquee { animation: none; }
 }
 
 ::selection {
@@ -129,7 +252,7 @@ body {
   color: var(--accent-fg);
 }
 
-/* Theme-toggle icons: render both, show one by theme class (no hydration mismatch). */
+/* Theme-toggle icons (no hydration mismatch). */
 .theme-icon-light { display: none; }
 html.light .theme-icon-dark { display: none; }
 html.light .theme-icon-light { display: inline; }

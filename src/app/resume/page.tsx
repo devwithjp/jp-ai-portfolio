@@ -4,38 +4,46 @@ import {
   resumeSummary,
   experience,
   education,
+  certifications,
+  skillGroups,
   resumeBulletsAiEngineer,
   resumeBulletsAiPm,
 } from "@/lib/resume";
-import { projects } from "@/lib/projects";
 import { Section, SectionHeader, Eyebrow, CTA } from "@/components/ui";
+import { Reveal } from "@/components/reveal";
+import { WordsReveal } from "@/components/chrome";
 
 export const metadata: Metadata = {
   title: "Resume",
   description: resumeSummary,
 };
 
-function EntryList({ entries }: { entries: typeof experience }) {
+function Timeline({ entries }: { entries: typeof experience }) {
   return (
-    <div className="space-y-6">
+    <div className="relative space-y-5 before:absolute before:left-[7px] before:top-2 before:h-[calc(100%-1rem)] before:w-px before:bg-line">
       {entries.map((e, i) => (
-        <div key={i} className="border-l border-line pl-5">
-          <div className="font-mono text-xs uppercase tracking-wider text-muted">{e.period}</div>
-          <div className="mt-1 font-medium">
-            {e.title}
-            {e.org ? <span className="text-muted"> · {e.org}</span> : null}
+        <Reveal key={i} delay={i * 50}>
+          <div className="relative pl-8">
+            <span className="absolute left-0 top-2 h-3.5 w-3.5 rounded-full border-2 border-accent bg-bg" />
+            <div className="glass hairline lift p-6">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 className="font-display text-xl font-medium tracking-tight">{e.title}</h3>
+                <span className="font-mono text-xs text-muted">{e.period}</span>
+              </div>
+              {e.org ? <div className="mt-1 text-sm text-link">{e.org}</div> : null}
+              {e.points.length ? (
+                <ul className="mt-3 space-y-2">
+                  {e.points.map((p, j) => (
+                    <li key={j} className="flex gap-3 text-sm leading-relaxed text-muted">
+                      <span className="mt-2 h-1 w-1 flex-none rounded-full bg-accent" />
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
           </div>
-          {e.points.length ? (
-            <ul className="mt-2 space-y-1.5">
-              {e.points.map((p, j) => (
-                <li key={j} className="flex gap-2 text-sm text-muted">
-                  <span className="mt-2 h-1 w-1 flex-none rounded-full bg-accent" />
-                  <span>{p}</span>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
+        </Reveal>
       ))}
     </div>
   );
@@ -43,72 +51,142 @@ function EntryList({ entries }: { entries: typeof experience }) {
 
 export default function ResumePage() {
   return (
-    <Section>
-      <SectionHeader eyebrow="Resume" title={`${site.name}, ${site.role}`} intro={resumeSummary} />
-
-      <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,320px)_1fr]">
-        <div className="space-y-10">
-          <div>
-            <Eyebrow>Experience</Eyebrow>
-            <p className="mb-3 mt-2 text-xs text-muted/70">
-              (Placeholder entries, replace with your real roles.)
-            </p>
-            <EntryList entries={experience} />
-          </div>
-          <div>
-            <Eyebrow>Education</Eyebrow>
-            <div className="mt-3">
-              <EntryList entries={education} />
+    <>
+      {/* Hero */}
+      <div className="relative overflow-hidden border-b border-line">
+        <div className="ocean -z-10 opacity-80" aria-hidden />
+        <Section className="!py-20">
+          <Reveal>
+            <Eyebrow>Resume</Eyebrow>
+          </Reveal>
+          <h1 className="font-display mt-4 max-w-4xl text-4xl font-medium leading-[1.05] tracking-tight sm:text-6xl">
+            <WordsReveal text="Product Manager with an engineer's hands." />
+          </h1>
+          <Reveal delay={300}>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{resumeSummary}</p>
+          </Reveal>
+          <Reveal delay={420}>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <CTA href="/jp-resume.pdf" external>
+                Download CV (PDF)
+              </CTA>
+              <CTA href={site.links.linkedin} external variant="secondary">
+                LinkedIn
+              </CTA>
+              <CTA href="/contact" variant="secondary">
+                Contact
+              </CTA>
             </div>
-          </div>
-          <div>
-            <CTA href="/contact" variant="secondary">Request a PDF / full CV</CTA>
-          </div>
-        </div>
+          </Reveal>
+        </Section>
+      </div>
 
-        <div className="space-y-10">
+      {/* Experience */}
+      <Section>
+        <Reveal>
+          <SectionHeader index="01" eyebrow="Experience" title="Where I've built." />
+        </Reveal>
+        <div className="mt-10">
+          <Timeline entries={experience} />
+        </div>
+      </Section>
+
+      {/* Education + Certs + Skills */}
+      <Section className="border-t border-line">
+        <div className="grid gap-10 lg:grid-cols-2">
           <div>
-            <Eyebrow>Selected projects</Eyebrow>
-            <div className="mt-3 space-y-4">
-              {projects.map((p) => (
-                <div key={p.slug} className="rounded-xl border border-line bg-surface p-5">
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="font-medium">{p.title}</div>
-                    <div className="font-mono text-xs text-muted">{p.category}</div>
-                  </div>
-                  <ul className="mt-3 space-y-1.5">
-                    {[...p.aiEngineerBullets.slice(0, 1), ...p.aiPmBullets.slice(0, 1)].map((b, i) => (
-                      <li key={i} className="flex gap-2 text-sm text-muted">
-                        <span className="mt-2 h-1 w-1 flex-none rounded-full bg-accent" />
-                        <span>{b}</span>
-                      </li>
+            <Reveal>
+              <SectionHeader index="02" eyebrow="Education" title="Foundations." />
+            </Reveal>
+            <div className="mt-6 space-y-4">
+              {education.map((e, i) => (
+                <Reveal key={i} delay={i * 60}>
+                  <div className="glass hairline p-5">
+                    <div className="flex flex-wrap items-baseline justify-between gap-2">
+                      <div className="font-medium">{e.title}</div>
+                      {e.period ? <span className="font-mono text-xs text-muted">{e.period}</span> : null}
+                    </div>
+                    {e.org ? <div className="mt-1 text-sm text-muted">{e.org}</div> : null}
+                    {e.points.map((p, j) => (
+                      <p key={j} className="mt-2 text-sm text-muted">{p}</p>
                     ))}
-                  </ul>
-                </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+
+            <Reveal>
+              <div className="mt-8">
+                <Eyebrow>Certifications + programs</Eyebrow>
+                <ul className="mt-3 space-y-2">
+                  {certifications.map((c) => (
+                    <li key={c} className="flex gap-3 text-sm text-muted">
+                      <span className="mt-2 h-1 w-1 flex-none rounded-full bg-accent" />
+                      <span>{c}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          </div>
+
+          <div>
+            <Reveal>
+              <SectionHeader index="03" eyebrow="Skills" title="What I work with." />
+            </Reveal>
+            <div className="mt-6 space-y-6">
+              {skillGroups.map((g, i) => (
+                <Reveal key={g.label} delay={i * 60}>
+                  <div>
+                    <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">{g.label}</div>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {g.items.map((s) => (
+                        <span key={s} className="rounded-full border border-line bg-surface px-3 py-1 text-sm text-muted">
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
+        </div>
+      </Section>
 
-          <div className="grid gap-6 sm:grid-cols-2">
+      {/* Project resume bullets */}
+      <Section className="border-t border-line">
+        <Reveal>
+          <SectionHeader
+            index="04"
+            eyebrow="From the projects"
+            title="Bullet-ready, if you're skimming."
+            intro="The four AI products on this site, distilled into CV lines."
+          />
+        </Reveal>
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
+          <Reveal>
             <div>
-              <Eyebrow>Resume bullets · AI Engineering</Eyebrow>
+              <Eyebrow>AI Engineering</Eyebrow>
               <ul className="mt-3 space-y-2">
                 {resumeBulletsAiEngineer.map((b, i) => (
                   <li key={i} className="text-sm leading-relaxed text-muted">• {b}</li>
                 ))}
               </ul>
             </div>
+          </Reveal>
+          <Reveal delay={80}>
             <div>
-              <Eyebrow>Resume bullets · AI PM</Eyebrow>
+              <Eyebrow>AI Product</Eyebrow>
               <ul className="mt-3 space-y-2">
                 {resumeBulletsAiPm.map((b, i) => (
                   <li key={i} className="text-sm leading-relaxed text-muted">• {b}</li>
                 ))}
               </ul>
             </div>
-          </div>
+          </Reveal>
         </div>
-      </div>
-    </Section>
+      </Section>
+    </>
   );
 }
