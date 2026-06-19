@@ -55,5 +55,4 @@ export const packs: Pack[] = [
 export const labVerify =
   "Every code cell parses clean (45 notebooks, 232 cells, zero syntax errors). The classic notebooks run end to end on CPU with toy data. The heavy pieces (FlashAttention, vLLM serving, full RLHF) ship as teaching versions plus production templates.";
 
-// Points at the GitHub profile for now; a dedicated repo can be published on request.
-export const labRepo = "https://github.com/devwithjp";
+export const labRepo = "https://github.com/devwithjp/jp-nlp-lab";
