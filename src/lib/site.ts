@@ -14,7 +14,7 @@ export const site = {
   email: "jyothiprakash21.au@gmail.com",
   location: "Sydney, Australia",
   links: {
-    github: "https://github.com/", // updated at integration once repos are public
+    github: "https://github.com/devwithjp",
     linkedin: "https://www.linkedin.com/",
     email: "mailto:jyothiprakash21.au@gmail.com",
   },

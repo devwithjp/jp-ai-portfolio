@@ -419,6 +419,22 @@ export const projects: Project[] = [
   },
 ];
 
+// Each app is mounted under this same domain at /live/<subpath> (Vercel multi-zones),
+// and its source lives at github.com/devwithjp/jp-<slug>. Derived so the links stay
+// consistent in one place.
+const SUBPATH: Record<string, string> = {
+  "agenteval-studio": "agenteval",
+  "signaldesk-ai": "signaldesk",
+  "screensense-qa": "screensense",
+  "workflowpilot-safe-agents": "workflow",
+};
+
+for (const p of projects) {
+  const sub = SUBPATH[p.slug];
+  if (sub) p.liveUrl = `/live/${sub}`;
+  p.githubUrl = `https://github.com/devwithjp/jp-${p.slug}`;
+}
+
 export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
 }
