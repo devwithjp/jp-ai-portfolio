@@ -1,19 +1,35 @@
 # Final Portfolio Completion Report
 
 **Owner:** Jyothiprakash S (JP) · AI Product Engineer
-**Status:** Build complete (5/5 properties). Deployment pending two human-only steps.
+**Status:** 🟢 LIVE — all 5 deployed, public, and verified through one unified domain.
+
+## 🟢 Live
+
+**Showcase domain:** https://jp-ai-portfolio-phi.vercel.app
+
+All four apps are served under that one domain (Next.js multi-zones):
+- AgentEval Studio → https://jp-ai-portfolio-phi.vercel.app/live/agenteval
+- SignalDesk AI → https://jp-ai-portfolio-phi.vercel.app/live/signaldesk
+- ScreenSense QA → https://jp-ai-portfolio-phi.vercel.app/live/screensense
+- WorkflowPilot → https://jp-ai-portfolio-phi.vercel.app/live/workflow
+
+GitHub (all public): github.com/devwithjp/{jp-ai-portfolio, jp-agenteval-studio, jp-signaldesk-ai, jp-screensense-qa, jp-workflowpilot-safe-agents}
 
 ## Summary
 
 A portfolio site plus four hosted AI apps, each demonstrating **both** AI engineering and AI product management. Everything is **mock-first** — every app runs and demos with **zero API keys and no database**, so the live links never break.
 
-| Property | What it proves | Build | Tests (lint+tsc+build) | Live URL | GitHub |
+| Property | What it proves | Build | Tests | Live (via /live/*) | GitHub (public) |
 |---|---|---|---|---|---|
-| jp-ai-portfolio | Positioning, case studies, skills | ✅ | ✅ | ⏳ pending deploy | ⏳ pending push |
-| jp-agenteval-studio | LLM evals / LLMOps | ✅ | ✅ | ⏳ | ⏳ |
-| jp-signaldesk-ai | RAG + product strategy | ✅ | ✅ | ⏳ | ⏳ |
-| jp-screensense-qa | Multimodal UX review | ✅ | ✅ | ⏳ | ⏳ |
-| jp-workflowpilot-safe-agents | Tool-calling agents + safety | ✅ | ✅ | ⏳ | ⏳ |
+| jp-ai-portfolio | Positioning, case studies, skills | ✅ | ✅ | ✅ root | ✅ |
+| jp-agenteval-studio | LLM evals / LLMOps | ✅ | ✅ | ✅ /live/agenteval | ✅ |
+| jp-signaldesk-ai | RAG + product strategy | ✅ | ✅ | ✅ /live/signaldesk | ✅ |
+| jp-screensense-qa | Multimodal UX review | ✅ | ✅ | ✅ /live/screensense | ✅ |
+| jp-workflowpilot-safe-agents | Tool-calling agents + safety | ✅ | ✅ | ✅ /live/workflow | ✅ |
+
+**Deployment:** 5 Vercel projects, deployment protection disabled (public). Portfolio proxies `/live/<name>` to each app via `next.config` rewrites; each app sets `basePath`. Docker image (portfolio) builds + runs (247 MB, non-root).
+
+**Known cosmetic note:** intra-app `<Link>` RSC prefetch requests (`?_rsc=`) 404 through the multi-zone proxy. This is a known Next.js App-Router multi-zone behavior — navigation and all interactions work on click; only the background prefetch optimization is skipped. Can be silenced with `prefetch={false}` on app links if a pristine console is wanted.
 
 All five repos: **lint clean, `tsc --noEmit` clean, `next build` passing.** Each app's core engine was verified end-to-end (see each repo's BUILD_LOG.md).
 
@@ -102,7 +118,9 @@ gh repo create <repo> --private --source=. --remote=origin --push
 - [x] Engineering + product case studies (all 4 apps)
 - [x] Security review per repo
 - [x] Resume bullets + interview notes
-- [ ] GitHub repos pushed *(needs `gh auth login`)*
-- [ ] Vercel deployments live *(needs your approval)*
-- [ ] Screenshots captured *(after deploy)*
-- [ ] Live URLs wired into portfolio *(after deploy)*
+- [x] GitHub repos pushed (all 5, public, github.com/devwithjp)
+- [x] Vercel deployments live (all 5, public, unified domain via multi-zone rewrites)
+- [x] Live URLs wired into portfolio (`/live/*` subpaths)
+- [x] Docker image builds + runs (portfolio)
+- [ ] Screenshots captured *(optional polish — capture from the live URLs per SCREENSHOT_PLAN.md)*
+- [ ] (Optional) silence RSC-prefetch 404s with `prefetch={false}` on app links
