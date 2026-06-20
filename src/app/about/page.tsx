@@ -4,6 +4,7 @@ import { site } from "@/lib/site";
 import { whyIBuild, whyIBuildIntro } from "@/lib/story";
 import { Section, SectionHeader, CTA, Eyebrow } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
+import { ScrollStory } from "@/components/scroll-story";
 
 export const metadata: Metadata = {
   title: "About",
@@ -12,32 +13,23 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <Section>
-      <Reveal>
-        <SectionHeader eyebrow="Why I build" title={`I'm ${site.name}.`} intro={whyIBuildIntro} />
-      </Reveal>
+    <>
+      <Section>
+        <Reveal>
+          <SectionHeader eyebrow="Why I build" title={`I'm ${site.name}.`} intro={whyIBuildIntro} />
+        </Reveal>
 
-      <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_minmax(0,280px)]">
-        {/* Story */}
-        <div className="space-y-12">
-          {whyIBuild.map((beat, i) => (
-            <Reveal key={beat.heading} delay={i * 60}>
-              <div className="border-l border-line pl-6">
-                <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">{beat.heading}</div>
-                <div className="mt-3 space-y-4 text-lg leading-relaxed text-muted">
-                  {beat.body.map((p, j) => (
-                    <p key={j}>{p}</p>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-          ))}
+        {/* The building story: scrollytelling, one beat at a time. */}
+        <div className="mt-8">
+          <ScrollStory steps={whyIBuild.map((beat) => ({ kicker: beat.heading, lines: beat.body }))} />
         </div>
+      </Section>
 
-        {/* Aside */}
-        <aside className="space-y-6 lg:sticky lg:top-24 lg:h-fit">
+      {/* Voice + based-in band */}
+      <Section className="border-t border-line">
+        <div className="grid gap-6 lg:grid-cols-2">
           <Reveal>
-            <div className="rounded-2xl border border-line bg-surface p-5">
+            <div className="glass hairline h-full p-6">
               <Eyebrow>How I say it</Eyebrow>
               <ul className="mt-3 space-y-3 text-sm leading-relaxed text-muted">
                 {site.altPositionings.map((p, i) => (
@@ -47,9 +39,10 @@ export default function AboutPage() {
             </div>
           </Reveal>
           <Reveal delay={80}>
-            <div className="rounded-2xl border border-line bg-surface p-5">
+            <div className="glass hairline h-full p-6">
               <Eyebrow>Based in</Eyebrow>
               <p className="mt-2 text-muted">{site.location}</p>
+              <p className="mt-3 font-mono text-xs text-link">{site.availability}</p>
               <p className="mt-4 text-sm leading-relaxed text-muted">
                 There&apos;s another side of me too:{" "}
                 <Link href="/water" className="text-link hover:underline">
@@ -63,8 +56,8 @@ export default function AboutPage() {
               </div>
             </div>
           </Reveal>
-        </aside>
-      </div>
-    </Section>
+        </div>
+      </Section>
+    </>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { water, waterIntro, waterHighlights, waterQuote } from "@/lib/story";
 import { Container, Section, Eyebrow } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
+import { ScrollStory } from "@/components/scroll-story";
 
 export const metadata: Metadata = {
   title: "Water",
@@ -26,35 +27,26 @@ export default function WaterPage() {
         </Container>
       </div>
 
-      {/* Story (descent) + sticky highlights */}
+      {/* The descent: scrollytelling, one beat at a time as you scroll. */}
       <Section className="relative">
         <div className="bg-depth pointer-events-none absolute inset-0 -z-10" aria-hidden />
-        <div className="grid gap-12 lg:grid-cols-[1fr_minmax(0,300px)]">
-          {/* Narrative reveals as you scroll down (the descent) */}
-          <div className="max-w-2xl space-y-7">
-            {water.map((para, i) => (
-              <Reveal key={i} delay={i * 60}>
-                <p className="text-lg leading-relaxed text-muted first:text-fg">{para}</p>
-              </Reveal>
-            ))}
-          </div>
+        <ScrollStory steps={water.map((para) => ({ lines: [para] }))} />
+      </Section>
 
-          {/* Sticky credentials rail */}
-          <aside className="lg:sticky lg:top-24 lg:h-fit">
-            <Reveal>
-              <div className="rounded-2xl border border-line bg-surface p-6">
-                <Eyebrow>Selected highlights</Eyebrow>
-                <ul className="mt-4 space-y-3">
-                  {waterHighlights.map((h) => (
-                    <li key={h} className="flex gap-3 text-sm text-muted">
-                      <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-accent" />
-                      <span className="leading-relaxed">{h}</span>
-                    </li>
-                  ))}
-                </ul>
+      {/* Highlights band */}
+      <Section className="border-t border-line">
+        <Reveal>
+          <Eyebrow>Selected highlights</Eyebrow>
+        </Reveal>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {waterHighlights.map((h, i) => (
+            <Reveal key={h} delay={(i % 3) * 70}>
+              <div className="glass hairline flex h-full items-center gap-3 p-5">
+                <span className="h-1.5 w-1.5 flex-none rounded-full bg-accent" />
+                <span className="text-sm leading-relaxed text-muted">{h}</span>
               </div>
             </Reveal>
-          </aside>
+          ))}
         </div>
       </Section>
 

@@ -13,8 +13,12 @@ export default function ContactPage() {
       <SectionHeader
         eyebrow="Contact"
         title="Let's talk"
-        intro="Open to AI Engineer / Applied AI / LLM Engineer and AI / Technical Product Manager roles. The fastest way to reach me is email."
+        intro="Open to AI / Technical Product Manager and AI Engineer / Applied AI roles. The fastest way to reach me is email."
       />
+      <div className="mt-6 inline-flex items-center gap-2.5 rounded-full border border-accent/30 bg-accent/[0.07] px-4 py-2 font-mono text-xs text-link">
+        <span className="h-2 w-2 rounded-full bg-accent shadow-[0_0_10px_var(--accent)]" />
+        {site.availability}
+      </div>
       <div className="mt-10 grid gap-5 sm:grid-cols-3">
         <a
           href={site.links.email}

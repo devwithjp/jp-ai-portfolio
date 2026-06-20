@@ -60,10 +60,16 @@ export default function ResumePage() {
             <Eyebrow>Resume</Eyebrow>
           </Reveal>
           <h1 className="font-display mt-4 max-w-4xl text-4xl font-medium leading-[1.05] tracking-tight sm:text-6xl">
-            <WordsReveal text="Product Manager with an engineer's hands." />
+            <WordsReveal text="AI Product Manager with an engineer's hands." />
           </h1>
           <Reveal delay={300}>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{resumeSummary}</p>
+          </Reveal>
+          <Reveal delay={360}>
+            <div className="mt-5 inline-flex items-center gap-2.5 rounded-full border border-accent/30 bg-accent/[0.07] px-4 py-2 font-mono text-xs text-link">
+              <span className="h-2 w-2 rounded-full bg-accent shadow-[0_0_10px_var(--accent)]" />
+              {site.availability}
+            </div>
           </Reveal>
           <Reveal delay={420}>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -167,9 +173,9 @@ export default function ResumePage() {
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           <Reveal>
             <div>
-              <Eyebrow>AI Engineering</Eyebrow>
+              <Eyebrow>AI Product</Eyebrow>
               <ul className="mt-3 space-y-2">
-                {resumeBulletsAiEngineer.map((b, i) => (
+                {resumeBulletsAiPm.map((b, i) => (
                   <li key={i} className="text-sm leading-relaxed text-muted">• {b}</li>
                 ))}
               </ul>
@@ -177,9 +183,9 @@ export default function ResumePage() {
           </Reveal>
           <Reveal delay={80}>
             <div>
-              <Eyebrow>AI Product</Eyebrow>
+              <Eyebrow>AI Engineering</Eyebrow>
               <ul className="mt-3 space-y-2">
-                {resumeBulletsAiPm.map((b, i) => (
+                {resumeBulletsAiEngineer.map((b, i) => (
                   <li key={i} className="text-sm leading-relaxed text-muted">• {b}</li>
                 ))}
               </ul>

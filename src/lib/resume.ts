@@ -2,7 +2,7 @@ import type { ResumeEntry } from "./types";
 
 // Real history from JP's resume + LinkedIn. Voice: plain, declarative, no em dashes.
 export const resumeSummary =
-  "Product Manager with an engineer's hands. I spent 2+ years building fullstack products for millions of users, then moved toward deciding what to build. Now doing a Master's in AI at UNSW and building AI products end to end.";
+  "AI Product Manager with an engineer's hands. I spent 2+ years building fullstack products for millions of users, then moved toward deciding what to build. Now doing a Master's in AI at UNSW and building AI products end to end.";
 
 // Reverse-chronological. Tight bullets, real metrics.
 export const experience: ResumeEntry[] = [
@@ -11,7 +11,8 @@ export const experience: ResumeEntry[] = [
     title: "Product Manager",
     org: "Rekro · Sydney",
     points: [
-      "Drove discovery into PRDs, Figma flows, and an OKR-aligned roadmap; prioritised the backlog toward a 0→1 MVP.",
+      "Took a 0→1 product from discovery to a production launch, owning the roadmap end to end.",
+      "Drove discovery into PRDs, Figma flows, and an OKR-aligned roadmap; prioritised the backlog toward the MVP.",
       "Led a six-person engineering team, ran Agile sprints in Linear, and owned final PR review and prod merges. Cut cycle time ~20%.",
       "Ran competitor tear-downs and lean experiments (smoke, concierge) to de-risk bets before building.",
     ],
