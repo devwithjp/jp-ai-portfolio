@@ -67,7 +67,7 @@ export function ScrollStory({ steps, className = "" }: { steps: StoryStep[]; cla
 
   return (
     <div ref={ref} className={className} style={{ height: `${steps.length * 78}vh` }}>
-      <div className="sticky top-0 flex h-screen flex-col justify-center">
+      <div className="sticky top-0 flex h-screen flex-col justify-center py-24">
         {/* progress rail */}
         <div className="mb-9 flex gap-2" aria-hidden>
           {steps.map((_, i) => (
@@ -88,7 +88,7 @@ export function ScrollStory({ steps, className = "" }: { steps: StoryStep[]; cla
             <div
               key={i}
               aria-hidden={i !== active}
-              className="absolute inset-x-0 top-0 transition-all duration-700 ease-out will-change-transform"
+              className="absolute inset-x-0 top-0 transition-all duration-500 ease-out will-change-transform"
               style={{
                 opacity: i === active ? 1 : 0,
                 transform: i === active ? "translateY(0)" : i < active ? "translateY(-28px)" : "translateY(28px)",
@@ -98,7 +98,7 @@ export function ScrollStory({ steps, className = "" }: { steps: StoryStep[]; cla
               {s.kicker ? (
                 <div className="font-mono text-xs uppercase tracking-[0.2em] text-accent">{s.kicker}</div>
               ) : null}
-              <div className="mt-4 max-w-3xl space-y-4 font-display text-2xl font-medium leading-snug tracking-tight text-fg sm:text-[2rem]">
+              <div className="mt-4 max-w-3xl space-y-4 font-display text-xl font-medium leading-snug tracking-tight text-fg sm:text-2xl lg:text-[2rem]">
                 {s.lines.map((l, j) => (
                   <p key={j}>{l}</p>
                 ))}
