@@ -244,14 +244,18 @@ body::after {
 }
 .link-underline:hover { background-size: 100% 1.5px; }
 
-/* ---- Scrollytelling reveal ---- */
-.reveal {
+/* ---- Scrollytelling reveal ----
+   Enhancement-only: content is visible by default, so crawlers, social
+   scrapers, and no-JS loads always see it. The hidden start-state applies
+   only once JS adds `reveal-ready` to <html> (before first paint, no flash). */
+.reveal { opacity: 1; }
+html.reveal-ready .reveal {
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
-.reveal.is-visible { opacity: 1; transform: none; }
+html.reveal-ready .reveal.is-visible { opacity: 1; transform: none; }
 
 /* Marquee. */
 .marquee {
@@ -266,7 +270,7 @@ body::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
+  .reveal, html.reveal-ready .reveal { opacity: 1; transform: none; transition: none; }
   .ocean::before, .ocean::after, .caustics, .marquee { animation: none; }
 }
 

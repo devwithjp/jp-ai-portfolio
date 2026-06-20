@@ -17,7 +17,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://example.com"), // replaced with live domain at deploy
+  metadataBase: new URL("https://jp-ai-portfolio-phi.vercel.app"),
   title: {
     default: `${site.name}, ${site.role}`,
     template: `%s, ${site.name}`,
@@ -36,11 +36,21 @@ export const metadata: Metadata = {
     title: `${site.name}, ${site.role}`,
     description: site.positioning,
     type: "website",
+    siteName: site.name,
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: `${site.name}, ${site.role}` }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name}, ${site.role}`,
+    description: site.positioning,
+    images: ["/og.png"],
   },
 };
 
-// Apply the saved theme before first paint to avoid a flash.
-const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.add('light');}}catch(e){}})();`;
+// Before first paint: apply saved theme (no flash) and arm scroll-reveal.
+// `reveal-ready` gates the hidden start-state, so no-JS loads and crawlers
+// always see the content (see .reveal in globals.css).
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.add('light');}}catch(e){}document.documentElement.classList.add('reveal-ready');})();`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

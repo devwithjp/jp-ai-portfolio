@@ -11,9 +11,9 @@ export const experience: ResumeEntry[] = [
     title: "Product Manager",
     org: "Rekro · Sydney",
     points: [
-      "Drive discovery into PRDs, Figma flows, and an OKR-aligned roadmap; prioritise the backlog toward a 0→1 MVP.",
-      "Lead a six-person engineering team, run Agile sprints in Linear, and own final PR review and prod merges. Cut cycle time ~20%.",
-      "Run competitor tear-downs and lean experiments (smoke, concierge) to de-risk bets before building.",
+      "Drove discovery into PRDs, Figma flows, and an OKR-aligned roadmap; prioritised the backlog toward a 0→1 MVP.",
+      "Led a six-person engineering team, ran Agile sprints in Linear, and owned final PR review and prod merges. Cut cycle time ~20%.",
+      "Ran competitor tear-downs and lean experiments (smoke, concierge) to de-risk bets before building.",
     ],
   },
   {

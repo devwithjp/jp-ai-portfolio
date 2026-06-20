@@ -17,8 +17,8 @@ export default function ProjectsPage() {
         <Reveal>
           <SectionHeader
             eyebrow="Projects"
-            title="Four AI products, two role signals."
-            intro="Evaluation, RAG, multimodal, and safe agents. Each demonstrates both AI engineering depth and AI product thinking, with a working mock-first demo, an engineering case study, and a product case study."
+            title="Four AI products, two lenses each."
+            intro="Evaluation, RAG, multimodal, and safe agents. Each one is a working demo, then reads two ways: an engineering case study for how it's built, and a product case study for why. Every demo runs in mock mode, so it works with no API keys."
           />
         </Reveal>
         <div className="mt-10 grid gap-5 md:grid-cols-2">
