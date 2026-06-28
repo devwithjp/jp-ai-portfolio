@@ -2,7 +2,7 @@
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://alongwithjp.me";
 
 export const site = {
-  name: "Jyothiprakash S",
+  name: "Jyothiprakash (JP)",
   shortName: "JP",
   role: "AI Product Manager",
   url: SITE_URL,

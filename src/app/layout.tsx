@@ -24,13 +24,15 @@ export const metadata: Metadata = {
     template: `%s — ${site.name}`,
   },
   description:
-    "JP (Jyothiprakash S) is an AI Product Manager and builder in Sydney, Australia. Ex-PM at Rekro, MS in AI at UNSW, ex-engineer to 50M+ users. Builds AI products end to end: RAG, LLM evals, agents, and interpretability.",
+    "Jyothiprakash (JP) is an AI Product Manager and builder in Sydney, Australia. Ex-PM at Rekro, MS in AI at UNSW, ex-engineer to 50M+ users. Builds AI products end to end: RAG, LLM evals, agents, and interpretability.",
   keywords: [
     "AI Product Manager Sydney",
     "AI PM Sydney",
     "AI founder Sydney",
     "AI Product Manager Australia",
-    "Jyothiprakash S",
+    "Jyothiprakash",
+    "Jyothiprakash JP",
+    "Jyothiprakash Shivaprakash",
     "AI Engineer portfolio",
     "Technical Product Manager AI",
     "RAG",
@@ -69,8 +71,8 @@ export const metadata: Metadata = {
 const personLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Jyothiprakash S",
-  alternateName: "JP",
+  name: "Jyothiprakash",
+  alternateName: ["JP", "Jyothiprakash Shivaprakash"],
   url: site.url,
   jobTitle: "AI Product Manager",
   description:

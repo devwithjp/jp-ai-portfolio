@@ -4,10 +4,13 @@ import { useEffect, useRef, useState } from "react";
 
 export type ScrubStep = { lines: string[] };
 
-// Scroll-scrubbed image sequence: as you scroll through the (tall) section, the
-// freedive footage plays frame by frame on a pinned canvas, with the story beats
-// fading in over it. Progressive enhancement: before JS (and under reduced motion)
-// it renders the poster image with the beats stacked and readable.
+// Scroll-scrubbed image sequence. Performance-critical bits:
+//  - every frame is decoded up front (img.decode), so drawImage never blocks;
+//  - a single rAF loop (gated by IntersectionObserver) reads scroll and draws;
+//  - the progress line and the active beat are mutated via refs, NOT React state,
+//    so scrolling triggers zero React re-renders.
+// Progressive enhancement: before JS / under reduced motion it renders the poster
+// with the beats stacked and readable.
 export function ScrollScrub({
   framesBase,
   frameCount,
@@ -27,16 +30,29 @@ export function ScrollScrub({
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const beatRefs = useRef<(HTMLDivElement | null)[]>([]);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const [ready, setReady] = useState(false);
-  const [active, setActive] = useState(0);
-  const [progress, setProgress] = useState(0);
 
   const frameUrl = (i: number) => `${framesBase}${String(i + 1).padStart(framePad, "0")}${frameExt}`;
 
   useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
     const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
+
+    // Preload + decode every frame so draws are instant.
+    const imgs: HTMLImageElement[] = [];
+    for (let i = 0; i < frameCount; i++) {
+      const im = new window.Image();
+      im.decoding = "async";
+      im.src = frameUrl(i);
+      im.decode?.().catch(() => {});
+      imgs.push(im);
+    }
+    imagesRef.current = imgs;
 
     const draw = (idx: number) => {
       const c = canvasRef.current;
@@ -57,45 +73,52 @@ export function ScrollScrub({
       ctx.drawImage(im, (c.width - dw) / 2, (c.height - dh) / 2, dw, dh);
     };
 
-    // Preload the sequence; draw the first frame as soon as it lands.
-    const imgs: HTMLImageElement[] = [];
-    for (let i = 0; i < frameCount; i++) {
-      const im = new window.Image();
-      im.decoding = "async";
-      im.src = frameUrl(i);
-      if (i === 0) im.onload = () => draw(0);
-      imgs.push(im);
-    }
-    imagesRef.current = imgs;
-
     let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const el = sectionRef.current;
-        if (!el) return;
+    let running = false;
+    let lastBeat = -1;
+    const tick = () => {
+      const el = sectionRef.current;
+      if (el) {
         const rect = el.getBoundingClientRect();
         const total = el.offsetHeight - window.innerHeight;
         const scrolled = Math.min(Math.max(-rect.top, 0), Math.max(total, 1));
         const p = total > 0 ? scrolled / total : 0;
-        const idx = Math.min(frameCount - 1, Math.max(0, Math.round(p * (frameCount - 1))));
-        draw(idx);
-        setProgress(p);
-        setActive(Math.min(steps.length - 1, Math.max(0, Math.floor(p * steps.length))));
-      });
+        draw(Math.min(frameCount - 1, Math.max(0, Math.round(p * (frameCount - 1)))));
+        if (progressRef.current) progressRef.current.style.height = `${p * 100}%`;
+        const b = Math.min(steps.length - 1, Math.max(0, Math.floor(p * steps.length)));
+        if (b !== lastBeat) {
+          lastBeat = b;
+          beatRefs.current.forEach((node, i) => {
+            if (!node) return;
+            node.style.opacity = i === b ? "1" : "0";
+            node.style.transform = i === b ? "translateY(0)" : "translateY(16px)";
+          });
+        }
+      }
+      raf = requestAnimationFrame(tick);
     };
 
-    const arm = requestAnimationFrame(() => {
-      setReady(true);
-      onScroll();
-    });
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          if (!running) {
+            running = true;
+            raf = requestAnimationFrame(tick);
+          }
+        } else if (running) {
+          running = false;
+          cancelAnimationFrame(raf);
+        }
+      },
+      { rootMargin: "300px 0px" }
+    );
+    io.observe(section);
+
+    const arm = requestAnimationFrame(() => setReady(true));
     return () => {
-      cancelAnimationFrame(arm);
+      io.disconnect();
       cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(arm);
     };
   }, [frameCount, steps.length]);
 
@@ -125,28 +148,24 @@ export function ScrollScrub({
         style={{ backgroundImage: `url(${poster})` }}
       >
         <canvas ref={canvasRef} aria-hidden className="absolute inset-0 h-full w-full" />
-        {/* legibility scrim */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#03141a] via-[#03141a]/35 to-[#03141a]/55" />
         <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_120%,rgba(3,20,26,0.85),transparent_60%)]" />
 
-        {/* descent progress line (left) */}
         <div className="absolute left-6 top-1/2 hidden h-40 w-px -translate-y-1/2 bg-white/15 sm:block">
-          <div className="w-px bg-accent shadow-[0_0_10px_var(--accent)]" style={{ height: `${progress * 100}%` }} />
+          <div ref={progressRef} className="w-px bg-accent shadow-[0_0_10px_var(--accent)]" style={{ height: "0%" }} />
         </div>
 
-        {/* story beats */}
         <div className="absolute inset-x-0 bottom-0">
           <div className="mx-auto max-w-3xl px-6 pb-16 sm:px-10 sm:pb-20">
             <div className="relative min-h-[clamp(140px,26vh,260px)]">
               {steps.map((s, i) => (
                 <div
                   key={i}
-                  aria-hidden={i !== active}
-                  className="absolute inset-x-0 bottom-0 transition-all duration-700 ease-out"
-                  style={{
-                    opacity: i === active ? 1 : 0,
-                    transform: i === active ? "translateY(0)" : "translateY(16px)",
+                  ref={(node) => {
+                    beatRefs.current[i] = node;
                   }}
+                  className="absolute inset-x-0 bottom-0 transition-[opacity,transform] duration-700 ease-out"
+                  style={{ opacity: i === 0 ? 1 : 0, transform: i === 0 ? "translateY(0)" : "translateY(16px)" }}
                 >
                   <div className="space-y-3 font-display text-2xl font-medium leading-snug tracking-tight text-[#eef6f7] [text-shadow:0_2px_24px_rgba(0,0,0,0.55)] sm:text-[2rem]">
                     {s.lines.map((l, j) => (

@@ -9,14 +9,14 @@ import { ScrollStory } from "@/components/scroll-story";
 export const metadata: Metadata = {
   title: "About — JP, AI Product Manager in Sydney",
   description:
-    "About Jyothiprakash S (JP), an AI Product Manager and builder in Sydney, Australia. Ex-PM at Rekro, MS in AI at UNSW, ex-engineer to 50M+ users.",
+    "About Jyothiprakash (JP), an AI Product Manager and builder in Sydney, Australia. Ex-PM at Rekro, MS in AI at UNSW, ex-engineer to 50M+ users.",
 };
 
 // Plain-language Q&A. Answer engines (ChatGPT, Perplexity, Google AI) lift these
 // directly when someone asks "who is an AI PM in Sydney" or similar.
 const faqs = [
   {
-    q: "Who is Jyothiprakash S (JP)?",
+    q: "Who is Jyothiprakash (JP)?",
     a: "JP is an AI Product Manager and builder based in Sydney, Australia. He was a Product Manager at Rekro, is doing a Master's in AI at UNSW, and was previously a software engineer on products used by 50M+ people at Bewakoof.",
   },
   {
