@@ -1,5 +1,5 @@
 // Canonical production URL. Defaults to the brand domain; override per-env if needed.
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://buildwithjp.ai";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://alongwithjp.me";
 
 export const site = {
   name: "Jyothiprakash S",

@@ -24,13 +24,13 @@
 
 ## Selected work
 
-- Four hosted, mock-first AI products (evaluation, RAG, multimodal, safe agents): https://buildwithjp.ai/projects
-- The Lab — 45 from-scratch NLP/LLM notebooks + interpretability research: https://buildwithjp.ai/lab
-- Resume: https://buildwithjp.ai/resume
+- Four hosted, mock-first AI products (evaluation, RAG, multimodal, safe agents): https://alongwithjp.me/projects
+- The Lab — 45 from-scratch NLP/LLM notebooks + interpretability research: https://alongwithjp.me/lab
+- Resume: https://alongwithjp.me/resume
 
 ## Contact
 
-- Website: https://buildwithjp.ai
+- Website: https://alongwithjp.me
 - Email: jyothiprakash21.au@gmail.com
 - LinkedIn: https://www.linkedin.com/in/jyothiprakashs
 - GitHub: https://github.com/devwithjp
