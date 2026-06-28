@@ -1,7 +1,11 @@
+// Canonical production URL. Defaults to the brand domain; override per-env if needed.
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://buildwithjp.ai";
+
 export const site = {
   name: "Jyothiprakash S",
   shortName: "JP",
   role: "AI Product Manager",
+  url: SITE_URL,
   // Voice: plain, declarative, specific. Say the true thing in few words.
   tagline: "I started with code. I stayed for building.",
   positioning:

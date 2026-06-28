@@ -101,8 +101,35 @@ export const education: ResumeEntry[] = [
   },
 ];
 
+// Reforge Product Foundations: detailed so it reads as something learned, not a line item.
+export const reforge = {
+  name: "Reforge — Product Foundations",
+  completed: "Dec 2025",
+  blurb:
+    "Reforge runs the programs that senior product leaders at companies like Meta, Stripe, and HubSpot use to level up. Product Foundations walks the full feature lifecycle, opportunity to launch, the way strong product teams actually run it.",
+  learned: [
+    {
+      h: "Feature opportunity validation",
+      d: "Score an opportunity on user value, business value, and strategic fit before building. Size the upside with a funnel model and pitch it to leadership.",
+    },
+    {
+      h: "Feature design",
+      d: "Run focused brainstorming against desirability, feasibility, and viability to land on the right solution, not just the first one.",
+    },
+    {
+      h: "Feature development",
+      d: "Map stakeholders, set milestones, and manage risk through the sprint with defensive and offensive plays. Know the PM's job at each step.",
+    },
+    {
+      h: "Feature launch & operation",
+      d: "Coordinate the launch, define how performance is measured, and run post-launch communication so the work actually lands.",
+    },
+  ],
+  certHref: "/reforge-product-foundations.pdf",
+};
+
 export const certifications: string[] = [
-  "Reforge: Product Management Foundations (the PM-craft program taught by senior product leaders)",
+  "Reforge — Product Foundations (full feature lifecycle: opportunity, design, development, launch)",
   "Machine Learning, Andrew Ng (Coursera)",
   "UNSW Peter Farrell Cup 2025, Startup Pitch (Semi-Finalist)",
   "Leadership Foundations (UNSW) + Strategic Thinking (AGSM)",
@@ -120,6 +147,10 @@ export const skillGroups: { label: string; items: string[] }[] = [
     items: ["React", "Next.js", "Node.js", "TypeScript", "LLMs", "RAG", "Prompt engineering", "REST APIs", "MapLibre / D3", "Webpack"],
   },
   {
+    label: "Interpretability / research",
+    items: ["Mechanistic interpretability", "Activation probing", "TransformerLens", "Causal interventions (activation patching)", "Representation geometry (PCA, mass-mean)", "PyTorch", "scikit-learn"],
+  },
+  {
     label: "Data / Process",
     items: ["Metrics instrumentation", "Agile (Linear)", "Performance audits", "Hypothesis testing", "Spreadsheet analysis"],
   },
@@ -131,6 +162,7 @@ export const resumeBulletsAiEngineer: string[] = [
   "Built an LLM evaluation harness: deterministic checks plus an LLM judge with per-run cost and latency, surfaced as a ship/hold release gate.",
   "Built a RAG pipeline (chunk to embed to cluster to retrieve to generate) over user feedback with pgvector and a 2-plus-citation grounding rule.",
   "Built a human-in-the-loop agent with a manual tool-calling loop, approval gates, and an append-only audit trail.",
+  "Interpretability research (UNSW team project): probed the residual stream of five language models with TransformerLens to detect input corruption the output hid; 0.96+ linear-probe accuracy, confirmed causal with activation patching.",
 ];
 
 export const resumeBulletsAiPm: string[] = [

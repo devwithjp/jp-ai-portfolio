@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { labIntro, labBody, packs, labVerify, labRepo } from "@/lib/lab";
+import { labIntro, labBody, packs, labVerify, labRepo, interp } from "@/lib/lab";
 import { Container, Section, SectionHeader, CTA, Eyebrow } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { WordsReveal } from "@/components/chrome";
 
 export const metadata: Metadata = {
-  title: "Lab",
-  description: "I implemented the modern NLP and LLM stack from scratch. 45 notebooks, from a regex tokenizer to RLHF.",
+  title: "Lab — interpretability research + NLP/LLM from scratch",
+  description:
+    "Interpretability research (activation probing with TransformerLens) plus 45 from-scratch NLP and LLM notebooks, a regex tokenizer to RLHF.",
 };
 
 export default function LabPage() {
@@ -43,10 +44,72 @@ export default function LabPage() {
         </Container>
       </div>
 
-      {/* Packs */}
-      <Section>
+      {/* Featured interpretability research */}
+      <Section className="relative">
+        <div className="bg-depth pointer-events-none absolute inset-0 -z-10" aria-hidden />
         <Reveal>
-          <SectionHeader index="01" eyebrow="What's in it" title="Two packs, 45 notebooks." />
+          <SectionHeader index="01" eyebrow={interp.eyebrow} title={interp.title} />
+        </Reveal>
+        <Reveal delay={80}>
+          <p className="mt-4 font-mono text-xs uppercase tracking-[0.18em] text-accent">{interp.framing}</p>
+        </Reveal>
+        <div className="mt-7 max-w-2xl space-y-4 text-lg leading-relaxed text-muted">
+          {interp.body.map((p, i) => (
+            <Reveal key={i} delay={120 + i * 90}>
+              <p>{p}</p>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          <Reveal>
+            <div className="glass hairline h-full p-7">
+              <Eyebrow>How we tested it</Eyebrow>
+              <ul className="mt-4 space-y-2.5">
+                {interp.method.map((m) => (
+                  <li key={m} className="flex gap-3 text-sm leading-relaxed text-muted">
+                    <span className="mt-2 h-1 w-1 flex-none rounded-full bg-accent" />
+                    <span>{m}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+          <Reveal delay={100}>
+            <div className="glass hairline h-full p-7">
+              <Eyebrow>What we found</Eyebrow>
+              <ul className="mt-4 space-y-2.5">
+                {interp.findings.map((m) => (
+                  <li key={m} className="flex gap-3 text-sm leading-relaxed text-muted">
+                    <span className="mt-2 h-1 w-1 flex-none rounded-full bg-accent" />
+                    <span>{m}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        </div>
+
+        <Reveal delay={120}>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {interp.skills.map((s) => (
+              <span key={s} className="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-muted">
+                {s}
+              </span>
+            ))}
+          </div>
+        </Reveal>
+        <Reveal delay={140}>
+          <p className="mt-7 max-w-2xl border-l-2 border-accent/50 pl-5 text-base leading-relaxed text-fg">
+            {interp.takeaway}
+          </p>
+        </Reveal>
+      </Section>
+
+      {/* Packs */}
+      <Section className="border-t border-line">
+        <Reveal>
+          <SectionHeader index="02" eyebrow="What's in it" title="Two packs, 45 notebooks." />
         </Reveal>
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
           {packs.map((pack, i) => (

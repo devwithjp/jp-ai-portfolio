@@ -8,6 +8,7 @@ import {
   skillGroups,
   resumeBulletsAiEngineer,
   resumeBulletsAiPm,
+  reforge,
 } from "@/lib/resume";
 import { Section, SectionHeader, Eyebrow, CTA } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
@@ -160,11 +161,41 @@ export default function ResumePage() {
         </div>
       </Section>
 
-      {/* Project resume bullets */}
+      {/* Reforge */}
       <Section className="border-t border-line">
         <Reveal>
           <SectionHeader
             index="04"
+            eyebrow="Product craft"
+            title="What I learned at Reforge."
+            intro={reforge.blurb}
+          />
+        </Reveal>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          {reforge.learned.map((m, i) => (
+            <Reveal key={m.h} delay={(i % 2) * 90}>
+              <div className="glass hairline lift h-full p-6">
+                <div className="font-mono text-xs uppercase tracking-[0.16em] text-accent">{m.h}</div>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{m.d}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={140}>
+          <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <CTA href={reforge.certHref} external>
+              View certificate
+            </CTA>
+            <span className="font-mono text-xs text-muted">{reforge.name} · {reforge.completed}</span>
+          </div>
+        </Reveal>
+      </Section>
+
+      {/* Project resume bullets */}
+      <Section className="border-t border-line">
+        <Reveal>
+          <SectionHeader
+            index="05"
             eyebrow="From the projects"
             title="Bullet-ready, if you're skimming."
             intro="The four AI products on this site, distilled into CV lines."
