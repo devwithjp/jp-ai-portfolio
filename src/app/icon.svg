@@ -1,0 +1,12 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#45E6CB"/>
+      <stop offset="1" stop-color="#38BDF2"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="30" height="30" rx="7" fill="url(#g)"/>
+  <text x="16" y="17" text-anchor="middle" dominant-baseline="central"
+        font-family="'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace"
+        font-size="15" font-weight="700" letter-spacing="-0.5" fill="#04161C">JP</text>
+</svg>
