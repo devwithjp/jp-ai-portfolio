@@ -37,11 +37,20 @@ export function ScrollScrub({
 
   const frameUrl = (i: number) => `${framesBase}${String(i + 1).padStart(framePad, "0")}${frameExt}`;
 
+  // Decide ready on mount (rAF callback, not a sync effect setState). Stays in the
+  // stacked fallback under reduced motion. This MUST be separate from the scrub
+  // setup below, because sectionRef only exists once the `ready` branch renders.
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
     const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
+    const id = requestAnimationFrame(() => setReady(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  useEffect(() => {
+    if (!ready) return;
+    const section = sectionRef.current;
+    if (!section) return;
 
     // Preload + decode every frame so draws are instant.
     const imgs: HTMLImageElement[] = [];
@@ -114,13 +123,11 @@ export function ScrollScrub({
     );
     io.observe(section);
 
-    const arm = requestAnimationFrame(() => setReady(true));
     return () => {
       io.disconnect();
       cancelAnimationFrame(raf);
-      cancelAnimationFrame(arm);
     };
-  }, [frameCount, steps.length]);
+  }, [ready, frameCount, steps.length]);
 
   if (!ready) {
     return (
@@ -147,32 +154,38 @@ export function ScrollScrub({
         className="sticky top-0 h-screen overflow-hidden bg-cover bg-center"
         style={{ backgroundImage: `url(${poster})` }}
       >
-        <canvas ref={canvasRef} aria-hidden className="absolute inset-0 h-full w-full" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#03141a] via-[#03141a]/35 to-[#03141a]/55" />
-        <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_120%,rgba(3,20,26,0.85),transparent_60%)]" />
+        <canvas
+          ref={canvasRef}
+          aria-hidden
+          className="absolute inset-0 h-full w-full [filter:saturate(1.12)_contrast(1.08)_brightness(0.82)]"
+        />
+        {/* cinematic grade + legibility: deepen toward the brand navy, vignette, bottom scrim */}
+        <div className="pointer-events-none absolute inset-0 bg-[#06202a] mix-blend-multiply opacity-25" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#03141a] via-[#03141a]/45 to-[#03141a]/25" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(135%_110%_at_50%_35%,transparent_42%,rgba(3,20,26,0.82))]" />
 
         <div className="absolute left-6 top-1/2 hidden h-40 w-px -translate-y-1/2 bg-white/15 sm:block">
           <div ref={progressRef} className="w-px bg-accent shadow-[0_0_10px_var(--accent)]" style={{ height: "0%" }} />
         </div>
 
         <div className="absolute inset-x-0 bottom-0">
-          <div className="mx-auto max-w-3xl px-6 pb-16 sm:px-10 sm:pb-20">
-            <div className="relative min-h-[clamp(140px,26vh,260px)]">
+          <div className="mx-auto w-full max-w-6xl px-6 pb-16 sm:px-10 sm:pb-24">
+            <div className="relative min-h-[clamp(150px,28vh,280px)] max-w-2xl">
               {steps.map((s, i) => (
                 <div
                   key={i}
                   ref={(node) => {
                     beatRefs.current[i] = node;
                   }}
-                  className="absolute inset-x-0 bottom-0 transition-[opacity,transform] duration-700 ease-out"
-                  style={{ opacity: i === 0 ? 1 : 0, transform: i === 0 ? "translateY(0)" : "translateY(16px)" }}
+                  className="absolute inset-x-0 bottom-0 transition-[opacity,transform] duration-[450ms] ease-out"
+                  style={{ opacity: i === 0 ? 1 : 0, transform: i === 0 ? "translateY(0)" : "translateY(14px)" }}
                 >
-                  <div className="space-y-3 font-display text-2xl font-medium leading-snug tracking-tight text-[#eef6f7] [text-shadow:0_2px_24px_rgba(0,0,0,0.55)] sm:text-[2rem]">
+                  <div className="space-y-2 font-display text-[1.7rem] font-medium leading-[1.18] tracking-tight text-[#eef6f7] [text-shadow:0_2px_30px_rgba(0,0,0,0.75)] sm:text-[2.1rem]">
                     {s.lines.map((l, j) => (
                       <p key={j}>{l}</p>
                     ))}
                   </div>
-                  <div className="mt-5 font-mono text-xs text-[#eef6f7]/70">
+                  <div className="mt-6 font-mono text-[11px] uppercase tracking-[0.2em] text-[#eef6f7]/55">
                     {String(i + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
                   </div>
                 </div>

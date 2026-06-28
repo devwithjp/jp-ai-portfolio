@@ -13,25 +13,30 @@ export default function WaterPage() {
   return (
     <>
       {/* Hero over the freedive portrait */}
-      <header className="relative flex min-h-[90vh] items-end overflow-hidden border-b border-line">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/water/face.jpg"
-          alt="JP freediving underwater beside a jellyfish"
-          className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#03141a] via-[#03141a]/45 to-[#03141a]/25" />
-        <Container className="relative pb-20 pt-36">
+      <header className="relative flex min-h-[92vh] items-end overflow-hidden border-b border-line">
+        <div className="absolute inset-0 overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/water/face.jpg"
+            alt="JP freediving underwater beside a jellyfish"
+            className="kenburns h-full w-full object-cover object-center"
+          />
+        </div>
+        <div className="pointer-events-none absolute inset-0 bg-[#06202a] opacity-25 mix-blend-multiply" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#03141a] via-[#03141a]/40 to-[#03141a]/15" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#03141a]/65 via-transparent to-transparent" />
+        <Container className="relative pb-24 pt-36">
           <Reveal>
-            <Eyebrow>Beyond work</Eyebrow>
-            <h1 className="font-display mt-4 text-6xl font-medium leading-[1.0] tracking-tight text-[#eef6f7] sm:text-8xl">
+            <span className="font-mono text-xs uppercase tracking-[0.22em] text-accent">Beyond work</span>
+            <h1 className="font-display mt-5 text-7xl font-medium leading-[0.95] tracking-tight text-[#eef6f7] sm:text-[8.5rem]">
               Water
             </h1>
-            <p className="mt-6 max-w-xl text-xl leading-relaxed text-[#cfe3e6] [text-shadow:0_2px_18px_rgba(0,0,0,0.5)]">
+            <p className="mt-6 max-w-xl text-xl leading-relaxed text-[#dceef0] [text-shadow:0_2px_18px_rgba(0,0,0,0.55)]">
               {waterIntro}
             </p>
-            <p className="mt-8 font-mono text-xs uppercase tracking-[0.18em] text-[#eef6f7]/60">
-              Scroll to descend ↓
+            <p className="mt-9 inline-flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-[#eef6f7]/65">
+              <span className="inline-block h-7 w-px bg-gradient-to-b from-accent to-transparent" />
+              Scroll to descend
             </p>
           </Reveal>
         </Container>

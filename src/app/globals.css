@@ -269,9 +269,19 @@ html.reveal-ready .reveal.is-visible { opacity: 1; transform: none; }
   to { transform: translateX(-50%); }
 }
 
+/* Slow cinematic zoom for hero/background imagery. */
+.kenburns {
+  animation: kenburns 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes kenburns {
+  from { transform: scale(1.04); }
+  to { transform: scale(1.16); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal, html.reveal-ready .reveal { opacity: 1; transform: none; transition: none; }
-  .ocean::before, .ocean::after, .caustics, .marquee { animation: none; }
+  .ocean::before, .ocean::after, .caustics, .marquee, .kenburns { animation: none; }
 }
 
 ::selection {
