@@ -1,0 +1,4 @@
+# Raw source media — only the optimized files in public/water/ should deploy.
+water media/
+*.mp4
+*.mov
