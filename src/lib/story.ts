@@ -49,4 +49,4 @@ export const waterHighlights: string[] = [
   "Taught children aged 3 to 10",
 ];
 
-export const waterQuote = "Confidence changes everything. In water, and out of it.";
+export const waterQuote = "You don't force someone through fear. You guide them through it.";
