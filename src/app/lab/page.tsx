@@ -5,7 +5,7 @@ import { Reveal } from "@/components/reveal";
 import { WordsReveal } from "@/components/chrome";
 
 export const metadata: Metadata = {
-  title: "Lab — interpretability research + NLP/LLM from scratch",
+  title: "Lab · interpretability research + NLP/LLM from scratch",
   description:
     "Interpretability research (activation probing with TransformerLens) plus 45 from-scratch NLP and LLM notebooks, a regex tokenizer to RLHF.",
 };

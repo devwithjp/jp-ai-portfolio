@@ -9,6 +9,7 @@ const ZONES: Record<string, string> = {
   signaldesk: "https://jp-signaldesk-ai.vercel.app",
   screensense: "https://jp-screensense-qa.vercel.app",
   workflow: "https://jp-workflowpilot-safe-agents.vercel.app",
+  casework: "https://jp-pm-casework.vercel.app",
 };
 
 const nextConfig: NextConfig = {

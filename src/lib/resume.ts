@@ -7,7 +7,7 @@ export const resumeSummary =
 // Reverse-chronological. Tight bullets, real metrics.
 export const experience: ResumeEntry[] = [
   {
-    period: "May 2025 – Jan 2026",
+    period: "May 2025 - Jan 2026",
     title: "Product Manager",
     org: "Rekro · Sydney",
     points: [
@@ -18,7 +18,7 @@ export const experience: ResumeEntry[] = [
     ],
   },
   {
-    period: "Jun 2025 – Aug 2025",
+    period: "Jun 2025 - Aug 2025",
     title: "Founder Fellow",
     org: "Startmate Student Founder Bootcamp",
     points: [
@@ -26,7 +26,7 @@ export const experience: ResumeEntry[] = [
     ],
   },
   {
-    period: "Oct 2024 – Present",
+    period: "Oct 2024 - Present",
     title: "Swim Teacher",
     org: "In The Deep Swim School · Sydney",
     points: [
@@ -34,7 +34,7 @@ export const experience: ResumeEntry[] = [
     ],
   },
   {
-    period: "Jan 2025 – Feb 2025",
+    period: "Jan 2025 - Feb 2025",
     title: "Software Engineer Intern",
     org: "Rekro · Sydney",
     points: [
@@ -42,7 +42,7 @@ export const experience: ResumeEntry[] = [
     ],
   },
   {
-    period: "Apr 2023 – Jul 2023",
+    period: "Apr 2023 - Jul 2023",
     title: "Full Stack Engineer",
     org: "Blue Sky Analytics · India",
     points: [
@@ -51,7 +51,7 @@ export const experience: ResumeEntry[] = [
     ],
   },
   {
-    period: "Jan 2021 – Mar 2022",
+    period: "Jan 2021 - Mar 2022",
     title: "Senior Software Engineer (SDE1)",
     org: "Bewakoof.com · India",
     points: [
@@ -62,7 +62,7 @@ export const experience: ResumeEntry[] = [
     ],
   },
   {
-    period: "Mar 2022 – Jan 2024",
+    period: "Mar 2022 - Jan 2024",
     title: "Freelance Consultant",
     org: "EdTech / Moodle",
     points: [
@@ -71,7 +71,7 @@ export const experience: ResumeEntry[] = [
     ],
   },
   {
-    period: "May 2018 – Jul 2018",
+    period: "May 2018 - Jul 2018",
     title: "AI Intern",
     org: "The Inkers · India",
     points: [
@@ -82,7 +82,7 @@ export const experience: ResumeEntry[] = [
 
 export const education: ResumeEntry[] = [
   {
-    period: "2024 – Present",
+    period: "2024 - Present",
     title: "Master of IT, AI & Data Science",
     org: "UNSW · Sydney",
     points: ["AI, deep learning, big data, NLP, and AI product design."],
@@ -103,7 +103,7 @@ export const education: ResumeEntry[] = [
 
 // Reforge Product Foundations: detailed so it reads as something learned, not a line item.
 export const reforge = {
-  name: "Reforge — Product Foundations",
+  name: "Reforge · Product Foundations",
   completed: "Dec 2025",
   blurb:
     "Reforge runs the programs that senior product leaders at companies like Meta, Stripe, and HubSpot use to level up. Product Foundations walks the full feature lifecycle, opportunity to launch, the way strong product teams actually run it.",
@@ -129,7 +129,7 @@ export const reforge = {
 };
 
 export const certifications: string[] = [
-  "Reforge — Product Foundations (full feature lifecycle: opportunity, design, development, launch)",
+  "Reforge · Product Foundations (full feature lifecycle: opportunity, design, development, launch)",
   "Machine Learning, Andrew Ng (Coursera)",
   "UNSW Peter Farrell Cup 2025, Startup Pitch (Semi-Finalist)",
   "Leadership Foundations (UNSW) + Strategic Thinking (AGSM)",

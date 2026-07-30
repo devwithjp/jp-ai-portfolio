@@ -7,6 +7,7 @@ import { Container, Section, SectionHeader, CTA, Eyebrow } from "@/components/ui
 import { ProjectCard } from "@/components/project-card";
 import { Reveal } from "@/components/reveal";
 import { WordsReveal, WaveDivider, Marquee } from "@/components/chrome";
+import { CaseworkStack } from "@/components/casework-stack";
 
 const TECH = [
   "RAG", "LLM evals", "Agents", "Tool-calling", "Multimodal", "Embeddings",
@@ -42,7 +43,6 @@ export default function Home() {
               <div className="mt-10 flex flex-wrap items-center gap-3">
                 <CTA href="/projects">See what I&apos;ve built</CTA>
                 <CTA href="/water" variant="secondary">The water chapter</CTA>
-                <CTA href="/contact" variant="secondary">Get in touch</CTA>
               </div>
             </Reveal>
             <Reveal delay={760}>
@@ -57,9 +57,6 @@ export default function Home() {
             </Reveal>
           </div>
         </Container>
-        <div className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce font-mono text-xs text-muted/60" aria-hidden>
-          scroll ↓
-        </div>
       </header>
 
       {/* Tech marquee */}
@@ -74,10 +71,43 @@ export default function Home() {
         </Marquee>
       </div>
 
+      {/* Casework: the five playable case studies */}
+      <Section>
+        <Reveal>
+          <SectionHeader
+            eyebrow="New · Casework"
+            title="Five AI PM case studies you can play."
+            intro="PRDs, evals, launch plans, risk, and metrics. Each grounded in a real product from Canva, Duolingo, Spotify, Airbnb, or Netflix, and turned into a decision you make, not a document you skim."
+          />
+        </Reveal>
+        <div className="mt-12">
+          <CaseworkStack />
+        </div>
+      </Section>
+
+      <WaveDivider />
+
+      {/* The four products */}
+      <Section>
+        <Reveal>
+          <SectionHeader
+            title="Four AI products, built end to end."
+            intro="Working demos with an engineering case study and a product case study each. Every demo runs in mock mode, no API keys needed."
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          {projects.map((p, i) => (
+            <Reveal key={p.slug} delay={(i % 2) * 110}>
+              <ProjectCard project={p} />
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
       {/* Why I build */}
       <Section>
         <Reveal>
-          <SectionHeader index="01" eyebrow="Why I build" title="Engineering was the door, not the room." intro={whyIBuildIntro} />
+          <SectionHeader title="Engineering was the door, not the room." intro={whyIBuildIntro} />
         </Reveal>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {whyIBuild.map((beat, i) => (
@@ -98,27 +128,6 @@ export default function Home() {
         </Reveal>
       </Section>
 
-      <WaveDivider />
-
-      {/* Featured projects */}
-      <Section>
-        <Reveal>
-          <SectionHeader
-            index="02"
-            eyebrow="Projects"
-            title="Four AI products, built end to end."
-            intro="Each ships a working demo, an engineering case study, and a product case study. Every demo runs in mock mode, so it works with no API keys."
-          />
-        </Reveal>
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
-          {projects.map((p, i) => (
-            <Reveal key={p.slug} delay={(i % 2) * 110}>
-              <ProjectCard project={p} />
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
       {/* Water teaser */}
       <Section>
         <div className="relative overflow-hidden rounded-3xl border border-line">
@@ -126,11 +135,7 @@ export default function Home() {
           <div className="relative grid gap-10 p-8 sm:p-14 md:grid-cols-2 md:items-center">
             <Reveal>
               <div>
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs text-muted/60">03</span>
-                  <Eyebrow>Water</Eyebrow>
-                </div>
-                <h2 className="font-display mt-4 text-3xl font-medium leading-[1.1] tracking-tight sm:text-5xl">
+                <h2 className="font-display text-3xl font-medium leading-[1.1] tracking-tight sm:text-5xl">
                   Confidence comes before skill, not after.
                 </h2>
                 <p className="mt-5 leading-relaxed text-muted">
@@ -158,7 +163,7 @@ export default function Home() {
       {/* Writing teaser */}
       <Section>
         <Reveal>
-          <SectionHeader index="04" eyebrow="Writing" title="Notes on building, and on the water." />
+          <SectionHeader title="Notes on building, and on the water." />
         </Reveal>
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
           {posts.slice(0, 3).map((p, i) => (
@@ -189,11 +194,10 @@ export default function Home() {
               Building something? Let&apos;s talk.
             </h2>
             <p className="relative mx-auto mt-4 max-w-xl text-muted">
-              I&apos;m {site.shortName}, open to AI engineering and product roles, and to people building interesting things.
+              I&apos;m {site.shortName}, open to AI product and engineering roles, and to people building interesting things.
             </p>
             <div className="relative mt-8 flex flex-wrap justify-center gap-3">
               <CTA href="/contact">Contact</CTA>
-              <CTA href="/projects" variant="secondary">Browse projects</CTA>
             </div>
           </div>
         </Reveal>

@@ -7,7 +7,7 @@ import { Reveal } from "@/components/reveal";
 import { ScrollStory } from "@/components/scroll-story";
 
 export const metadata: Metadata = {
-  title: "About — JP, AI Product Manager in Sydney",
+  title: "About · JP, AI Product Manager in Sydney",
   description:
     "About Jyothiprakash (JP), an AI Product Manager and builder in Sydney, Australia. Ex-PM at Rekro, MS in AI at UNSW, ex-engineer to 50M+ users.",
 };

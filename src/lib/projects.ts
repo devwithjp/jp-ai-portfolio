@@ -5,7 +5,7 @@ export const projects: Project[] = [
     slug: "agenteval-studio",
     title: "AgentEval Studio",
     pitch:
-      "An evaluation and observability workbench that compares AI prompt / RAG / agent variants on quality, cost, latency, and failure modes, and recommends a release gate.",
+      "An evaluation and observability workbench that compares AI prompt / RAG / agent variants on quality, cost, latency, and failure modes, and recommends a release gate. Demoed as the ship/hold gate for an airline support copilot.",
     category: "Evaluation / LLMOps",
     status: "mock-demo",
     roleSignals: ["AI Engineering", "AI Product Management"],
@@ -22,7 +22,7 @@ export const projects: Project[] = [
     ],
     architecture: [
       { label: "Prompt / version registry", detail: "Register variants under test with metadata." },
-      { label: "Test dataset", detail: "10–25 curated cases per suite, versioned." },
+      { label: "Test dataset", detail: "10-25 curated cases per suite, versioned." },
       { label: "Evaluator runners", detail: "Deterministic checks (schema, regex, must-include) run first." },
       { label: "LLM-as-judge", detail: "claude-haiku-4-5 scores each output against a rubric." },
       { label: "Scorecards", detail: "Per-dimension quality, cost, and latency aggregates." },
@@ -116,7 +116,7 @@ export const projects: Project[] = [
     roleSignals: ["AI Engineering", "AI Product Management"],
     stack: ["Next.js", "TypeScript", "Anthropic API", "OpenAI embeddings", "Supabase pgvector", "Vercel"],
     githubUrl: "https://github.com/",
-    icp: "Early-stage SaaS teams and founders with 50–500 feedback items from CSVs, app reviews, or notes.",
+    icp: "Early-stage SaaS teams and founders with 50-500 feedback items from CSVs, app reviews, or notes.",
     features: [
       "Upload feedback CSV or paste notes",
       "Embed + semantically cluster themes",
@@ -175,7 +175,7 @@ export const projects: Project[] = [
       {
         heading: "ICP & MVP scope",
         body: [
-          "ICP: early-stage SaaS / founder with 50–500 feedback items. MVP: import, cluster, ask-over-feedback, and one-click PRD + roadmap + experiment generation with citations. Out of scope: integrations with live ticketing tools and multi-user review workflows.",
+          "ICP: early-stage SaaS / founder with 50-500 feedback items. MVP: import, cluster, ask-over-feedback, and one-click PRD + roadmap + experiment generation with citations. Out of scope: integrations with live ticketing tools and multi-user review workflows.",
         ],
       },
       {
@@ -214,7 +214,7 @@ export const projects: Project[] = [
     slug: "screensense-qa",
     title: "ScreenSense QA",
     pitch:
-      "A multimodal UX/product QA tool that reviews UI screenshots for accessibility, friction, copy clarity, and visual hierarchy, and returns prioritised, severity-scored recommendations.",
+      "A multimodal UX/product QA tool that reviews UI screenshots for accessibility, friction, copy clarity, and visual hierarchy, and returns prioritised, severity-scored recommendations. Ships with a worked review of a flawed SaaS checkout, each finding pinned to the exact spot on screen.",
     category: "Multimodal / Product UX",
     status: "mock-demo",
     roleSignals: ["AI Engineering", "AI Product Management"],
@@ -318,7 +318,7 @@ export const projects: Project[] = [
     slug: "workflowpilot-safe-agents",
     title: "WorkflowPilot Safe Agents",
     pitch:
-      "A safe-agent demo that turns a business goal into a proposed multi-step workflow, runs only human-approved tool calls, and records every action in an audit trail.",
+      "A safe-agent demo that turns a business goal into a proposed multi-step workflow, runs only human-approved tool calls, and records every action in a timestamped audit trail. Demoed on a live incident: status email, ticket, and CRM update, all behind approvals.",
     category: "Agents / Trust & Safety",
     status: "mock-demo",
     roleSignals: ["AI Engineering", "AI Product Management"],

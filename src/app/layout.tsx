@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   alternates: { canonical: "/" },
   title: {
-    default: `${site.name} — AI Product Manager in Sydney`,
-    template: `%s — ${site.name}`,
+    default: `${site.name} · AI Product Manager in Sydney`,
+    template: `%s · ${site.name}`,
   },
   description:
     "Jyothiprakash (JP) is an AI Product Manager and builder in Sydney, Australia. Ex-PM at Rekro, MS in AI at UNSW, ex-engineer to 50M+ users. Builds AI products end to end: RAG, LLM evals, agents, and interpretability.",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png" }],
   },
   openGraph: {
-    title: `${site.name} — AI Product Manager in Sydney`,
+    title: `${site.name} · AI Product Manager in Sydney`,
     description: site.positioning,
     type: "website",
     siteName: site.name,
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — AI Product Manager in Sydney`,
+    title: `${site.name} · AI Product Manager in Sydney`,
     description: site.positioning,
     images: ["/og.png"],
   },
@@ -102,7 +102,7 @@ const personLd = {
 const siteLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: `${site.name} — AI Product Manager`,
+  name: `${site.name} · AI Product Manager`,
   url: site.url,
   inLanguage: "en-AU",
   author: { "@type": "Person", name: site.name },
