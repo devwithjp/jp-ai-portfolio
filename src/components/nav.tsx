@@ -14,11 +14,12 @@ export function SiteNav() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line/70 bg-bg/65 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-line/70 bg-bg/92">
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-3 sm:px-8">
-        <Link href="/" aria-label="Home" className="flex items-center gap-2.5 font-semibold tracking-tight">
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-[var(--accent-2)] font-mono text-sm text-accent-fg shadow-[0_4px_16px_-4px_var(--accent)]">
-            JP
+        <Link href="/" aria-label="Home" className="flex items-center gap-2.5">
+          <span className="font-display text-lg font-semibold tracking-tight">JP</span>
+          <span className="hidden font-mono text-xs uppercase tracking-[0.2em] text-muted sm:inline">
+            AI PM
           </span>
         </Link>
 

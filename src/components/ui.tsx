@@ -22,16 +22,15 @@ export function Section({
 }
 
 export function Eyebrow({ children }: { children: ReactNode }) {
-  return (
-    <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">{children}</span>
-  );
+  return <span className="kicker kicker-accent">{children}</span>;
 }
 
+/* `index` is accepted for backward compatibility but no longer rendered
+   (section-number eyebrows read as templated). Eyebrow is a mono kicker. */
 export function SectionHeader({
   eyebrow,
   title,
   intro,
-  index,
 }: {
   eyebrow?: string;
   title: string;
@@ -39,13 +38,15 @@ export function SectionHeader({
   index?: string;
 }) {
   return (
-    <div className="max-w-2xl">
-      <div className="flex items-center gap-3">
-        {index ? <span className="font-mono text-xs text-muted/60">{index}</span> : null}
-        {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-      </div>
-      <h2 className="font-display mt-3 text-3xl font-medium leading-[1.1] tracking-tight sm:text-[2.7rem]">{title}</h2>
-      {intro ? <p className="mt-4 text-lg leading-relaxed text-muted">{intro}</p> : null}
+    <div className="max-w-3xl">
+      {eyebrow ? (
+        <div className="flex items-center gap-3">
+          <span className="tick" aria-hidden />
+          <Eyebrow>{eyebrow}</Eyebrow>
+        </div>
+      ) : null}
+      <h2 className="font-display display-xl mt-4 text-fg">{title}</h2>
+      {intro ? <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{intro}</p> : null}
     </div>
   );
 }
@@ -59,7 +60,7 @@ export function Card({
   className?: string;
   as?: "div" | "article" | "li";
 }) {
-  return <As className={`glass hairline lift p-6 ${className}`}>{children}</As>;
+  return <As className={`surface lift p-6 ${className}`}>{children}</As>;
 }
 
 export function Tag({ children }: { children: ReactNode }) {
@@ -98,8 +99,8 @@ export function CTA({ href, children, variant = "primary", external, className =
     "group inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5";
   const styles =
     variant === "primary"
-      ? "bg-accent text-accent-fg shadow-[0_8px_30px_-8px_var(--accent)] hover:shadow-[0_14px_44px_-10px_var(--accent)]"
-      : "glass text-fg hover:border-accent/50";
+      ? "bg-accent text-accent-fg hover:shadow-[0_14px_44px_-14px_var(--accent)]"
+      : "border border-line bg-surface text-fg hover:border-accent/50";
   const cls = `${base} ${styles} ${className}`;
   if (external) {
     return (

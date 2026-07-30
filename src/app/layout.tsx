@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Fraunces } from "next/font/google";
+import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { SiteNav, SiteFooter } from "@/components/nav";
@@ -8,12 +8,12 @@ import { ScrollProgress } from "@/components/chrome";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-// Editorial serif for display headings, warm, human, a little wonky.
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+// Display face: Bricolage Grotesque. A contemporary grotesk with optical sizing
+// and just enough character to not read as a default. Sets the editorial tone.
+const display = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -115,7 +115,7 @@ const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t===
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${display.variable} h-full antialiased`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script

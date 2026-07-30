@@ -9,12 +9,12 @@ import { caseStudies, caseworkUrl } from "@/lib/casework";
 gsap.registerPlugin(ScrollTrigger);
 
 /*
-  The five Casework case studies as a sticky card stack: CSS position:sticky does
-  the stacking (later cards paint over earlier ones in DOM order), GSAP scrubs a
-  scale + brightness recede on the card being covered. No opacity animation, so
-  covered text never bleeds through. One card at a time is the whole thesis of
-  the product, so the pin is motivated, not decorative.
-  Reduced motion: a plain stacked list.
+  Five case studies as a sticky card stack. CSS position:sticky does the stacking;
+  GSAP scrubs only compositor-cheap props: a small scale on the card being covered
+  plus the opacity of a solid dim overlay (never `filter`, which repaints). Cards
+  are fully opaque, so the covering card hides the one beneath with no text bleed.
+  One card at a time is the product's whole thesis, so the pin is motivated.
+  Reduced motion / no JS: a plain stacked list.
 */
 export function CaseworkStack() {
   const ref = useRef<HTMLDivElement>(null);
@@ -32,19 +32,18 @@ export function CaseworkStack() {
       cards.forEach((card, i) => {
         if (i === cards.length - 1) return;
         const inner = card.querySelector<HTMLElement>(".case-card-inner");
-        if (!inner) return;
-        gsap.to(inner, {
-          scale: 0.95,
-          filter: "brightness(0.55)",
-          transformOrigin: "center top",
-          ease: "none",
+        const dim = card.querySelector<HTMLElement>(".case-card-dim");
+        if (!inner || !dim) return;
+        const tl = gsap.timeline({
           scrollTrigger: {
             trigger: cards[i + 1],
-            start: "top 90%",
-            end: "top 112px",
+            start: "top 92%",
+            end: "top 116px",
             scrub: true,
           },
         });
+        tl.to(inner, { scale: 0.95, ease: "none" }, 0);
+        tl.to(dim, { opacity: 0.55, ease: "none" }, 0);
       });
     }, ref);
     return () => ctx.revert();
@@ -63,19 +62,18 @@ export function CaseworkStack() {
         >
           <a
             href={`${caseworkUrl}/${c.slug}`}
-            className="case-card-inner group block overflow-hidden rounded-3xl border border-line bg-surface shadow-[var(--shadow-lg)] transition-colors hover:border-accent/40"
+            className="case-card-inner lift group relative block overflow-hidden rounded-2xl border border-line bg-surface shadow-[var(--shadow-lg)]"
+            style={{ transformOrigin: "center top" }}
           >
-            <div className="grid md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-              <div className="flex flex-col justify-between bg-surface p-7 sm:p-10">
+            <div className="grid md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
+              <div className="flex flex-col justify-between p-7 sm:p-10">
                 <div>
-                  <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
-                    <span className="uppercase tracking-[0.18em] text-accent">{c.skill}</span>
-                    <span className="text-muted">·</span>
-                    <span className="text-muted">{c.company}</span>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="kicker kicker-accent">{c.skill}</span>
+                    <span className="text-muted/50">/</span>
+                    <span className="font-mono text-xs text-muted">{c.company}</span>
                   </div>
-                  <h3 className="font-display mt-4 text-3xl font-medium tracking-tight sm:text-5xl">
-                    {c.title}
-                  </h3>
+                  <h3 className="font-display display-lg mt-5">{c.title}</h3>
                   <p className="mt-3 max-w-md text-muted sm:text-lg">{c.hook}</p>
                   <p className="mt-4 max-w-md text-sm leading-relaxed text-muted">{c.twist}</p>
                 </div>
@@ -83,7 +81,7 @@ export function CaseworkStack() {
                   <span className="inline-flex h-11 items-center rounded-full bg-accent px-5 text-sm font-medium text-accent-fg transition-opacity group-hover:opacity-90">
                     Play it
                   </span>
-                  <span className="font-mono text-xs text-muted">~{c.minutes} min · mock mode</span>
+                  <span className="font-mono text-xs text-muted">~{c.minutes} min, mock mode</span>
                 </div>
               </div>
               <div className="relative hidden min-h-[380px] border-l border-line bg-elevated md:block">
@@ -96,10 +94,12 @@ export function CaseworkStack() {
                     className="object-cover object-left-top"
                   />
                 ) : (
-                  <div className="ocean opacity-60" aria-hidden />
+                  <div className="bg-dots absolute inset-0" aria-hidden />
                 )}
               </div>
             </div>
+            {/* solid dim overlay, opacity scrubbed as the next card covers this one */}
+            <div className="case-card-dim pointer-events-none absolute inset-0 rounded-2xl bg-bg opacity-0" aria-hidden />
           </a>
         </div>
       ))}

@@ -1,203 +1,228 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { projects } from "@/lib/projects";
-import { whyIBuild, whyIBuildIntro, waterQuote } from "@/lib/story";
+import { whyIBuild, waterQuote } from "@/lib/story";
 import { posts } from "@/lib/blog";
-import { Container, Section, SectionHeader, CTA, Eyebrow } from "@/components/ui";
+import { Container, Section, CTA } from "@/components/ui";
 import { ProjectCard } from "@/components/project-card";
 import { Reveal } from "@/components/reveal";
-import { WordsReveal, WaveDivider, Marquee } from "@/components/chrome";
 import { CaseworkStack } from "@/components/casework-stack";
 
-const TECH = [
-  "RAG", "LLM evals", "Agents", "Tool-calling", "Multimodal", "Embeddings",
-  "Next.js", "TypeScript", "Product strategy", "PRDs", "Experiments", "pgvector",
+// Recruiter-critical facts, shown in the hero meta panel.
+const META = [
+  { k: "Now", v: "Product Manager, 0 to 1 AI products" },
+  { k: "Was", v: "Engineer to 50M+ users at Bewakoof" },
+  { k: "Study", v: "MS in Artificial Intelligence, UNSW" },
+  { k: "Rights", v: "Full AU work rights, 485 visa" },
 ];
 
 export default function Home() {
   return (
     <>
-      {/* Hero */}
-      <header className="relative flex min-h-[88vh] items-center overflow-hidden border-b border-line">
-        <div className="ocean -z-10" aria-hidden />
-        <div className="caustics -z-10" aria-hidden />
-        <Container className="py-24">
-          <div className="max-w-4xl">
+      {/* Hero: asymmetric editorial split */}
+      <header className="relative overflow-hidden border-b border-line">
+        <div className="hero-glow pointer-events-none absolute inset-0 -z-10" aria-hidden />
+        <Container className="grid gap-14 py-20 sm:py-28 lg:grid-cols-[1.4fr_0.6fr] lg:gap-16">
+          <div className="max-w-2xl">
             <Reveal>
-              <Eyebrow>{site.role} · {site.location}</Eyebrow>
+              <p className="kicker">
+                <span className="kicker-accent">AI Product Manager</span>
+                <span className="mx-2 text-muted/50">/</span>
+                Sydney, Australia
+              </p>
             </Reveal>
-            <h1 className="font-display mt-6 text-5xl font-medium leading-[1.0] tracking-tight sm:text-7xl md:text-8xl">
-              <WordsReveal text="I started with code." className="block" />
-              <span className="mt-2 block">
-                <Reveal delay={360}>
-                  <span>
-                    I stayed for <span className="text-gradient italic">building</span>.
-                  </span>
-                </Reveal>
-              </span>
-            </h1>
-            <Reveal delay={520}>
-              <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">{site.positioning}</p>
+            <Reveal delay={90}>
+              <h1 className="font-display display-hero mt-7">
+                <span className="block">I started with code.</span>
+                <span className="block">
+                  I stayed for <span className="text-accent-word">building</span>.
+                </span>
+              </h1>
             </Reveal>
-            <Reveal delay={640}>
+            <Reveal delay={180}>
+              <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
+                An engineer&apos;s hands, a product manager&apos;s judgment. I build AI products end to end,
+                and care as much whether a thing is worth building as whether it works.
+              </p>
+            </Reveal>
+            <Reveal delay={260}>
               <div className="mt-10 flex flex-wrap items-center gap-3">
-                <CTA href="/projects">See what I&apos;ve built</CTA>
-                <CTA href="/water" variant="secondary">The water chapter</CTA>
-              </div>
-            </Reveal>
-            <Reveal delay={760}>
-              <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-muted/80">
-                {site.proof.map((p, i) => (
-                  <span key={p} className="flex items-center gap-5">
-                    {i > 0 ? <span className="h-1 w-1 rounded-full bg-accent/50" /> : null}
-                    {p}
-                  </span>
-                ))}
+                <CTA href="/projects">See the work</CTA>
+                <CTA href="/water" variant="secondary">
+                  The water chapter
+                </CTA>
               </div>
             </Reveal>
           </div>
+
+          {/* Meta panel */}
+          <Reveal delay={220} className="lg:pt-16">
+            <div className="surface p-6 sm:p-7">
+              <div className="flex items-center gap-2.5">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+                </span>
+                <span className="kicker kicker-accent">Available now</span>
+              </div>
+              <dl className="mt-5 divide-y divide-line">
+                {META.map((m) => (
+                  <div key={m.k} className="flex gap-4 py-3 first:pt-0 last:pb-0">
+                    <dt className="w-16 shrink-0 font-mono text-xs uppercase tracking-wider text-muted/70">
+                      {m.k}
+                    </dt>
+                    <dd className="text-sm leading-snug text-fg">{m.v}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </Reveal>
         </Container>
       </header>
 
-      {/* Tech marquee */}
-      <div className="border-b border-line bg-surface/40 py-5">
-        <Marquee>
-          {TECH.map((t) => (
-            <span key={t} className="flex items-center gap-10 font-mono text-sm text-muted">
-              {t}
-              <span className="h-1 w-1 rounded-full bg-accent/60" />
-            </span>
-          ))}
-        </Marquee>
-      </div>
-
-      {/* Casework: the five playable case studies */}
+      {/* Casework: the flagship */}
       <Section>
         <Reveal>
-          <SectionHeader
-            eyebrow="New · Casework"
-            title="Five AI PM case studies you can play."
-            intro="PRDs, evals, launch plans, risk, and metrics. Each grounded in a real product from Canva, Duolingo, Spotify, Airbnb, or Netflix, and turned into a decision you make, not a document you skim."
-          />
+          <div className="flex items-center gap-3">
+            <span className="tick" aria-hidden />
+            <span className="kicker kicker-accent">Casework</span>
+          </div>
+          <h2 className="font-display display-xl mt-4 max-w-3xl">
+            Five case studies you can play, not read.
+          </h2>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">
+            One core AI PM skill each, grounded in a real product from Canva, Duolingo, Spotify,
+            Airbnb, and Netflix. Every one is a decision you make, not a document you skim.
+          </p>
         </Reveal>
-        <div className="mt-12">
+        <div className="mt-14">
           <CaseworkStack />
         </div>
       </Section>
 
-      <WaveDivider />
-
-      {/* The four products */}
-      <Section>
+      {/* Four products */}
+      <Section className="border-t border-line">
         <Reveal>
-          <SectionHeader
-            title="Four AI products, built end to end."
-            intro="Working demos with an engineering case study and a product case study each. Every demo runs in mock mode, no API keys needed."
-          />
+          <h2 className="font-display display-xl max-w-3xl">Four AI products, built end to end.</h2>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">
+            Working demos with an engineering case study and a product case study each. Every demo
+            runs in mock mode, no API keys needed.
+          </p>
         </Reveal>
         <div className="mt-12 grid gap-5 md:grid-cols-2">
           {projects.map((p, i) => (
-            <Reveal key={p.slug} delay={(i % 2) * 110}>
+            <Reveal key={p.slug} delay={(i % 2) * 90}>
               <ProjectCard project={p} />
             </Reveal>
           ))}
         </div>
       </Section>
 
-      {/* Why I build */}
-      <Section>
-        <Reveal>
-          <SectionHeader title="Engineering was the door, not the room." intro={whyIBuildIntro} />
-        </Reveal>
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {whyIBuild.map((beat, i) => (
-            <Reveal key={beat.heading} delay={i * 110}>
-              <div className="glass hairline lift h-full p-7">
-                <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">{beat.heading}</div>
-                <p className="mt-4 leading-relaxed text-muted">{beat.body[0]}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-        <Reveal delay={140}>
-          <div className="mt-8">
-            <Link href="/about" className="link-underline text-sm font-medium text-link">
-              Read the whole story →
-            </Link>
-          </div>
-        </Reveal>
-      </Section>
-
-      {/* Water teaser */}
-      <Section>
-        <div className="relative overflow-hidden rounded-3xl border border-line">
-          <div className="ocean opacity-80" aria-hidden />
-          <div className="relative grid gap-10 p-8 sm:p-14 md:grid-cols-2 md:items-center">
-            <Reveal>
-              <div>
-                <h2 className="font-display text-3xl font-medium leading-[1.1] tracking-tight sm:text-5xl">
-                  Confidence comes before skill, not after.
-                </h2>
-                <p className="mt-5 leading-relaxed text-muted">
-                  Diving in the Andamans, teaching kids to swim in Sydney. The water taught me more about
-                  learning, patience, and trust than most things at work.
-                </p>
-                <div className="mt-7">
-                  <Link href="/water" className="link-underline text-sm font-medium text-link">
-                    Read the water chapter →
-                  </Link>
+      {/* Why I build: editorial two-column, sticky title + stacked beats */}
+      <Section className="border-t border-line">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+          <Reveal>
+            <div className="lg:sticky lg:top-28">
+              <span className="kicker kicker-accent">Why I build</span>
+              <h2 className="font-display display-xl mt-4">Engineering was the door, not the room.</h2>
+              <p className="mt-5 text-muted">
+                I like deciding what is worth making, then making it. Here is how that took shape.
+              </p>
+              <Link href="/about" className="link-underline mt-6 inline-block text-sm font-medium text-link">
+                Read the whole story →
+              </Link>
+            </div>
+          </Reveal>
+          <div className="divide-y divide-line">
+            {whyIBuild.map((beat, i) => (
+              <Reveal key={beat.heading} delay={i * 80}>
+                <div className="py-6 first:pt-0">
+                  <h3 className="font-display text-xl font-semibold">{beat.heading}</h3>
+                  <p className="mt-2 leading-relaxed text-muted">{beat.body[0]}</p>
                 </div>
-              </div>
-            </Reveal>
-            <Reveal delay={150}>
-              <blockquote className="font-display text-2xl font-medium italic leading-snug sm:text-4xl">
-                “{waterQuote}”
-              </blockquote>
-            </Reveal>
+              </Reveal>
+            ))}
           </div>
         </div>
       </Section>
 
-      <WaveDivider flip />
+      {/* Water: split image + quote */}
+      <section className="border-t border-line">
+        <div className="grid lg:grid-cols-2">
+          <div className="relative min-h-[320px] overflow-hidden lg:min-h-[440px]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/water/reef.jpg"
+              alt="Freediving over a reef"
+              className="kenburns absolute inset-0 h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-bg/30" />
+          </div>
+          <Reveal className="flex items-center">
+            <Container className="py-14 sm:py-20 lg:pl-14">
+              <span className="kicker kicker-accent">Water</span>
+              <h2 className="font-display display-lg mt-4 max-w-md">
+                Confidence comes before skill, not after.
+              </h2>
+              <p className="mt-5 max-w-md leading-relaxed text-muted">
+                I dive, and I teach kids to swim in Sydney. The water taught me more about learning,
+                patience, and trust than most things at work.
+              </p>
+              <blockquote className="font-display mt-8 max-w-md text-2xl font-medium leading-snug text-fg">
+                &ldquo;{waterQuote}&rdquo;
+              </blockquote>
+              <Link href="/water" className="link-underline mt-8 inline-block text-sm font-medium text-link">
+                Read the water chapter →
+              </Link>
+            </Container>
+          </Reveal>
+        </div>
+      </section>
 
-      {/* Writing teaser */}
-      <Section>
+      {/* Writing: hairline list */}
+      <Section className="border-t border-line">
         <Reveal>
-          <SectionHeader title="Notes on building, and on the water." />
+          <h2 className="font-display display-lg">Notes on building, and on the water.</h2>
         </Reveal>
-        <div className="mt-10 grid gap-4 sm:grid-cols-3">
+        <div className="mt-8 divide-y divide-line border-y border-line">
           {posts.slice(0, 3).map((p, i) => (
-            <Reveal key={p.slug} delay={i * 110}>
-              <Link href={`/writing/${p.slug}`} className="glass hairline lift block h-full p-6">
-                <span className="font-mono text-[11px] uppercase tracking-wider text-accent">{p.category}</span>
-                <h3 className="font-display mt-2 text-lg font-medium tracking-tight">{p.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{p.summary}</p>
+            <Reveal key={p.slug} delay={i * 70}>
+              <Link href={`/writing/${p.slug}`} className="group flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:gap-6">
+                <span className="w-24 shrink-0 font-mono text-xs uppercase tracking-wider text-accent">
+                  {p.category}
+                </span>
+                <span className="flex-1">
+                  <span className="font-display text-lg font-medium transition-colors group-hover:text-link">
+                    {p.title}
+                  </span>
+                  <span className="mt-1 block text-sm leading-relaxed text-muted">{p.summary}</span>
+                </span>
+                <span className="hidden text-link transition-transform group-hover:translate-x-1 sm:block">→</span>
               </Link>
             </Reveal>
           ))}
         </div>
-        <Reveal delay={140}>
-          <div className="mt-8">
-            <Link href="/writing" className="link-underline text-sm font-medium text-link">
-              All writing →
-            </Link>
-          </div>
+        <Reveal delay={120}>
+          <Link href="/writing" className="link-underline mt-8 inline-block text-sm font-medium text-link">
+            All writing →
+          </Link>
         </Reveal>
       </Section>
 
       {/* Contact */}
-      <Section>
+      <Section className="border-t border-line">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-line p-12 text-center sm:p-16">
-            <div className="ocean opacity-70" aria-hidden />
-            <h2 className="font-display relative text-3xl font-medium tracking-tight sm:text-5xl">
+          <div className="relative overflow-hidden rounded-2xl border border-line p-10 text-center sm:p-16">
+            <div className="hero-glow pointer-events-none absolute inset-0" aria-hidden />
+            <h2 className="font-display display-xl relative mx-auto max-w-2xl">
               Building something? Let&apos;s talk.
             </h2>
-            <p className="relative mx-auto mt-4 max-w-xl text-muted">
-              I&apos;m {site.shortName}, open to AI product and engineering roles, and to people building interesting things.
+            <p className="relative mx-auto mt-5 max-w-xl text-muted">
+              I&apos;m {site.shortName}, open to AI product and engineering roles, and to people building
+              things worth building.
             </p>
-            <div className="relative mt-8 flex flex-wrap justify-center gap-3">
-              <CTA href="/contact">Contact</CTA>
+            <div className="relative mt-9 flex justify-center">
+              <CTA href="/contact">Get in touch</CTA>
             </div>
           </div>
         </Reveal>

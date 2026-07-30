@@ -4,13 +4,13 @@ import { Tag, StatusBadge } from "./ui";
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className="glass hairline lift group flex h-full flex-col p-7">
+    <article className="surface lift group flex h-full flex-col p-7">
       <div className="flex items-center justify-between gap-3">
-        <span className="font-mono text-xs uppercase tracking-wider text-accent">{project.category}</span>
+        <span className="kicker kicker-accent">{project.category}</span>
         <StatusBadge status={project.status} />
       </div>
 
-      <h3 className="font-display mt-4 text-2xl font-medium tracking-tight">
+      <h3 className="font-display display-lg mt-4">
         <Link href={`/projects/${project.slug}`} className="transition-colors group-hover:text-link">
           {project.title}
         </Link>

@@ -3,8 +3,10 @@
 /*
   JP, "Deep Ocean" brand (Tailwind v4, CSS-first).
   Dark sea-navy is the default; `.light` (foam) is the opt-in light theme.
-  Semantic tokens swap via CSS vars (bg-bg / text-fg / border-line / bg-accent …),
-  so the whole site re-skins from here. Display type = Fraunces (serif), UI = Geist.
+  Semantic tokens swap via CSS vars (bg-bg / text-fg / border-line / bg-accent …).
+  Display type = Bricolage Grotesque, UI/body = Geist, labels = Geist Mono.
+  Perf note: no full-viewport blend layers and no scroll-time backdrop-filter,
+  so scrolling stays composited (see the earlier grain/glass jank).
 */
 
 :root {
@@ -14,16 +16,15 @@
   --elevated: #14313c;
   --line: #21404c;
   --fg: #eaf4f5;
-  --muted: #92aeb6;
+  --muted: #8fabb3;
   --accent: #45e6cb;        /* aqua, fills carry deep-ink text */
   --accent-2: #38bdf2;      /* secondary current, for gradients */
   --accent-fg: #04161c;
   --link: #6fefd8;
-  --glass: rgb(13 36 48 / 0.55);
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
-  --shadow-lg: 0 24px 60px -20px rgb(0 0 0 / 0.55);
-  --glow: 0 0 0 1px color-mix(in oklab, var(--accent) 30%, transparent), 0 18px 50px -18px color-mix(in oklab, var(--accent) 45%, transparent);
-  --radius: 16px;
+  --shadow-lg: 0 30px 70px -30px rgb(0 0 0 / 0.7);
+  --glow: 0 0 0 1px color-mix(in oklab, var(--accent) 30%, transparent), 0 24px 60px -24px color-mix(in oklab, var(--accent) 40%, transparent);
+  --radius: 14px;
 }
 
 html.light {
@@ -38,10 +39,9 @@ html.light {
   --accent-2: #1c7fb8;
   --accent-fg: #ffffff;
   --link: #0a7676;
-  --glass: rgb(255 255 255 / 0.6);
   --shadow-sm: 0 1px 2px rgb(8 37 48 / 0.06);
-  --shadow-lg: 0 24px 60px -20px rgb(8 37 48 / 0.18);
-  --glow: 0 0 0 1px color-mix(in oklab, var(--accent) 28%, transparent), 0 18px 50px -18px color-mix(in oklab, var(--accent) 30%, transparent);
+  --shadow-lg: 0 30px 70px -30px rgb(8 37 48 / 0.22);
+  --glow: 0 0 0 1px color-mix(in oklab, var(--accent) 28%, transparent), 0 24px 60px -24px color-mix(in oklab, var(--accent) 26%, transparent);
 }
 
 @theme inline {
@@ -57,14 +57,13 @@ html.light {
   --color-link: var(--link);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-fraunces);
+  --font-display: var(--font-bricolage);
 }
 
 html {
   background: var(--bg);
   color: var(--fg);
   color-scheme: dark;
-  scroll-behavior: smooth;
 }
 html.light { color-scheme: light; }
 
@@ -78,146 +77,110 @@ html.lenis body { height: auto; }
 body {
   background: var(--bg);
   color: var(--fg);
+  font-feature-settings: "cv01", "ss01";
 }
 
-/* Grain overlay, fixed, very subtle texture for richness. */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.04;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+/* ---- Type system ---------------------------------------------------------- */
 
-/* Display headings, Fraunces. */
 .font-display {
-  font-family: var(--font-display), Georgia, serif;
+  font-family: var(--font-display), "Segoe UI", system-ui, sans-serif;
   font-optical-sizing: auto;
+}
+
+/* Fluid display sizes. Tight tracking, near-solid leading for the big grotesk. */
+.display-hero {
+  font-size: clamp(2.3rem, 4.7vw, 4.1rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+.display-xl {
+  font-size: clamp(2.1rem, 4.4vw, 3.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+.display-lg {
+  font-size: clamp(1.6rem, 2.8vw, 2.25rem);
+  line-height: 1.08;
   letter-spacing: -0.02em;
+  font-weight: 600;
 }
 
-/* Gradient accent text, for emphasis words in headlines. */
-.text-gradient {
-  background: linear-gradient(100deg, var(--accent), var(--accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Mono kicker/label used to mark sections. Rationed, not on every header. */
+.kicker {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
+.kicker-accent { color: var(--accent); }
 
-/* ---- Hero / water atmosphere ---- */
+.text-accent-word { color: var(--accent); }
 
-/* A slow-drifting caustic-gradient ocean, layered. */
-.ocean {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-.ocean::before,
-.ocean::after {
-  content: "";
-  position: absolute;
-  inset: -30%;
-  background:
-    radial-gradient(40% 50% at 25% 20%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 60%),
-    radial-gradient(45% 55% at 80% 15%, color-mix(in oklab, var(--accent-2) 22%, transparent), transparent 60%),
-    radial-gradient(50% 60% at 60% 80%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 65%);
-  filter: blur(40px);
-  animation: drift 26s ease-in-out infinite alternate;
-  will-change: transform;
-}
-.ocean::after {
-  animation-duration: 38s;
-  animation-direction: alternate-reverse;
-  opacity: 0.7;
-}
-@keyframes drift {
-  0%   { transform: translate3d(-4%, -2%, 0) scale(1.05) rotate(0deg); }
-  100% { transform: translate3d(5%, 4%, 0) scale(1.15) rotate(8deg); }
-}
+/* ---- Surfaces ------------------------------------------------------------- */
 
-/* Caustic light streaks. */
-.caustics {
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(115deg, transparent 0 18px, color-mix(in oklab, var(--accent) 6%, transparent) 18px 19px, transparent 19px 40px),
-    repeating-linear-gradient(65deg, transparent 0 24px, color-mix(in oklab, var(--accent-2) 5%, transparent) 24px 25px, transparent 25px 52px);
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 20%, transparent 95%);
-  opacity: 0.5;
-  animation: shimmer 14s linear infinite;
-}
-@keyframes shimmer {
-  0% { background-position: 0 0, 0 0; }
-  100% { background-position: 200px 80px, -160px 100px; }
-}
-
-/* Depth gradient, shallow at top to deep below. */
-.bg-depth {
-  background:
-    radial-gradient(120% 80% at 50% -10%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 55%),
-    linear-gradient(to bottom, color-mix(in oklab, var(--accent) 4%, transparent), transparent 40%);
-}
-
-.accent-glow {
-  background: radial-gradient(ellipse 55% 60% at 50% 0%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 70%);
-}
-
-/* subtle grid (screenshot frames). */
-.bg-grid {
-  background-image:
-    linear-gradient(to right, color-mix(in oklab, var(--line) 60%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in oklab, var(--line) 60%, transparent) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
-}
-
-/* ---- Glass surface + gradient hairline + hover glow ---- */
-.glass {
-  position: relative;
-  background: var(--glass);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
+/* Solid card: NO backdrop-filter (that is the scroll cost). Border + shadow.
+   Reads as an editorial panel, re-skins with the theme. */
+.surface {
+  background: var(--surface);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
 }
-/* gradient hairline border via mask */
-.hairline {
-  position: relative;
-}
-.hairline::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(140deg, color-mix(in oklab, var(--accent) 55%, transparent), transparent 45%, color-mix(in oklab, var(--accent-2) 35%, transparent));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.6;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
+.surface-2 {
+  background: color-mix(in oklab, var(--surface) 70%, var(--bg));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }
 .lift {
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
 }
 .lift:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   box-shadow: var(--glow);
-  border-color: color-mix(in oklab, var(--accent) 50%, var(--line));
+  border-color: color-mix(in oklab, var(--accent) 45%, var(--line));
 }
-.lift:hover .hairline::before { opacity: 1; }
 
-/* ---- Top nav tabs ---- */
+/* Hairline rule for editorial section breaks. */
+.rule {
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+
+/* ---- Atmosphere (cheap, static, no blend) --------------------------------- */
+
+/* One soft glow behind the hero. Static gradient, painted once, no animation. */
+.hero-glow {
+  background:
+    radial-gradient(60% 55% at 18% 12%, color-mix(in oklab, var(--accent) 15%, transparent), transparent 60%),
+    radial-gradient(50% 55% at 92% 0%, color-mix(in oklab, var(--accent-2) 14%, transparent), transparent 62%);
+}
+
+/* Editorial dotted grid, masked, static. */
+.bg-dots {
+  background-image: radial-gradient(color-mix(in oklab, var(--line) 90%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 100%);
+}
+
+/* Accent hairline used above a section title. */
+.tick {
+  display: inline-block;
+  width: 28px;
+  height: 2px;
+  background: var(--accent);
+  vertical-align: middle;
+}
+
+/* ---- Links + nav ---------------------------------------------------------- */
+
 .nav-link {
   position: relative;
   border-radius: 9999px;
   font-weight: 500;
   color: var(--muted);
-  transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.25s ease;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
 .nav-link:hover {
   color: var(--fg);
@@ -225,16 +188,9 @@ body::after {
 }
 .nav-link[data-active="true"] {
   color: var(--accent);
-  background: color-mix(in oklab, var(--accent) 15%, transparent);
-  box-shadow:
-    inset 0 0 0 1px color-mix(in oklab, var(--accent) 34%, transparent),
-    0 6px 18px -10px color-mix(in oklab, var(--accent) 70%, transparent);
-}
-.nav-link[data-active="true"]:hover {
-  background: color-mix(in oklab, var(--accent) 20%, transparent);
+  background: color-mix(in oklab, var(--accent) 14%, transparent);
 }
 
-/* Animated link underline. */
 .link-underline {
   background-image: linear-gradient(var(--accent), var(--accent));
   background-size: 0% 1.5px;
@@ -244,30 +200,16 @@ body::after {
 }
 .link-underline:hover { background-size: 100% 1.5px; }
 
-/* ---- Scrollytelling reveal ----
-   Enhancement-only: content is visible by default, so crawlers, social
-   scrapers, and no-JS loads always see it. The hidden start-state applies
-   only once JS adds `reveal-ready` to <html> (before first paint, no flash). */
+/* ---- Scroll reveal --------------------------------------------------------
+   Enhancement-only: content visible by default, hidden start-state applies only
+   once JS adds `reveal-ready` (before first paint, no flash, crawler-safe). */
 .reveal { opacity: 1; }
 html.reveal-ready .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 html.reveal-ready .reveal.is-visible { opacity: 1; transform: none; }
-
-/* Marquee. */
-.marquee {
-  display: flex;
-  gap: 2.5rem;
-  width: max-content;
-  animation: marquee 36s linear infinite;
-}
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
 
 /* Slow cinematic zoom for hero/background imagery. */
 .kenburns {
@@ -281,7 +223,7 @@ html.reveal-ready .reveal.is-visible { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal, html.reveal-ready .reveal { opacity: 1; transform: none; transition: none; }
-  .ocean::before, .ocean::after, .caustics, .marquee, .kenburns { animation: none; }
+  .kenburns { animation: none; }
 }
 
 ::selection {
@@ -295,3 +237,56 @@ html.light .theme-icon-dark { display: none; }
 html.light .theme-icon-light { display: inline; }
 
 a { color: inherit; }
+
+/* ---- Compatibility layer -------------------------------------------------
+   Other pages (water, about, lab, projects, writing, contact, resume) still
+   use these class names. Redefined here to the new system: solid surfaces
+   (no scroll-time backdrop-filter), static atmosphere (no full-screen blend or
+   blur animation), so every page inherits the perf + typography upgrade without
+   a rewrite. */
+.glass {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.hairline { position: relative; }
+.text-gradient { color: var(--accent); }
+
+/* Static, cheap hero atmosphere (was an animated blur(40px) double-layer). */
+.ocean {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(55% 55% at 22% 18%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 62%),
+    radial-gradient(50% 55% at 85% 10%, color-mix(in oklab, var(--accent-2) 13%, transparent), transparent 60%);
+}
+.caustics { display: none; }
+
+.bg-grid {
+  background-image: radial-gradient(color-mix(in oklab, var(--line) 90%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+.bg-depth {
+  background: linear-gradient(to bottom, color-mix(in oklab, var(--accent) 4%, transparent), transparent 40%);
+}
+.accent-glow {
+  background: radial-gradient(ellipse 55% 60% at 50% 0%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 70%);
+}
+
+/* Marquee kept (composited transform, cheap) for pages that still use it. */
+.marquee {
+  display: flex;
+  gap: 2.5rem;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee { animation: none; }
+}
