@@ -3,34 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
-// Thin scroll-progress bar pinned to the top (aqua).
+// Thin scroll-progress bar pinned to the top. Driven by a CSS scroll-driven
+// animation (animation-timeline: scroll) so there is no scroll listener and no
+// per-frame React work. Hidden where scroll-timeline is unsupported (decorative).
 export function ScrollProgress() {
-  const [p, setP] = useState(0);
-  useEffect(() => {
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const h = document.documentElement;
-        const max = h.scrollHeight - h.clientHeight;
-        setP(max > 0 ? h.scrollTop / max : 0);
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-  return (
-    <div className="fixed left-0 top-0 z-[70] h-[3px] w-full bg-transparent" aria-hidden>
-      <div
-        className="h-full origin-left bg-gradient-to-r from-accent to-[var(--accent-2)]"
-        style={{ transform: `scaleX(${p})` }}
-      />
-    </div>
-  );
+  return <div className="scroll-progress" aria-hidden />;
 }
 
 // Headline that reveals word by word as it scrolls into view.

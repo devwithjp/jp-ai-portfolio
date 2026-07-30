@@ -24,7 +24,7 @@
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
   --shadow-lg: 0 30px 70px -30px rgb(0 0 0 / 0.7);
   --glow: 0 0 0 1px color-mix(in oklab, var(--accent) 30%, transparent), 0 24px 60px -24px color-mix(in oklab, var(--accent) 40%, transparent);
-  --radius: 14px;
+  --radius: 16px;
 }
 
 html.light {
@@ -171,6 +171,28 @@ body {
   height: 2px;
   background: var(--accent);
   vertical-align: middle;
+}
+
+/* Scroll-progress bar: CSS scroll-driven, no JS, no scroll listener. */
+.scroll-progress {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 70;
+  height: 3px;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(to right, var(--accent), var(--accent-2));
+  animation: scaleProgress auto linear;
+  animation-timeline: scroll(root block);
+}
+@keyframes scaleProgress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@supports not (animation-timeline: scroll()) {
+  .scroll-progress { display: none; }
 }
 
 /* ---- Links + nav ---------------------------------------------------------- */

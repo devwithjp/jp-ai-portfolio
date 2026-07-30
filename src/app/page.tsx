@@ -42,7 +42,7 @@ export default function Home() {
             <Reveal delay={180}>
               <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
                 An engineer&apos;s hands, a product manager&apos;s judgment. I build AI products end to end,
-                and care as much whether a thing is worth building as whether it works.
+                and care whether they are worth building.
               </p>
             </Reveal>
             <Reveal delay={260}>
@@ -123,8 +123,7 @@ export default function Home() {
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <Reveal>
             <div className="lg:sticky lg:top-28">
-              <span className="kicker kicker-accent">Why I build</span>
-              <h2 className="font-display display-xl mt-4">Engineering was the door, not the room.</h2>
+              <h2 className="font-display display-xl">Engineering was the door, not the room.</h2>
               <p className="mt-5 text-muted">
                 I like deciding what is worth making, then making it. Here is how that took shape.
               </p>
