@@ -85,20 +85,25 @@ export function WorkIndex() {
         ))}
       </div>
 
-      {/* Sticky preview */}
+      {/* Sticky preview: all shots stacked, crossfaded by opacity (decode once,
+          no load flash on hover). */}
       <div className="hidden lg:block">
         <div className="sticky top-28">
           <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-line bg-elevated shadow-[var(--shadow-lg)]">
-            {active.shot ? (
-              <Image
-                key={active.href}
-                src={active.shot}
-                alt={`${active.title} screen`}
-                fill
-                sizes="440px"
-                className="fade-in object-cover object-left-top"
-              />
-            ) : null}
+            {allWork.map((item) =>
+              item.shot ? (
+                <Image
+                  key={item.href}
+                  src={item.shot}
+                  alt={`${item.title} screen`}
+                  fill
+                  sizes="440px"
+                  className={`object-cover object-left-top transition-opacity duration-300 ${
+                    active.href === item.href ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              ) : null
+            )}
           </div>
           <div className="mt-4 flex items-baseline justify-between gap-4">
             <div>
