@@ -114,9 +114,16 @@ export default function LabPage() {
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
           {packs.map((pack, i) => (
             <Reveal key={pack.name} delay={i * 120}>
-              <div className="glass hairline lift h-full p-7">
+              <a
+                href={labRepo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="surface lift group flex h-full flex-col p-7"
+              >
                 <div className="flex items-baseline justify-between gap-3">
-                  <h3 className="font-display text-2xl font-medium tracking-tight">{pack.name}</h3>
+                  <h3 className="font-display text-2xl font-medium tracking-tight transition-colors group-hover:text-accent">
+                    {pack.name}
+                  </h3>
                   <span className="font-mono text-xs text-accent">{pack.count}</span>
                 </div>
                 <p className="mt-3 leading-relaxed text-muted">{pack.blurb}</p>
@@ -128,7 +135,11 @@ export default function LabPage() {
                     </li>
                   ))}
                 </ul>
-              </div>
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-link">
+                  Open these notebooks on GitHub
+                  <span className="transition-transform group-hover:translate-x-1">→</span>
+                </span>
+              </a>
             </Reveal>
           ))}
         </div>
