@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Container, Section, SectionHeader, CTA } from "@/components/ui";
+import { Container, Section, SectionHeader } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { ReelRail, FilmFeature } from "@/components/lens/reel-player";
 import { SelectedGrid, ArchiveStrip } from "@/components/lens/photo-gallery";
 import { lensIntro, reels, film, photos, selectedPhotos, categories } from "@/lib/lens";
-import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Lens",
@@ -80,20 +79,6 @@ export default function LensPage() {
       </Section>
 
 
-      <section className="border-t border-line">
-        <Container className="py-20 sm:py-28">
-          <Reveal>
-            <h2 className="font-display display-xl max-w-3xl text-fg">Have something that needs a reel?</h2>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">Tell me what it is and when. I&apos;ll reply with an idea and a rough cut plan.</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <CTA href="/contact">Start a project</CTA>
-              <CTA href={site.links.email} variant="secondary" external>
-                {site.email}
-              </CTA>
-            </div>
-          </Reveal>
-        </Container>
-      </section>
     </>
   );
 }

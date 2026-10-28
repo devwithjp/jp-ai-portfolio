@@ -86,7 +86,7 @@ export const categories: { key: LensCategory; label: string }[] = [
   { key: "adventure", label: "Adventure" },
 ];
 
-export const places = ["Andaman Islands", "Neil Island", "Hampi", "Dandeli", "Dubare", "Gokarna", "Masinagudi", "Valparai", "Dudhsagar", "Goa", "Mangaluru", "Yana", "Ooty"];
+export const places = ["Andaman Islands", "Neil Island", "Hampi", "Dandeli", "Gokarna", "Masinagudi", "Valparai", "Dudhsagar", "Goa", "Mangaluru", "Yana", "Ooty"];
 
 export const services = [
   { title: "Fast-cut product & brand reels", body: "Vertical-first edits built on the beat: speed ramps, punch-ins, split screens, kinetic type. 6 to 30 seconds, ready for Reels, Shorts and TikTok." },
@@ -98,7 +98,6 @@ export const gear = ["GoPro HERO9 Black", "Sony α58", "SJCAM 4K", "Phone (Samsu
 
 export const photos: LensPhoto[] = [
   { slug: "elephants-dawn", title: "Dawn crossing", place: "Dubare, Karnataka", date: "2017", cat: "wildlife", w: 2400, h: 1600, selected: 3 },
-  { slug: "trunk-silhouette", title: "Trunk", place: "Dubare, Karnataka", date: "2017", cat: "wildlife", w: 2400, h: 1600 },
   { slug: "cormorant-snag", title: "Lookout", place: "Dubare, Karnataka", date: "2017", cat: "wildlife", w: 1919, h: 2400 },
   { slug: "vine-snake", title: "Vine snake", place: "Dandeli, Karnataka", date: "Oct 2018", cat: "wildlife", w: 1601, h: 2001, selected: 0 },
   { slug: "spotted-deer", title: "Spotted deer", place: "Dandeli, Karnataka", date: "Oct 2018", cat: "wildlife", w: 2400, h: 1600 },
