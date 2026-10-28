@@ -22,7 +22,8 @@ export function CaseworkStack() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    setMotion(true);
+    const id = requestAnimationFrame(() => setMotion(true));
+    return () => cancelAnimationFrame(id);
   }, []);
 
   useEffect(() => {
