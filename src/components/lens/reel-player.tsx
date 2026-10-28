@@ -186,7 +186,7 @@ export function FilmFeature({ film }: { film: { slug: string; title: string; kic
           />
         )}
         {!live ? (
-          <button type="button" onClick={start} className="group absolute inset-0 flex items-end bg-gradient-to-t from-[#03141a]/85 via-[#03141a]/10 to-transparent p-6 text-left sm:p-10" aria-label={`Play ${film.title} with sound`}>
+          <button type="button" onClick={start} className="group absolute inset-0 flex items-end bg-gradient-to-t from-[#03141a]/90 via-[#03141a]/45 to-transparent p-6 text-left sm:p-10" aria-label={`Play ${film.title} with sound`}>
             <div>
               <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
                 {film.kicker} · {film.place} · {film.length}
