@@ -233,12 +233,6 @@ html.reveal-ready .reveal {
 }
 html.reveal-ready .reveal.is-visible { opacity: 1; transform: none; }
 
-/* Crossfade for the work-index preview when the active project changes. */
-.fade-in { animation: fadeIn 0.4s ease both; }
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
 
 /* Slow cinematic zoom for hero/background imagery. */
 .kenburns {
@@ -318,4 +312,33 @@ a { color: inherit; }
 }
 @media (prefers-reduced-motion: reduce) {
   .marquee { animation: none; }
+}
+
+/* ---- Skills explorer ------------------------------------------------------ */
+
+/* Cards settle in on view switch. Transform + opacity only, so it stays composited. */
+.skill-in {
+  animation: skill-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes skill-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.skill-chip[aria-pressed="true"] { box-shadow: var(--glow); }
+
+/* Detail panel: bottom sheet on phones, right drawer from sm up. */
+.skill-panel { animation: skill-sheet 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes skill-sheet {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@media (min-width: 640px) {
+  .skill-panel { animation-name: skill-drawer; }
+  @keyframes skill-drawer {
+    from { transform: translateX(32px); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skill-in, .skill-panel { animation: none; }
 }

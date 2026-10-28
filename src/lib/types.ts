@@ -64,11 +64,26 @@ export type SkillTrack = {
   skills: SkillEvidence[];
 };
 
+export type Course = {
+  /** Internal only (stable ids on /skills); never rendered. */
+  code: string;
+  title: string;
+  /** Theme the course is listed under. */
+  group: string;
+  topics: string[];
+};
+
 export type ResumeEntry = {
+  /** Anchor on /resume, also the source id used by the skills explorer. */
+  id?: string;
+  /** External site for this entry, e.g. a venture. */
+  link?: string;
   period: string;
   title: string;
   org?: string;
   points: string[];
+  /** Coursework, for degrees. Each course becomes its own source on /skills. */
+  courses?: Course[];
 };
 
 export type PostCategory = "tech" | "life";

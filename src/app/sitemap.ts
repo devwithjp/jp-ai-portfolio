@@ -4,7 +4,7 @@ import { projects } from "@/lib/projects";
 import { caseStudies, caseworkUrl } from "@/lib/casework";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/projects", "/lab", "/water", "/writing", "/about", "/resume", "/contact"];
+  const routes = ["", "/projects", "/skills", "/skills/ai-engineering", "/skills/ai-product-management", "/projects/lab", "/water", "/writing", "/about", "/resume", "/contact"];
   const top = routes.map((r) => ({
     url: `${SITE_URL}${r}`,
     changeFrequency: "monthly" as const,

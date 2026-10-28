@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { site } from "@/lib/site";
 import {
   resumeSummary,
@@ -13,6 +14,7 @@ import {
 import { Section, SectionHeader, Eyebrow, CTA } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { WordsReveal } from "@/components/chrome";
+import { CourseList } from "@/components/course-list";
 
 export const metadata: Metadata = {
   title: "Resume",
@@ -24,14 +26,22 @@ function Timeline({ entries }: { entries: typeof experience }) {
     <div className="relative space-y-5 before:absolute before:left-[7px] before:top-2 before:h-[calc(100%-1rem)] before:w-px before:bg-line">
       {entries.map((e, i) => (
         <Reveal key={i} delay={i * 50}>
-          <div className="relative pl-8">
+          <div id={e.id} className="relative scroll-mt-28 pl-8">
             <span className="absolute left-0 top-2 h-3.5 w-3.5 rounded-full border-2 border-accent bg-bg" />
             <div className="glass hairline lift p-6">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <h3 className="font-display text-xl font-medium tracking-tight">{e.title}</h3>
                 <span className="font-mono text-xs text-muted">{e.period}</span>
               </div>
-              {e.org ? <div className="mt-1 text-sm text-link">{e.org}</div> : null}
+              {e.org ? (
+                e.link ? (
+                  <a href={e.link} target="_blank" rel="noopener noreferrer" className="link-underline mt-1 inline-block text-sm text-link">
+                    {e.org} ↗
+                  </a>
+                ) : (
+                  <div className="mt-1 text-sm text-link">{e.org}</div>
+                )
+              ) : null}
               {e.points.length ? (
                 <ul className="mt-3 space-y-2">
                   {e.points.map((p, j) => (
@@ -108,7 +118,7 @@ export default function ResumePage() {
             <div className="mt-6 space-y-4">
               {education.map((e, i) => (
                 <Reveal key={i} delay={i * 60}>
-                  <div className="glass hairline p-5">
+                  <div id={e.id} className="glass hairline scroll-mt-28 p-5">
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
                       <div className="font-medium">{e.title}</div>
                       {e.period ? <span className="font-mono text-xs text-muted">{e.period}</span> : null}
@@ -117,13 +127,14 @@ export default function ResumePage() {
                     {e.points.map((p, j) => (
                       <p key={j} className="mt-2 text-sm text-muted">{p}</p>
                     ))}
+                    {e.courses ? <CourseList courses={e.courses} /> : null}
                   </div>
                 </Reveal>
               ))}
             </div>
 
             <Reveal>
-              <div className="mt-8">
+              <div id="certifications" className="mt-8 scroll-mt-28">
                 <Eyebrow>Certifications + programs</Eyebrow>
                 <ul className="mt-3 space-y-2">
                   {certifications.map((c) => (
@@ -157,12 +168,17 @@ export default function ResumePage() {
                 </Reveal>
               ))}
             </div>
+            <Reveal>
+              <Link href="/skills" className="mt-6 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.18em] text-link hover:text-fg">
+                Every skill, and where I used it →
+              </Link>
+            </Reveal>
           </div>
         </div>
       </Section>
 
       {/* Reforge */}
-      <Section className="border-t border-line">
+      <Section id="reforge" className="scroll-mt-16 border-t border-line">
         <Reveal>
           <SectionHeader
             index="04"

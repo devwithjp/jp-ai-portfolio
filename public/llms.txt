@@ -19,7 +19,7 @@
 
 - AI product management: discovery, PRDs, OKRs, experiment design, release gates.
 - AI engineering: RAG pipelines, LLM evaluation harnesses, tool-using agents, multimodal.
-- Interpretability research: activation probing of language models with TransformerLens (UNSW COMP6713 team project).
+- Interpretability research: activation probing of language models with TransformerLens (UNSW NLP team project).
 - From-scratch implementation: 45 NLP and LLM notebooks, a regex tokenizer to RLHF.
 
 ## Selected work
@@ -27,7 +27,8 @@
 - Casework, five playable AI PM case studies (an interactive PRD for Canva Magic Write, an LLM-judge calibration bench for Duolingo, a phased-launch simulator for Spotify AI DJ, a red-team safety case for an Airbnb trip concierge, and an A/B readout detective for Netflix AI discovery; unofficial concept work): https://alongwithjp.me/live/casework
 
 - Four hosted, mock-first AI products (evaluation, RAG, multimodal, safe agents): https://alongwithjp.me/projects
-- The Lab — 45 from-scratch NLP/LLM notebooks + interpretability research: https://alongwithjp.me/lab
+- The Lab — 45 from-scratch NLP/LLM notebooks + interpretability research: https://alongwithjp.me/projects/lab
+- Skills, each linked to the job, project, or course where it was used: https://alongwithjp.me/skills
 - Resume: https://alongwithjp.me/resume
 
 ## Contact

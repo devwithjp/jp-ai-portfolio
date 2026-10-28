@@ -84,7 +84,7 @@ const personLd = {
     { "@type": "CollegeOrUniversity", name: "UNSW Sydney" },
     { "@type": "Organization", name: "Reforge" },
   ],
-  worksFor: { "@type": "Organization", name: "Independent / open to roles" },
+  worksFor: { "@type": "Organization", name: "Enluma Health", url: "https://enluma.health" },
   knowsAbout: [
     "AI Product Management",
     "Large Language Models",

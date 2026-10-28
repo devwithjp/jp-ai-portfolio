@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
   },
   // Emit a self-contained server bundle for a lean Docker image (Vercel ignores this).
   output: "standalone",
+  // The Lab moved under Projects.
+  async redirects() {
+    return [{ source: "/lab", destination: "/projects/lab", permanent: true }];
+  },
   async rewrites() {
     return Object.entries(ZONES).flatMap(([name, host]) => [
       { source: `/live/${name}`, destination: `${host}/live/${name}` },

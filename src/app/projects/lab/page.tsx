@@ -45,7 +45,7 @@ export default function LabPage() {
       </div>
 
       {/* Featured interpretability research */}
-      <Section className="relative">
+      <Section id="interp" className="relative scroll-mt-16">
         <div className="bg-depth pointer-events-none absolute inset-0 -z-10" aria-hidden />
         <Reveal>
           <SectionHeader index="01" eyebrow={interp.eyebrow} title={interp.title} />
@@ -107,7 +107,7 @@ export default function LabPage() {
       </Section>
 
       {/* Packs */}
-      <Section className="border-t border-line">
+      <Section id="packs" className="scroll-mt-16 border-t border-line">
         <Reveal>
           <SectionHeader index="02" eyebrow="What's in it" title="Two packs, 45 notebooks." />
         </Reveal>

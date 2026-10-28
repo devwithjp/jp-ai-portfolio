@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 const faqs = [
   {
     q: "Who is Jyothiprakash (JP)?",
-    a: "JP is an AI Product Manager and builder based in Sydney, Australia. He was a Product Manager at Rekro, is doing a Master's in AI at UNSW, and was previously a software engineer on products used by 50M+ people at Bewakoof.",
+    a: "JP is an AI Product Manager and builder based in Sydney, Australia. He is an AI Product Manager at Enluma Health, finished a Master's in AI at UNSW, was a Product Manager at Rekro, and was previously a software engineer on products used by 50M+ people at Bewakoof.",
   },
   {
     q: "Is JP an AI Product Manager in Sydney available for hire?",

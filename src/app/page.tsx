@@ -1,21 +1,33 @@
 import Link from "next/link";
+import Image from "next/image";
 import { site } from "@/lib/site";
 import { waterQuote } from "@/lib/story";
+import { featured } from "@/lib/featured";
+import { education, reforge } from "@/lib/resume";
 import { Container, Section, CTA } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
-import { WorkIndex } from "@/components/work-index";
+import { CourseList } from "@/components/course-list";
 
 // Recruiter-critical facts, shown as a bare credential strip under the hero.
 const FACTS = [
-  { k: "Now", v: "PM, 0 to 1 AI products" },
+  { k: "Now", v: "AI PM, Enluma Health" },
   { k: "Before", v: "Engineer, 50M+ users" },
-  { k: "Study", v: "MS in AI, UNSW Sydney" },
+  { k: "Study", v: "MS in AI, UNSW, 2026" },
   { k: "Rights", v: "Full AU work rights, 485" },
 ];
 
+const DEGREES = education.filter((e) => e.id !== "udacity");
+
+const COURSES = [
+  { title: reforge.name, note: `Full feature lifecycle · ${reforge.completed}`, href: "/resume#reforge" },
+  { title: "Machine Learning, Andrew Ng", note: "Coursera", href: "/resume#certifications" },
+  { title: "UX Design + Front-End Developer", note: "Udacity Nanodegrees · 2020", href: "/resume#udacity" },
+  { title: "Leadership Foundations + Strategic Thinking", note: "UNSW · AGSM", href: "/resume#certifications" },
+];
+
 const ELSEWHERE = [
+  { href: "/skills", label: "Skills", note: "Every skill, and where" },
   { href: "/about", label: "About", note: "How I got here" },
-  { href: "/lab", label: "Lab", note: "The stack, built by hand" },
   { href: "/writing", label: "Writing", note: "Notes on building" },
   { href: "/resume", label: "Resume", note: "The one-page version" },
 ];
@@ -76,20 +88,93 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Selected work: the centerpiece */}
+      {/* Work, in short: a gist per strand, each hands off to the full page */}
       <Section>
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <h2 className="font-display display-xl max-w-2xl">
-              Selected work. Most of it you can run.
-            </h2>
-            <span className="hidden font-mono text-xs uppercase tracking-wider text-muted sm:block">
-              Nine projects, mock mode, no keys
-            </span>
+            <h2 className="font-display display-xl max-w-2xl">The work, in short.</h2>
+            <Link href="/projects" className="link-underline text-sm font-medium text-link">
+              All projects →
+            </Link>
           </div>
         </Reveal>
-        <div className="mt-12">
-          <WorkIndex />
+        <ul className="mt-10 border-t border-line">
+          {featured.map((w, i) => (
+            <Reveal key={w.title} as="li" delay={i * 60}>
+              <Link
+                href={w.href}
+                {...(w.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="group flex items-center gap-5 border-b border-line py-6 sm:gap-8"
+              >
+                <span className="self-start pt-2 font-mono text-xs text-muted/60">{String(i + 1).padStart(2, "0")}</span>
+                <div className="min-w-0 flex-1">
+                  <p className="kicker kicker-accent">{w.kicker}</p>
+                  <h3 className="font-display mt-2 text-2xl font-semibold tracking-tight transition-colors group-hover:text-accent sm:text-3xl">
+                    {w.title}
+                  </h3>
+                  <p className="mt-2 max-w-xl text-muted">{w.blurb}</p>
+                  <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-muted/70">{w.meta}</p>
+                </div>
+                <div className="relative hidden aspect-[16/10] w-48 flex-none overflow-hidden rounded-xl border border-line md:block">
+                  <Image src={w.shot} alt="" fill sizes="192px" className="object-cover object-left-top transition-transform duration-500 group-hover:scale-[1.04]" />
+                </div>
+                <span className="text-link transition-transform group-hover:translate-x-1" aria-hidden>
+                  →
+                </span>
+              </Link>
+            </Reveal>
+          ))}
+        </ul>
+      </Section>
+
+      {/* Education */}
+      <Section className="border-t border-line">
+        <Reveal>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <span className="kicker kicker-accent">Education</span>
+              <h2 className="font-display display-xl mt-4 max-w-2xl">Two degrees, and the courses between.</h2>
+            </div>
+            <Link href="/skills?view=learning" className="link-underline text-sm font-medium text-link">
+              What each one taught me →
+            </Link>
+          </div>
+        </Reveal>
+        <div className="mt-10 grid gap-5 lg:grid-cols-[1.4fr_1fr]">
+          <div className="grid content-start gap-5">
+            {DEGREES.map((d, i) => (
+              <Reveal key={d.title} delay={i * 80}>
+                <Link href={`/resume#${d.id}`} className="surface lift group block p-7">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <p className="text-sm text-link">{d.org}</p>
+                    {d.period ? <span className="font-mono text-xs text-muted">{d.period}</span> : null}
+                  </div>
+                  <h3 className="font-display mt-2 text-2xl font-semibold tracking-tight transition-colors group-hover:text-accent">
+                    {d.title}
+                  </h3>
+                  {d.points.map((p) => (
+                    <p key={p} className="mt-2 leading-relaxed text-muted">{p}</p>
+                  ))}
+                  {d.courses ? <CourseList courses={d.courses} compact /> : null}
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={160}>
+            <div className="surface h-full p-7">
+              <p className="kicker">Courses + programs</p>
+              <ul className="mt-4 divide-y divide-line">
+                {COURSES.map((c) => (
+                  <li key={c.title}>
+                    <Link href={c.href} className="group block py-4">
+                      <span className="font-medium transition-colors group-hover:text-link">{c.title}</span>
+                      <span className="mt-0.5 block text-sm text-muted">{c.note}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
         </div>
       </Section>
 

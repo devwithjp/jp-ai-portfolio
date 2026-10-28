@@ -9,7 +9,7 @@ export const site = {
   // Voice: plain, declarative, specific. Say the true thing in few words.
   tagline: "I started with code. I stayed for building.",
   positioning:
-    "AI Product Manager with an engineer's hands. I shipped fullstack products to 50M+ users, then moved to deciding what to build. Now I do a Master's in AI at UNSW and build AI products end to end. I care as much about whether a thing is worth building as whether it works.",
+    "AI Product Manager with an engineer's hands. I shipped fullstack products to 50M+ users, then moved to deciding what to build. I finished a Master's in AI at UNSW and now build AI products as a PM at Enluma Health. I care as much about whether a thing is worth building as whether it works.",
   altPositionings: [
     "Engineering got me in the door. Product is why I stayed.",
     "I like making things people actually want, and finding out fast when they don't.",
@@ -17,8 +17,8 @@ export const site = {
   ],
   // Credibility strip, shown under the hero. PM signal leads.
   proof: [
-    "ex-PM @ Rekro",
-    "MS AI @ UNSW",
+    "AI PM @ Enluma Health",
+    "MS AI, UNSW",
     "Startmate Founder Fellow",
     "ex-Bewakoof · 50M users",
   ],
@@ -34,7 +34,7 @@ export const site = {
   nav: [
     { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
-    { href: "/lab", label: "Lab" },
+    { href: "/skills", label: "Skills" },
     { href: "/water", label: "Water" },
     { href: "/writing", label: "Writing" },
     { href: "/about", label: "About" },

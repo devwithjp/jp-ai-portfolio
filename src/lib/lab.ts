@@ -54,7 +54,7 @@ export const packs: Pack[] = [
 
 // Featured interpretability research (UNSW COMP6713 NLP course, team project).
 export const interp = {
-  eyebrow: "Interpretability research · UNSW COMP6713",
+  eyebrow: "Interpretability research · UNSW NLP",
   title: "Can you tell what a model is thinking when its answer hides it?",
   framing: "A team research project for my NLP course at UNSW.",
   body: [

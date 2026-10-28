@@ -2,11 +2,37 @@ import type { ResumeEntry } from "./types";
 
 // Real history from JP's resume + LinkedIn. Voice: plain, declarative, no em dashes.
 export const resumeSummary =
-  "AI Product Manager with an engineer's hands. I spent 2+ years building fullstack products for millions of users, then moved toward deciding what to build. Now doing a Master's in AI at UNSW and building AI products end to end.";
+  "AI Product Manager with an engineer's hands. I spent 2+ years building fullstack products for millions of users, then moved toward deciding what to build. I finished a Master's in AI at UNSW and now work as an AI Product Manager at Enluma Health.";
 
 // Reverse-chronological. Tight bullets, real metrics.
 export const experience: ResumeEntry[] = [
   {
+    id: "enluma",
+    period: "2026 - Present", // TODO(JP): add start month
+    title: "AI Product Manager",
+    org: "Enluma Health · Australia",
+    link: "https://enluma.health",
+    points: [
+      // TODO(JP): replace with what you own and have shipped.
+      "AI Product Manager on Consult+, an AI pre-consultation intake tool for specialist practices. Patients tell their history by voice or text at home; clinicians get a structured summary before the consult.",
+    ],
+  },
+  {
+    id: "pedestal",
+    period: "Jun 2026 - Present",
+    title: "Co-founder", // TODO(JP): confirm title + start date
+    org: "Pedestal · pedestaltech.dev",
+    link: "https://pedestaltech.dev",
+    points: [
+      "Building an AI communication coach for high-stakes rooms: record, get feedback on words, voice, and presence, drill one weakness, compare two takes.",
+      "Built the Flutter app for iOS and Android end to end: 14 scenarios, 34 drills, the full practice loop verified on both platforms.",
+      "Supabase backend with six edge functions and RLS on every table; raw video never leaves the phone.",
+      "Coach quality lab with deterministic metrics, DSPy few-shot compilation, and DeepEval rubrics behind a live quality gate.",
+      "Ran user interviews, set positioning, pricing, and the waitlist launch, and pitched Pedestal at the UNSW Peter Farrell Cup 2026.",
+    ],
+  },
+  {
+    id: "rekro-pm",
     period: "May 2025 - Jan 2026",
     title: "Product Manager",
     org: "Rekro · Sydney",
@@ -18,6 +44,7 @@ export const experience: ResumeEntry[] = [
     ],
   },
   {
+    id: "startmate",
     period: "Jun 2025 - Aug 2025",
     title: "Founder Fellow",
     org: "Startmate Student Founder Bootcamp",
@@ -26,6 +53,7 @@ export const experience: ResumeEntry[] = [
     ],
   },
   {
+    id: "swim-teacher",
     period: "Oct 2024 - Present",
     title: "Swim Teacher",
     org: "In The Deep Swim School · Sydney",
@@ -34,6 +62,7 @@ export const experience: ResumeEntry[] = [
     ],
   },
   {
+    id: "rekro-intern",
     period: "Jan 2025 - Feb 2025",
     title: "Software Engineer Intern",
     org: "Rekro · Sydney",
@@ -42,6 +71,7 @@ export const experience: ResumeEntry[] = [
     ],
   },
   {
+    id: "blue-sky",
     period: "Apr 2023 - Jul 2023",
     title: "Full Stack Engineer",
     org: "Blue Sky Analytics · India",
@@ -51,6 +81,7 @@ export const experience: ResumeEntry[] = [
     ],
   },
   {
+    id: "bewakoof",
     period: "Jan 2021 - Mar 2022",
     title: "Senior Software Engineer (SDE1)",
     org: "Bewakoof.com · India",
@@ -62,6 +93,7 @@ export const experience: ResumeEntry[] = [
     ],
   },
   {
+    id: "freelance-moodle",
     period: "Mar 2022 - Jan 2024",
     title: "Freelance Consultant",
     org: "EdTech / Moodle",
@@ -71,6 +103,7 @@ export const experience: ResumeEntry[] = [
     ],
   },
   {
+    id: "inkers",
     period: "May 2018 - Jul 2018",
     title: "AI Intern",
     org: "The Inkers · India",
@@ -82,18 +115,41 @@ export const experience: ResumeEntry[] = [
 
 export const education: ResumeEntry[] = [
   {
-    period: "2024 - Present",
+    id: "unsw",
+    period: "2024 - 2026",
     title: "Master of IT, AI & Data Science",
     org: "UNSW · Sydney",
-    points: ["AI, deep learning, big data, NLP, and AI product design."],
+    points: ["Graduated 2026. Seventeen subjects across AI and machine learning, data, computer science, and product, design and delivery."],
+    // From the transcript (T2 2024 to 2026). Topics follow the UNSW course outlines.
+    courses: [
+      { code: "COMP9814", title: "Extended Artificial Intelligence", group: "AI & machine learning", topics: ["Search and problem solving", "Logic and knowledge representation", "Reasoning under uncertainty", "Autonomous agents", "Machine learning", "Vision and language processing", "Python"] },
+      { code: "COMP9444", title: "Neural Networks and Deep Learning", group: "AI & machine learning", topics: ["Backpropagation and optimisation", "Generalisation and regularisation", "Convolutional networks", "Recurrent networks and LSTMs", "Word vectors", "Deep reinforcement learning: TD, Q-learning, policy learning", "Autoencoders, adversarial training, generative models", "PyTorch"] },
+      { code: "COMP9517", title: "Computer Vision", group: "AI & machine learning", topics: ["Image processing", "Feature detection and matching", "Pattern recognition", "Image segmentation", "Motion and tracking", "Deep learning for vision", "A team vision project in Python"] },
+      { code: "COMP6713", title: "Natural Language Processing", group: "AI & machine learning", topics: ["Text processing and classification", "Language models", "Word embeddings", "Transformers and LLMs", "NLP evaluation", "Interpretability research project"] },
+      { code: "COMP9727", title: "Recommender Systems", group: "AI & machine learning", topics: ["Memory-based collaborative filtering", "Model-based CF and matrix factorisation", "Learning to rank", "Content-based recommenders", "Group and sequential recommenders", "Deep learning recommenders", "Reinforcement learning for recommendation"] },
+      { code: "COMP9313", title: "Big Data Management", group: "Data", topics: ["Hadoop MapReduce", "HDFS and YARN", "Apache Spark", "Mining data streams", "Finding similar items at scale", "Graph data management", "NoSQL: HBase and Hive"] },
+      { code: "COMP9311", title: "Database Systems", group: "Data", topics: ["ER modelling", "Relational model and algebra", "SQL and PostgreSQL", "Stored procedures and triggers", "Normalisation", "Transactions and concurrency", "Indexing and query processing"] },
+      { code: "COMP9024", title: "Data Structures and Algorithms", group: "Computer science", topics: ["Abstract data types", "Linked lists, trees, and hash tables", "Graph algorithms: search, shortest paths, spanning trees", "Sorting and searching", "Complexity analysis", "C programming"] },
+      { code: "COMP9021", title: "Principles of Programming", group: "Computer science", topics: ["Python", "Data structures in Python", "Recursion", "Object-oriented programming", "Algorithmic problem solving"] },
+      { code: "COMP9020", title: "Foundations of Computer Science", group: "Computer science", topics: ["Logic and proofs", "Sets, relations, and functions", "Induction and recursion", "Graph theory", "Combinatorics and probability", "Asymptotic analysis"] },
+      { code: "COMP9331", title: "Computer Networks and Applications", group: "Computer science", topics: ["HTTP, DNS, and the application layer", "TCP and UDP", "Congestion and flow control", "IP and routing", "Link layer and wireless", "Socket programming"] },
+      { code: "COMP6733", title: "Internet of Things Design Studio", group: "Computer science", topics: ["IoT system architecture", "Bluetooth Low Energy, 802.15.4, 6LoWPAN, LPWAN", "CoAP and cloud services on AWS", "Localisation and time synchronisation", "Sensor filtering and data fusion", "Light-weight ML at the edge and activity recognition", "IoT security", "Arduino and MicroPython, team build"] },
+      { code: "COMP9511", title: "Human Computer Interaction", group: "Product, design & delivery", topics: ["User-centred design", "Requirements and user research", "Prototyping", "Usability evaluation and heuristics", "Accessibility and internationalisation", "Cognition and models of interaction"] },
+      { code: "COMP9900", title: "Information Technology Project", group: "Product, design & delivery", topics: ["Capstone team software project", "Agile and Scrum", "Jira, Git, and GitHub", "Requirements to delivery", "Team evaluation and reporting"] },
+      { code: "GSOE9820", title: "Engineering Project Management", group: "Product, design & delivery", topics: ["Project selection and strategy", "Scope, scheduling, and budgets", "Risk management", "Monitoring and control", "Leading project teams", "A project management plan"] },
+      { code: "GSOE9210", title: "Engineering Decision Structures", group: "Product, design & delivery", topics: ["Decisions under risk and uncertainty", "Bayesian reasoning", "Game theory", "Sequential decision making", "Social choice"] },
+      { code: "GSOE9010", title: "Engineering Postgraduate Research Skills", group: "Product, design & delivery", topics: ["Literature review", "Research methods", "Technical writing", "Presenting research"] },
+    ],
   },
   {
+    id: "msruas",
     period: "",
     title: "B.Tech, Computer Science",
     org: "M.S. Ramaiah University of Applied Sciences · Bangalore",
     points: [],
   },
   {
+    id: "udacity",
     period: "2020",
     title: "UX Design + Front-End Developer Nanodegrees",
     org: "Udacity",
@@ -131,6 +187,7 @@ export const reforge = {
 export const certifications: string[] = [
   "Reforge · Product Foundations (full feature lifecycle: opportunity, design, development, launch)",
   "Machine Learning, Andrew Ng (Coursera)",
+  "UNSW Peter Farrell Cup 2026, pitched Pedestal",
   "UNSW Peter Farrell Cup 2025, Startup Pitch (Semi-Finalist)",
   "Leadership Foundations (UNSW) + Strategic Thinking (AGSM)",
   "Swim Australia Teacher · CPR/AED/First Aid",
