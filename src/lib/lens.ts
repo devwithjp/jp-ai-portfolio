@@ -115,7 +115,6 @@ export const photos: LensPhoto[] = [
   { slug: "elephant-herd", title: "Asian elephants", place: "Masinagudi", date: "Jul 2022", cat: "wildlife", w: 2400, h: 1600, species: "Elephas maximus" },
   { slug: "yana-spires", title: "Yana", place: "Uttara Kannada", date: "Nov 2020", cat: "landscape", w: 1920, h: 2400, selected: 18 },
   { slug: "sea-cave-window", title: "Window", place: "Andaman Islands", date: "2023", cat: "adventure", w: 1920, h: 2400, selected: 5 },
-  { slug: "natural-bridge", title: "Natural Bridge", place: "Neil Island, Andaman", date: "Apr 2023", cat: "seascape", w: 1920, h: 2400, selected: 9 },
   { slug: "tidepools", title: "Tidepools", place: "Andaman Islands", date: "May 2023", cat: "seascape", w: 2271, h: 1514 },
   { slug: "mangrove", title: "Mangrove", place: "Andaman Islands", date: "Apr 2022", cat: "seascape", w: 2400, h: 1600 },
   { slug: "trees-in-the-tide", title: "Trees in the tide", place: "Andaman Islands", date: "Apr 2022", cat: "seascape", w: 2400, h: 1350, selected: 15 },
