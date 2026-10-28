@@ -61,7 +61,7 @@ export const reels: LensReel[] = [
     slug: "golden",
     title: "Golden hour",
     kicker: "Light",
-    length: "0:16",
+    length: "0:14",
     place: "Andaman · Gokarna · Karnataka",
     craft: ["Stills cut like video", "Grid collages on the beat", "Warm grade matched across cameras", "Build and release pacing"],
   },
