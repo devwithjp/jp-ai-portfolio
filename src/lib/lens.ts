@@ -148,7 +148,6 @@ export const photos: LensPhoto[] = [
   { slug: "mangrove-shallows", title: "Mangrove in the shallows", place: "Andaman Islands", date: "", cat: "seascape", w: 2160, h: 1440, selected: 1.5 },
   { slug: "island-cliff", title: "White cliffs", place: "Andaman Islands", date: "", cat: "seascape", w: 1495, h: 996 },
   { slug: "sunset-ripples", title: "Low tide, last light", place: "Andaman Islands", date: "", cat: "seascape", w: 1509, h: 1006, selected: 4.5 },
-  { slug: "sand-rills", title: "Sand rills", place: "Andaman Islands", date: "", cat: "seascape", w: 1509, h: 1006 },
   { slug: "cumulus-sea", title: "Evening cumulus", place: "Andaman Islands", date: "", cat: "seascape", w: 2400, h: 1600, selected: 13.5 },
   { slug: "golden-flats", title: "Golden flats", place: "Andaman Islands", date: "", cat: "seascape", w: 1509, h: 1006 },
   { slug: "sea-fan", title: "Sea fan & sea goldies", place: "Andaman Islands", date: "", cat: "underwater", w: 1080, h: 1350, species: "Pseudanthias squamipinnis", selected: 4 },
@@ -158,6 +157,7 @@ export const photos: LensPhoto[] = [
   { slug: "table-coral", title: "Butterflyfish", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1599, species: "Chaetodon sp.", selected: 11 },
   { slug: "trevally", title: "Trevally", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Carangidae" },
   { slug: "yellow-snappers", title: "Bluestripe snappers", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Lutjanus kasmira" },
+  { slug: "giant-moray", title: "Giant moray", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1599, species: "Gymnothorax javanicus" },
   { slug: "moray-crevice", title: "Moray eel", place: "Andaman Islands", date: "", cat: "underwater", w: 1273, h: 1590, species: "Muraenidae" },
   { slug: "clownfish-colony", title: "Ocellaris clownfish", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Amphiprion ocellaris" },
 ];
