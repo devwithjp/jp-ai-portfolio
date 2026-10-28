@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { projects } from "@/lib/projects";
 import { caseStudies, caseworkUrl } from "@/lib/casework";
+import { uniProjects } from "@/lib/uni";
 import { Section, SectionHeader, Eyebrow } from "@/components/ui";
 import { ProjectCard } from "@/components/project-card";
 import { Reveal } from "@/components/reveal";
@@ -10,7 +11,7 @@ import { Reveal } from "@/components/reveal";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Five playable AI PM case studies (Canva, Duolingo, Spotify, Airbnb, Netflix), four hosted AI products, and 45 from-scratch NLP/LLM notebooks.",
+    "Five playable AI PM case studies (Canva, Duolingo, Spotify, Airbnb, Netflix), four hosted AI products, university and hardware projects, and 45 from-scratch NLP/LLM notebooks.",
 };
 
 export default function ProjectsPage() {
@@ -73,6 +74,58 @@ export default function ProjectsPage() {
           {projects.map((p, i) => (
             <Reveal key={p.slug} delay={(i % 2) * 90}>
               <ProjectCard project={p} />
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section className="border-t border-line">
+        <Reveal>
+          <SectionHeader
+            eyebrow="University & hardware"
+            title="Coursework and side builds."
+            intro="Projects from my Master's at UNSW, plus two things I built for myself. Numbers come from the reports. Where a result was negative or a limit matters, it says so."
+          />
+        </Reveal>
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
+          {uniProjects.map((u, i) => (
+            <Reveal key={u.slug} delay={(i % 2) * 90}>
+              <article className="glass hairline h-full overflow-hidden">
+                <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-line bg-white">
+                  <Image
+                    src={u.shot}
+                    alt={u.shotAlt}
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="p-6 sm:p-7">
+                  <span className="font-mono text-xs uppercase tracking-[0.18em] text-accent">{u.kind}</span>
+                  <h2 className="font-display mt-3 text-2xl font-medium tracking-tight">{u.title}</h2>
+                  <p className="mt-2 text-muted">{u.blurb}</p>
+                  <ul className="mt-4 space-y-2 text-sm leading-relaxed text-muted">
+                    {u.details.map((d) => (
+                      <li key={d}>{d}</li>
+                    ))}
+                  </ul>
+                  <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1">
+                    {u.stack.map((t) => (
+                      <span key={t} className="font-mono text-[11px] uppercase tracking-wider text-muted/70">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                  {u.githubUrl ? (
+                    <a
+                      href={u.githubUrl}
+                      className="link-underline mt-5 inline-block text-sm font-medium text-link"
+                    >
+                      View code →
+                    </a>
+                  ) : null}
+                </div>
+              </article>
             </Reveal>
           ))}
         </div>
