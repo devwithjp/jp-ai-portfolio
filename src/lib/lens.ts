@@ -151,6 +151,9 @@ export const photos: LensPhoto[] = [
   { slug: "table-coral", title: "Butterflyfish", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1599, species: "Chaetodon sp.", selected: 11 },
   { slug: "trevally", title: "Trevally", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Carangidae" },
   { slug: "yellow-snappers", title: "Bluestripe snappers", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Lutjanus kasmira" },
+  { slug: "giant-moray", title: "Giant moray", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1599, species: "Gymnothorax javanicus" },
+  { slug: "moray-crevice", title: "Moray eel", place: "Andaman Islands", date: "", cat: "underwater", w: 1273, h: 1590, species: "Muraenidae" },
+  { slug: "clownfish-colony", title: "Ocellaris clownfish", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Amphiprion ocellaris" },
 ];
 
 export const selectedPhotos = photos
