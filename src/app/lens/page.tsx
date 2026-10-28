@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Container, Section, SectionHeader, CTA, Eyebrow } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { Marquee } from "@/components/chrome";
-import { ReelRail } from "@/components/lens/reel-player";
+import { ReelRail, FilmFeature } from "@/components/lens/reel-player";
 import { SelectedGrid, ArchiveStrip } from "@/components/lens/photo-gallery";
-import { lensIntro, reels, photos, selectedPhotos, categories, places, services, gear } from "@/lib/lens";
+import { lensIntro, reels, film, photos, selectedPhotos, categories, places, services, gear } from "@/lib/lens";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -69,7 +69,16 @@ export default function LensPage() {
         </Marquee>
       </div>
 
-      <Section id="work">
+      <Section id="film">
+        <Reveal>
+          <SectionHeader eyebrow="Long form" title="One trip, one track." />
+        </Reveal>
+        <Reveal className="mt-10">
+          <FilmFeature film={film} />
+        </Reveal>
+      </Section>
+
+      <Section id="work" className="border-t border-line">
         <Reveal>
           <SectionHeader eyebrow="Selected work" title="Frames I keep coming back to." intro="Developed from the originals and graded as one set. Tap any frame to see it full size." />
         </Reveal>

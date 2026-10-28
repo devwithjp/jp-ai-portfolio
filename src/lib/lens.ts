@@ -40,6 +40,14 @@ export const reels: LensReel[] = [
     craft: ["Per-shot underwater colour recovery", "Beat-locked cuts and punch-ins", "Split-screen reveals", "Muffled-to-open sound drop"],
   },
   {
+    slug: "reef",
+    title: "Reef",
+    kicker: "Marine life",
+    length: "0:12",
+    place: "Andaman Islands",
+    craft: ["Natural underwater colour, shot by shot", "Subject-first framing at reel speed", "Punch-ins on the beat", "Split-screen schools"],
+  },
+  {
     slug: "sendit",
     title: "Send it",
     kicker: "Adventure",
@@ -56,6 +64,17 @@ export const reels: LensReel[] = [
     craft: ["Stills cut like video", "Grid collages on the beat", "Warm grade matched across cameras", "Build and release pacing"],
   },
 ];
+
+export const film = {
+  slug: "andaman",
+  title: "Andaman",
+  kicker: "Film · 16:9",
+  length: "0:40",
+  place: "Andaman Islands",
+  blurb: "Roads, reefs, a backflip off the rocks and the light after. One trip, cut to one track.",
+  /** set when the full-quality cut is uploaded to YouTube/Vimeo */
+  embed: undefined as string | undefined,
+};
 
 export const categories: { key: LensCategory; label: string }[] = [
   { key: "wildlife", label: "Wildlife" },
