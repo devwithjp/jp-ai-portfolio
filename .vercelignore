@@ -2,3 +2,7 @@
 water media/
 *.mp4
 *.mov
+lens media/
+# Lens web reels are small (2 Mbps 720p) and ship with the site.
+!public/lens/reels/*.mp4
+!public/lens/film/*.mp4
