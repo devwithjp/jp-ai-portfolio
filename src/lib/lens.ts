@@ -45,7 +45,7 @@ export const reels: LensReel[] = [
     slug: "reef",
     title: "Reef",
     kicker: "Marine life",
-    length: "0:13",
+    length: "0:22",
     place: "Andaman Islands",
     craft: ["Natural underwater colour, shot by shot", "Subject-first framing at reel speed", "Punch-ins on the beat", "Split-screen schools"],
   },
