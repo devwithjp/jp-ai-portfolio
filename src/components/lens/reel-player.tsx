@@ -163,7 +163,6 @@ export function FilmFeature({ film }: { film: { slug: string; title: string; kic
     const v = ref.current;
     if (!v) return;
     setLive(true);
-    v.src = `/lens/film/${film.slug}.mp4`;
     v.muted = false;
     v.currentTime = 0;
     v.controls = true;
@@ -178,7 +177,7 @@ export function FilmFeature({ film }: { film: { slug: string; title: string; kic
           <video
             ref={ref}
             className="absolute inset-0 h-full w-full object-cover"
-            src={`/lens/film/${film.slug}-preview.mp4`}
+            src={`/lens/film/${film.slug}.mp4`}
             poster={`/lens/film/${film.slug}.jpg`}
             muted
             loop={!live}

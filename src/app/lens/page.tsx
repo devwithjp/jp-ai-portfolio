@@ -8,7 +8,7 @@ import { lensIntro, reels, film, photos, selectedPhotos, categories } from "@/li
 export const metadata: Metadata = {
   title: "Lens",
   description: "Photography and fast-cut vertical reels by JP: underwater, adventure, wildlife and travel. Available for brand and product shoots.",
-  openGraph: { images: ["/lens/photos/mangrove-shallows.jpg"] },
+  openGraph: { images: ["/lens/photos/dudhsagar-tunnel.jpg"] },
 };
 
 export default function LensPage() {
