@@ -4,6 +4,7 @@ import { waterQuote } from "@/lib/story";
 import { Container, Section, CTA } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { WorkIndex } from "@/components/work-index";
+import { allWork } from "@/lib/work";
 
 // Recruiter-critical facts, shown as a bare credential strip under the hero.
 const FACTS = [
@@ -81,10 +82,10 @@ export default function Home() {
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 className="font-display display-xl max-w-2xl">
-              Selected work. Most of it you can run.
+              Selected work. The real ones first.
             </h2>
             <span className="hidden font-mono text-xs uppercase tracking-wider text-muted sm:block">
-              Nine projects, mock mode, no keys
+              {allWork.length} projects
             </span>
           </div>
         </Reveal>

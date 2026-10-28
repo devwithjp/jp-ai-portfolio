@@ -90,7 +90,7 @@ export default function ProjectsPage() {
         <div className="mt-10 grid gap-5 md:grid-cols-2">
           {uniProjects.map((u, i) => (
             <Reveal key={u.slug} delay={(i % 2) * 90}>
-              <article className="glass hairline h-full overflow-hidden">
+              <article id={u.slug} className="glass hairline h-full scroll-mt-24 overflow-hidden">
                 <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-line bg-white">
                   <Image
                     src={u.shot}
