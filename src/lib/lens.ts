@@ -53,7 +53,7 @@ export const reels: LensReel[] = [
     slug: "sendit",
     title: "Send it",
     kicker: "Adventure",
-    length: "0:14",
+    length: "0:20",
     place: "Andaman Islands · Gokarna",
     craft: ["Action timed to the drop", "Speed ramps and whip pans", "Kinetic type", "Photo stop-motion and collage"],
   },
