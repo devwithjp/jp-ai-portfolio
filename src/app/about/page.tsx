@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { whyIBuild, whyIBuildIntro } from "@/lib/story";
-import { Section, SectionHeader, CTA, Eyebrow } from "@/components/ui";
-import { Reveal } from "@/components/reveal";
-import { ScrollStory } from "@/components/scroll-story";
+import { AboutBehavior } from "@/components/df/about-behavior";
 
 export const metadata: Metadata = {
   title: "About · JP, AI Product Manager in Sydney",
@@ -21,7 +19,7 @@ const faqs = [
   },
   {
     q: "Is JP an AI Product Manager in Sydney available for hire?",
-    a: "Yes. JP is based in Sydney, Australia, with full Australian work rights on a 485 visa and is open to sponsorship. He is available now for AI / Technical Product Manager and AI Engineer roles.",
+    a: "Yes. JP is based in Sydney, Australia, with full Australian work rights on a 485 visa. He is available now for AI / Technical Product Manager and AI Engineer roles.",
   },
   {
     q: "What does JP build?",
@@ -44,73 +42,78 @@ const faqLd = {
 };
 
 export default function AboutPage() {
+  const beats = whyIBuild;
   return (
-    <>
+    <AboutBehavior>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
       />
-      <Section>
-        <Reveal>
-          <SectionHeader eyebrow="Why I build" title={`I'm ${site.name}.`} intro={whyIBuildIntro} />
-        </Reveal>
-
-        {/* The building story: scrollytelling, one beat at a time. */}
-        <div className="mt-8">
-          <ScrollStory steps={whyIBuild.map((beat) => ({ kicker: beat.heading, lines: beat.body }))} />
+      <section className="phero">
+        <div className="wrap">
+          <p className="kicker accent scr">Why I build</p>
+          <h1 className="condensed ab-h kin">I&apos;m Jyothiprakash (JP).</h1>
+          <p className="lede">{whyIBuildIntro}</p>
         </div>
-      </Section>
+      </section>
 
-      {/* Voice + based-in band */}
-      <Section className="border-t border-line">
-        <div className="grid gap-6 lg:grid-cols-2">
-          <Reveal>
-            <div className="glass hairline h-full p-6">
-              <Eyebrow>How I say it</Eyebrow>
-              <ul className="mt-3 space-y-3 text-sm leading-relaxed text-muted">
-                {site.altPositionings.map((p, i) => (
-                  <li key={i}>{p}</li>
-                ))}
-              </ul>
+      <section className="story" id="story" aria-label="The building story">
+        <div className="st-pin">
+          <div className="wrap st-grid">
+            <ol className="st-rail" aria-hidden="true">
+              <span className="st-line"><i id="stFill"></i></span>
+              {beats.map((b, i) => (
+                <li key={i} data-i={i} className={i === 0 ? "on" : ""}><span className="idx">0{i + 1}</span><span className="st-h condensed">{b.heading}</span></li>
+              ))}
+            </ol>
+            <div className="st-stage">
+              {beats.map((b, i) => (
+                <article key={i} className={`beat ${i === 0 ? "on" : ""}`} data-i={i}>
+                  <span className="st-num condensed" aria-hidden="true">0{i + 1}</span>
+                  <p className="kicker accent st-k">Beat 0{i + 1} of 0{beats.length}</p>
+                  <h2 className="condensed st-title">{b.heading}</h2>
+                  {b.body.map((p, k) => (
+                    <p key={k} className={`st-p ${k === 0 ? "lead" : ""}`}>{p}</p>
+                  ))}
+                </article>
+              ))}
             </div>
-          </Reveal>
-          <Reveal delay={80}>
-            <div className="glass hairline h-full p-6">
-              <Eyebrow>Based in</Eyebrow>
-              <p className="mt-2 text-muted">{site.location}</p>
-              <p className="mt-3 font-mono text-xs text-link">{site.availability}</p>
-              <p className="mt-4 text-sm leading-relaxed text-muted">
-                There&apos;s another side of me too:{" "}
-                <Link href="/water" className="text-link hover:underline">
-                  the water
-                </Link>
-                .
-              </p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                <CTA href="/resume" variant="secondary">Resume</CTA>
-                <CTA href="/contact" variant="secondary">Contact</CTA>
-              </div>
-            </div>
-          </Reveal>
+          </div>
         </div>
-      </Section>
+      </section>
 
-      {/* FAQ (also feeds answer engines via FAQPage schema above) */}
-      <Section className="border-t border-line">
-        <Reveal>
-          <SectionHeader eyebrow="In short" title="The quick answers." />
-        </Reveal>
-        <div className="mt-8 grid gap-5 lg:grid-cols-2">
-          {faqs.map((f, i) => (
-            <Reveal key={f.q} delay={(i % 2) * 90}>
-              <div className="glass hairline h-full p-6">
-                <h3 className="font-display text-lg font-medium tracking-tight">{f.q}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{f.a}</p>
-              </div>
-            </Reveal>
-          ))}
+      <section className="section">
+        <div className="wrap grid2 band">
+          <div className="card spot pad up">
+            <p className="kicker accent">How I say it</p>
+            <ul className="dotlist">{site.altPositionings.map((p, i) => <li key={i}>{p}</li>)}</ul>
+          </div>
+          <div className="card spot pad up">
+            <p className="kicker accent">Based in</p>
+            <p className="muted">{site.location}</p>
+            <p className="avail">{site.availability}</p>
+            <p className="muted">There&apos;s another side of me too: <Link href="/water" className="link">the water</Link>.</p>
+            <div className="btns">
+              <Link href="/resume" className="btn btn-ghost">Resume</Link>
+              <Link href="/contact" className="btn btn-ghost">Contact</Link>
+            </div>
+          </div>
         </div>
-      </Section>
-    </>
+      </section>
+
+      <section className="section">
+        <div className="wrap">
+          <div className="sh"><p className="kicker accent scr">In short</p><h2 className="condensed big-h kin">The quick answers.</h2></div>
+          <div className="faq">
+            {faqs.map((f, i) => (
+              <div key={f.q} className="faq-i up">
+                <h3><button type="button" className="faq-q" id={`fq${i}`} aria-expanded={i === 0} aria-controls={`fa${i}`}><span>{f.q}</span><span className="sb-plus" aria-hidden="true"></span></button></h3>
+                <div className="faq-a" id={`fa${i}`} role="region" aria-labelledby={`fq${i}`}><p className="muted">{f.a}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </AboutBehavior>
   );
 }

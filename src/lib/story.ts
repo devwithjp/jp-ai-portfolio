@@ -17,15 +17,15 @@ export const whyIBuild: Beat[] = [
   {
     heading: "What changed",
     body: [
-      "I tried to start a company before I graduated: an “Uber for trucks” for small and mid-size factories. YC rejected it. It made their top 10% of rejections, which I've decided to count as an encouraging signal. Mostly it was the first time I thought past the code to the actual problem.",
+      "I tried to start a company before I graduated: an “Uber for trucks” for small and mid-size factories. YC rejected it. It made their top 10% of rejections, which I still mention. Mostly it was the first time I thought past the code to the actual problem.",
       "Then I spent a couple of years as a software engineer, most of it at Bewakoof, where the listing, product, and homepage flows I built were used by 50 million people. I led the frontend for a gift-card launch that lifted revenue 65% in a festive spike, and shipped Shopping in Hindi. That taught me the thing I keep relearning: products don't win on engineering. They win on understanding people, design, positioning, trust, and knowing what's worth building.",
     ],
   },
   {
     heading: "Where I'm going",
     body: [
-      "I moved to Sydney for a master's in AI at UNSW, mostly to see where the technology was heading. I got pulled into the founder world: a Startmate Founder Fellowship, the Peter Farrell Cup pitch competition, late nights at UNSW Founders. Humbling, in a useful way.",
-      "Somewhere in there my ambition quietly changed. I stopped wanting a purely technical role. I spent most of 2025 as a Product Manager at Rekro, leading a six-person engineering team and taking a 0→1 product from discovery to ship. It made the thing obvious: I don't just like coding. I like building, deciding what's worth making, then making it. That's the thread now, AI, product, and starting things.",
+      "I moved to Sydney for a master's in AI at UNSW, mostly to see where the technology was heading. I got pulled into the founder world: a Startmate Founder Fellowship, the Peter Farrell Cup pitch competition, late nights at UNSW Founders.",
+      "Somewhere in there my ambition quietly changed. I stopped wanting a purely technical role. I spent most of 2025 as a Product Manager at Rekro, leading a six-person engineering team and taking a 0→1 product from discovery to ship. It settled the question. I want to decide what gets built, and then build it. That's the thread now, AI, product, and starting things.",
     ],
   },
 ];

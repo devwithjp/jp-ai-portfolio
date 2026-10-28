@@ -23,7 +23,7 @@ export const site = {
     "ex-Bewakoof · 50M users",
   ],
   // Work-authorization + availability. Recruiters filter hard on this.
-  availability: "Full Australian work rights (485 visa). Open to sponsorship. Available now.",
+  availability: "Full Australian work rights (485 visa). Available now.",
   email: "jyothiprakash21.au@gmail.com",
   location: "Sydney, Australia",
   links: {

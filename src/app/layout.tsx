@@ -2,18 +2,17 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
-import { SiteNav, SiteFooter } from "@/components/nav";
-import { SmoothScroll } from "@/components/smooth-scroll";
-import { ScrollProgress } from "@/components/chrome";
+import { Ambient, Enhance, PageTransition, ScrollProgress, SiteFooter, SiteNav, SmoothScroll } from "@/components/df/shell";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 // Display face: Bricolage Grotesque. A contemporary grotesk with optical sizing
 // and just enough character to not read as a default. Sets the editorial tone.
+// Variable, with the width axis: the condensed display cuts use "wdth" 75.
 const display = Bricolage_Grotesque({
   variable: "--font-bricolage",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  axes: ["wdth", "opsz"],
 });
 
 export const metadata: Metadata = {
@@ -108,14 +107,12 @@ const siteLd = {
   author: { "@type": "Person", name: site.name },
 };
 
-// Before first paint: apply saved theme (no flash) and arm scroll-reveal.
-// `reveal-ready` gates the hidden start-state, so no-JS loads and crawlers
-// always see the content (see .reveal in globals.css).
-const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.add('light');}}catch(e){}document.documentElement.classList.add('reveal-ready');})();`;
+// Before first paint: apply the saved theme (dark is the default; Water is always dark).
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='light'&&location.pathname.indexOf('/water')!==0){document.documentElement.classList.add('light');}}catch(e){}})();`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${display.variable} h-full antialiased`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${display.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
@@ -127,12 +124,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteLd) }}
         />
       </head>
-      <body className="flex min-h-full flex-col font-sans">
+      <body>
         <SmoothScroll />
+        <Ambient />
         <ScrollProgress />
         <SiteNav />
-        <main className="flex-1">{children}</main>
+        <main id="main">{children}</main>
         <SiteFooter />
+        <PageTransition />
+        <Enhance />
       </body>
     </html>
   );

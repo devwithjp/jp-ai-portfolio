@@ -1,9 +1,33 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { projects, getProject } from "@/lib/projects";
-import { Container, Section, CTA, Tag, StatusBadge, Eyebrow } from "@/components/ui";
-import { CaseStudyTabs } from "@/components/case-study-tabs";
-import { ArchitectureDiagram } from "@/components/architecture-diagram";
+import { metricKindLabel } from "@/lib/site";
+import type { Project } from "@/lib/types";
+import { XLink } from "@/components/df/projects-link";
+import { ProjectCaseStudy } from "@/components/df/project-casestudy";
+import { ProjectFx } from "@/components/df/project-fx";
+
+const SHOT: Record<string, string> = {
+  "agenteval-studio": "product-agenteval",
+  "signaldesk-ai": "product-signaldesk",
+  "screensense-qa": "product-screensense",
+  "workflowpilot-safe-agents": "product-workflow",
+};
+const TABS = ["Product", "Engineering", "Demo", "Metrics", "Learnings"];
+
+function Sections({ list }: { list: Project["product"] }) {
+  return (
+    <>
+      {list.map((s) => (
+        <div key={s.heading} className="cs-sec">
+          <h3>{s.heading}</h3>
+          {s.body.map((b) => <p key={b} className="muted">{b}</p>)}
+          {s.bullets ? <ul className="dotlist">{s.bullets.map((b) => <li key={b}>{b}</li>)}</ul> : null}
+        </div>
+      ))}
+    </>
+  );
+}
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -30,117 +54,104 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = getProject(slug);
-  if (!project) notFound();
+  const p = getProject(slug);
+  if (!p) notFound();
+  const i = projects.indexOf(p);
+  const next = projects[(i + 1) % projects.length];
+  const shot = `/df/${SHOT[p.slug]}.jpg`;
+
+  const panels: Record<string, React.ReactNode> = {
+    Product: <Sections list={p.product} />,
+    Engineering: <Sections list={p.engineering} />,
+    Demo: (
+      <div className="demo">
+        <div className="shot demo-shot">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={shot} alt={`${p.title} screenshot`} />
+        </div>
+        <div className="demo-side">
+          <p className="muted">The demo runs in mock mode: realistic output, no API keys, no cost. Add a key and the same interface calls the live model.</p>
+          <ul className="dotlist">{p.screenshots.map((s) => <li key={s.caption}>{s.caption}</li>)}</ul>
+          {p.liveUrl ? <XLink href={p.liveUrl} className="btn btn-primary">Open the live demo ↗</XLink> : <span className="tag">Demo deploying soon</span>}
+        </div>
+      </div>
+    ),
+    Metrics: (
+      <div className="metrics">
+        {p.metrics.map((m) => (
+          <div key={m.label} className={`card pad metric k-${m.kind}`}>
+            <p className="kicker accent">{metricKindLabel[m.kind] || m.kind}</p>
+            <h3>{m.label}</h3>
+            <p className="muted">{m.note}</p>
+          </div>
+        ))}
+      </div>
+    ),
+    Learnings: (
+      <div className="grid2">
+        <div><p className="kicker accent">What I learned</p><ul className="dotlist big">{p.learnings.map((l) => <li key={l}>{l}</li>)}</ul></div>
+        <div><p className="kicker accent">Interview talking points</p><ul className="dotlist big">{p.interviewTalkingPoints.map((l) => <li key={l}>{l}</li>)}</ul></div>
+      </div>
+    ),
+  };
 
   return (
-    <>
-      {/* Header */}
-      <div className="border-b border-line">
-        <div className="bg-grid absolute inset-x-0 -z-10 h-72" aria-hidden />
-        <Container className="py-14">
-          <div className="flex items-center gap-3">
-            <Eyebrow>{project.category}</Eyebrow>
-            <StatusBadge status={project.status} />
+    <div className="p-project">
+      <section className="phero proj-hero">
+        <div className="wrap">
+          <p><XLink href="/projects#products" className="link back">← All projects</XLink></p>
+          <div className="ph-meta"><span className="kicker accent scr">{p.category}</span><span className={`status s-${p.status}`}>{p.status === "mock-demo" ? "Mock demo" : p.status}</span></div>
+          <h1 className="display-hero kin">{p.title}</h1>
+          <p className="lede">{p.pitch}</p>
+          <div className="tags ph-tags">{p.stack.map((s) => <span key={s} className="tag">{s}</span>)}</div>
+          <div className="btns ph-ctas">
+            {p.liveUrl ? <XLink href={p.liveUrl} className="btn btn-primary">Live demo <span className="arr">↗</span></XLink> : <span className="btn btn-ghost" aria-disabled="true">Demo deploying soon</span>}
+            {p.githubUrl ? <XLink href={p.githubUrl} className="btn btn-ghost">GitHub</XLink> : null}
           </div>
-          <h1 className="font-display mt-4 max-w-3xl text-4xl font-medium tracking-tight sm:text-5xl">
-            {project.title}
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{project.pitch}</p>
+        </div>
+        <div className="wrap"><div className="shot ph-shot tilt">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={shot} alt={`${p.title} screenshot`} />
+        </div></div>
+      </section>
 
-          <div className="mt-6 flex flex-wrap gap-1.5">
-            {project.stack.map((s) => (
-              <Tag key={s}>{s}</Tag>
-            ))}
-          </div>
-
-          <div className="mt-7 flex flex-wrap items-center gap-3">
-            {project.liveUrl ? (
-              <CTA href={project.liveUrl} external>
-                Live demo
-              </CTA>
-            ) : (
-              <span className="inline-flex h-11 items-center rounded-full border border-line px-5 text-sm text-muted">
-                Demo deploying soon
-              </span>
-            )}
-            {project.githubUrl ? (
-              <CTA href={project.githubUrl} external variant="secondary">
-                GitHub
-              </CTA>
-            ) : null}
-            <CTA href="/projects" variant="secondary">
-              All projects
-            </CTA>
-          </div>
-        </Container>
-      </div>
-
-      {/* At a glance */}
-      <Section>
-        <div className="grid gap-8 lg:grid-cols-[1fr_minmax(0,360px)]">
+      <section className="section">
+        <div className="wrap glance">
           <div>
-            <h2 className="text-lg font-semibold tracking-tight">At a glance</h2>
-            <dl className="mt-4 space-y-4">
-              <div>
-                <dt className="font-mono text-xs uppercase tracking-wider text-accent">ICP</dt>
-                <dd className="mt-1 text-muted">{project.icp}</dd>
-              </div>
-              <div>
-                <dt className="font-mono text-xs uppercase tracking-wider text-accent">Features</dt>
-                <dd className="mt-2">
-                  <ul className="grid gap-2 sm:grid-cols-2">
-                    {project.features.map((f) => (
-                      <li key={f} className="flex gap-2 text-muted">
-                        <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-accent" />
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </dd>
-              </div>
+            <h2 className="display-lg kin">At a glance</h2>
+            <dl className="gl">
+              <div><dt className="kicker accent">ICP</dt><dd className="muted">{p.icp}</dd></div>
+              <div><dt className="kicker accent">Features</dt><dd><ul className="dotlist feat">{p.features.map((f) => <li key={f}>{f}</li>)}</ul></dd></div>
             </dl>
           </div>
           <div>
-            <h2 className="text-lg font-semibold tracking-tight">AI architecture</h2>
-            <div className="mt-4">
-              <ArchitectureDiagram steps={project.architecture} />
+            <h2 className="display-lg kin">AI architecture</h2>
+            <div className="archwrap" id="arch">
+              <span className="arch-line" aria-hidden="true"><i id="archFill"></i></span>
+              <ol className="arch">{p.architecture.map((s, k) => <li key={s.label}><span className="arch-n">{k + 1}</span><div><h3>{s.label}</h3><p className="muted">{s.detail}</p></div></li>)}</ol>
             </div>
           </div>
         </div>
-      </Section>
+      </section>
 
-      {/* Tabbed case study */}
-      <Section className="border-t border-line">
-        <h2 className="mb-6 text-2xl font-semibold tracking-tight">Case study</h2>
-        <CaseStudyTabs project={project} />
-      </Section>
-
-      {/* Resume bullets */}
-      <Section className="border-t border-line">
-        <div className="grid gap-8 md:grid-cols-2">
-          <div>
-            <Eyebrow>Resume bullets · AI Engineering</Eyebrow>
-            <ul className="mt-4 space-y-3">
-              {project.aiEngineerBullets.map((b, i) => (
-                <li key={i} className="rounded-lg border border-line bg-surface p-4 text-sm leading-relaxed text-muted">
-                  {b}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <Eyebrow>Resume bullets · AI PM</Eyebrow>
-            <ul className="mt-4 space-y-3">
-              {project.aiPmBullets.map((b, i) => (
-                <li key={i} className="rounded-lg border border-line bg-surface p-4 text-sm leading-relaxed text-muted">
-                  {b}
-                </li>
-              ))}
-            </ul>
-          </div>
+      <section className="section">
+        <div className="wrap">
+          <h2 className="display-xl kin">Case study</h2>
+          <ProjectCaseStudy tabs={TABS} panels={panels} />
         </div>
-      </Section>
-    </>
+      </section>
+
+      <section className="section">
+        <div className="wrap grid2 bullets">
+          <div><p className="kicker accent">Resume bullets · AI Engineering</p><ul>{p.aiEngineerBullets.map((b) => <li key={b} className="card pad up">{b}</li>)}</ul></div>
+          <div><p className="kicker accent">Resume bullets · AI PM</p><ul>{p.aiPmBullets.map((b) => <li key={b} className="card pad up">{b}</li>)}</ul></div>
+        </div>
+      </section>
+
+      <section className="nextp">
+        <XLink href={`/projects/${next.slug}`} className="wrap"><span className="kicker">Next project</span><span className="np-t">{next.title}</span><span className="np-a" aria-hidden="true">→</span></XLink>
+      </section>
+      <ProjectFx />
+    </div>
   );
 }

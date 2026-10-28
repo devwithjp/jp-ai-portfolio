@@ -1,18 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
 import { projects } from "@/lib/projects";
 import { caseStudies, caseworkUrl } from "@/lib/casework";
-import { Section, SectionHeader, Eyebrow, Tag } from "@/components/ui";
-import { ProjectCard } from "@/components/project-card";
-import { Reveal } from "@/components/reveal";
-import { PedestalFeature } from "@/components/pedestal-feature";
-import { ProjectFilter, FilterGroup } from "@/components/project-filter";
+import { pedestal } from "@/lib/pedestal";
+import { featured } from "@/lib/featured";
 import { groupTypes, itemTypes, pitchscore, projectTypes, typesOf, type ProjectType } from "@/lib/project-types";
 import { uniLead, uniSide, getUni } from "@/lib/uni";
-import { UniCard } from "@/components/uni-card";
-import { FeaturedGrid } from "@/components/featured-grid";
-import { ShowAll } from "@/components/show-all";
+import { XLink } from "@/components/df/projects-link";
+import { ProjectsShowAll } from "@/components/df/projects-showall";
+import { ProjectsLabTeaser } from "@/components/df/projects-labteaser";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -37,202 +32,185 @@ const counts = {
   ),
 } as Record<"all" | ProjectType, number>;
 
-export default function ProjectsPage() {
+
+// Prototype screenshot per product (public/df).
+const SHOT: Record<string, string> = {
+  "agenteval-studio": "product-agenteval",
+  "signaldesk-ai": "product-signaldesk",
+  "screensense-qa": "product-screensense",
+  "workflowpilot-safe-agents": "product-workflow",
+};
+const dfImg = (p: string) => "/df/" + p.split("/").pop()!.replace(/\.(png|jpg)$/, "") + ".jpg";
+// Featured/uni shots that have no /df copy keep their original file.
+const featImg = (p: string) => (/\/(pedestal|casework-|product-)/.test(p) ? dfImg(p) : p);
+const STATUS: Record<string, string> = { live: "Live", "mock-demo": "Mock demo", planned: "Planned" };
+
+function Header({ eyebrow, title, intro }: { eyebrow?: string; title: string; intro?: string }) {
   return (
-    <>
-      <Section className="!pb-12">
-        <Reveal>
-          <SectionHeader
-            eyebrow="Projects"
-            title="Three I'd show you first."
-            intro="A venture I'm building, my capstone, and a product I shipped on my own. All real, all measured. Everything else is one click away."
-          />
-        </Reveal>
-        <div className="mt-10">
-          <FeaturedGrid />
-        </div>
-      </Section>
+    <div className="sh">
+      {eyebrow ? <p className="kicker accent scr">{eyebrow}</p> : null}
+      <h2 className="display-xl kin">{title}</h2>
+      {intro ? <p className="lede">{intro}</p> : null}
+    </div>
+  );
+}
 
-      <ShowAll total={counts.all}>
-        <ProjectFilter counts={counts}>
-          <div className="[&>section+section]:border-t [&>section+section]:border-line">
-            <FilterGroup types={groupTypes.pedestal}>
-              <Section id="pedestal" className="scroll-mt-32">
-                <Reveal>
-                  <SectionHeader
-                    eyebrow="My venture"
-                    title="Pedestal, the thing I'm building."
-                    intro="An AI communication coach for the rooms that decide careers. I build the product end to end: the mobile app, the backend, the coach, and the pitch."
-                  />
-                </Reveal>
-                <Reveal delay={80}>
-                  <div className="mt-10">
-                    <PedestalFeature />
+function UniCard({ slug }: { slug: string }) {
+  const u = getUni(slug);
+  const contain = u.fit === "contain";
+  return (
+    <article id={u.slug} data-types={itemTypes[slug].join(" ")} className="card spot up pcard" style={{ scrollMarginTop: 120 }}>
+      <div className="shot pc-shot" style={contain ? { background: "#fff" } : undefined}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={u.shot} alt={u.shotAlt} loading="lazy" data-fit={contain ? "contain" : undefined} style={contain ? { objectFit: "contain", padding: 12 } : undefined} />
+      </div>
+      <div className="pad pc-body">
+        <div className="pc-top"><span className="kicker accent">{u.kind}</span></div>
+        <h3 className="display-lg">{u.title}</h3>
+        <p className="muted">{u.blurb}</p>
+        <ul className="dotlist">{u.details.map((d) => <li key={d}>{d}</li>)}</ul>
+        <div className="tags">{u.stack.map((s) => <span key={s} className="tag">{s}</span>)}</div>
+        {u.githubUrl ? (
+          <div className="pc-links"><XLink href={u.githubUrl} className="link">View code ↗</XLink></div>
+        ) : null}
+      </div>
+    </article>
+  );
+}
+
+export default function ProjectsPage() {
+  const tabs = projectTypes.map((t) => ({ id: t.id, label: t.label, count: counts[t.id] }));
+  return (
+    <div className="p-projects">
+      <section className="phero">
+        <div className="wrap">
+          <p className="kicker accent scr">Projects</p>
+          <h1 className="display-hero kin">Three I&apos;d show you first.</h1>
+          <p className="lede">A venture I&apos;m building, my capstone, and a product I shipped on my own. All real, all measured. Everything else is one click away.</p>
+          <div className="feat3">
+            {featured.map((f, i) => {
+              const contain = f.fit === "contain";
+              return (
+                <XLink key={f.title} href={f.href} className={`card spot tilt f3 up ${i === 0 ? "f3-lead" : ""}`}>
+                  <div className="shot f3-shot" style={contain ? { background: "#fff" } : undefined}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={featImg(f.shot)} alt={`${f.title} screen`} loading={i ? "lazy" : "eager"} style={contain ? { objectFit: "contain", padding: 12 } : undefined} />
                   </div>
-                </Reveal>
-              </Section>
-            </FilterGroup>
-
-            <FilterGroup types={typesOf(uniLead)}>
-              <Section id="built" className="scroll-mt-32">
-                <Reveal>
-                  <SectionHeader
-                    eyebrow="University & personal"
-                    title="Built with a team, evaluated honestly."
-                    intro="Projects from my Master's at UNSW, and a product I built for myself. Real data, real results, limits stated. Numbers come from the reports. Where a result was negative, it says so."
-                  />
-                </Reveal>
-                <div className="mt-10 grid gap-5 md:grid-cols-2">
-                  {uniLead.map((slug, i) => (
-                    <FilterGroup key={slug} types={itemTypes[slug]}>
-                      <Reveal delay={(i % 2) * 90}>
-                        <UniCard u={getUni(slug)} />
-                      </Reveal>
-                    </FilterGroup>
-                  ))}
-                </div>
-              </Section>
-            </FilterGroup>
-
-            <FilterGroup types={groupTypes.casework}>
-              <Section id="casework" className="scroll-mt-32">
-                <Reveal>
-                  <SectionHeader
-                    eyebrow="Casework"
-                    title="Case studies you play, not read."
-                    intro="Five core AI PM skills: PRDs, evals, launch plans, risk and safety, and metrics. Each grounded in a real product from a company you know, and turned into a decision you actually make. Unofficial concept work, everything in mock mode."
-                  />
-                </Reveal>
-                <div className="mt-10 grid gap-5 md:grid-cols-2">
-                  {caseStudies.map((c, i) => (
-                    <Reveal key={c.slug} delay={(i % 2) * 90}>
-                      <a
-                        href={`${caseworkUrl}/${c.slug}`}
-                        className={`glass hairline lift group block h-full overflow-hidden ${i === 0 ? "md:col-span-2" : ""}`}
-                      >
-                        {c.shot ? (
-                          <div
-                            className={`relative w-full overflow-hidden border-b border-line ${i === 0 ? "aspect-[21/9]" : "aspect-[16/9]"}`}
-                          >
-                            <Image
-                              src={c.shot}
-                              alt={`${c.title} case study screen`}
-                              fill
-                              sizes="(min-width: 768px) 50vw, 100vw"
-                              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
-                            />
-                          </div>
-                        ) : null}
-                        <div className="p-6 sm:p-7">
-                          <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
-                            <span className="uppercase tracking-[0.18em] text-accent">{c.skill}</span>
-                            <span className="text-muted">·</span>
-                            <span className="text-muted">{c.company}</span>
-                            <span className="ml-auto text-muted">~{c.minutes} min</span>
-                          </div>
-                          <h2 className="font-display mt-3 text-2xl font-medium tracking-tight">{c.title}</h2>
-                          <p className="mt-2 text-muted">{c.hook}</p>
-                          <p className="mt-3 text-sm leading-relaxed text-muted">{c.twist}</p>
-                          <span className="link-underline mt-5 inline-block text-sm font-medium text-link">
-                            Play it →
-                          </span>
-                        </div>
-                      </a>
-                    </Reveal>
-                  ))}
-                </div>
-              </Section>
-            </FilterGroup>
-
-            <FilterGroup types={groupTypes.products}>
-              <Section id="products" className="scroll-mt-32">
-                <Reveal>
-                  <SectionHeader
-                    title="Four AI products, two lenses each."
-                    intro="Evaluation, RAG, multimodal, and safe agents. Each one is a working demo, then reads two ways: an engineering case study for how it's built, and a product case study for why. Every demo runs in mock mode, so it works with no API keys."
-                  />
-                </Reveal>
-                <div className="mt-10 grid gap-5 md:grid-cols-2">
-                  {projects.map((p, i) => (
-                    <Reveal key={p.slug} delay={(i % 2) * 90}>
-                      <ProjectCard project={p} />
-                    </Reveal>
-                  ))}
-                </div>
-              </Section>
-            </FilterGroup>
-
-            {/* Side builds */}
-            <FilterGroup types={typesOf(SIDE)}>
-              <Section id="builds" className="scroll-mt-32">
-                <Reveal>
-                  <SectionHeader
-                    eyebrow="Side builds"
-                    title="Smaller things, shipped for fun."
-                    intro="Built for myself: a pitch coach, and a music tool because I swim."
-                  />
-                </Reveal>
-                <div className="mt-10 grid gap-5 md:grid-cols-2">
-                  <FilterGroup types={itemTypes["pitchscore-ai"]}>
-                    <Reveal>
-                      <a
-                        href={pitchscore.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="surface lift group flex h-full flex-col p-7"
-                      >
-                        <span className="kicker kicker-accent">Voice AI · web app</span>
-                        <h3 className="font-display display-lg mt-4 transition-colors group-hover:text-link">
-                          {pitchscore.title}
-                        </h3>
-                        <p className="mt-3 flex-1 leading-relaxed text-muted">{pitchscore.pitch}</p>
-                        <div className="mt-5 flex flex-wrap gap-1.5">
-                          {pitchscore.stack.map((s) => (
-                            <Tag key={s}>{s}</Tag>
-                          ))}
-                        </div>
-                        <span className="link-underline mt-6 self-start text-sm font-medium text-link">
-                          View on GitHub ↗
-                        </span>
-                      </a>
-                    </Reveal>
-                  </FilterGroup>
-                  {uniSide.map((slug, i) => (
-                    <FilterGroup key={slug} types={itemTypes[slug]}>
-                      <Reveal delay={(i + 1) * 90}>
-                        <UniCard u={getUni(slug)} />
-                      </Reveal>
-                    </FilterGroup>
-                  ))}
-                </div>
-              </Section>
-            </FilterGroup>
-
-            {/* Lab teaser */}
-            <FilterGroup types={groupTypes.lab}>
-              <Section id="lab">
-                <Reveal>
-                  <Link href="/projects/lab" className="glass hairline lift group block overflow-hidden p-8 sm:p-10">
-                    <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                      <div className="max-w-2xl">
-                        <Eyebrow>Lab · from scratch</Eyebrow>
-                        <h2 className="font-display mt-3 text-2xl font-medium tracking-tight sm:text-3xl">
-                          And underneath the products: the stack, built by hand.
-                        </h2>
-                        <p className="mt-3 leading-relaxed text-muted">
-                          Products show I can ship. The Lab shows I know what&apos;s underneath: 45 notebooks
-                          implementing the modern NLP and LLM stack from first principles, a regex tokenizer to RLHF.
-                        </p>
-                      </div>
-                      <span className="link-underline shrink-0 text-sm font-medium text-link">Open the Lab →</span>
-                    </div>
-                  </Link>
-                </Reveal>
-              </Section>
-            </FilterGroup>
+                  <div className="f3-body">
+                    <p className="kicker accent">{f.kicker}</p>
+                    <h3>{f.title}</h3>
+                    <p className="muted">{f.blurb}</p>
+                    <p className="fc-meta">{f.meta}</p>
+                    <span className="link">{f.cta} {f.external ? "↗" : "→"}</span>
+                  </div>
+                </XLink>
+              );
+            })}
           </div>
-        </ProjectFilter>
-      </ShowAll>
-    </>
+        </div>
+      </section>
+
+      <ProjectsShowAll total={counts.all} tabs={tabs}>
+        <section className="section fg" data-types={groupTypes.pedestal.join(" ")} id="pedestal">
+          <div className="wrap">
+            <Header eyebrow="My venture" title="Pedestal, the thing I'm building." intro="An AI communication coach for the rooms that decide careers. I build the product end to end: the mobile app, the backend, the coach, and the pitch." />
+            <a className="card spot ped" href={pedestal.url} target="_blank" rel="noopener noreferrer">
+              <div className="shot ped-shot">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/df/pedestal.jpg" alt="Pedestal landing page" loading="lazy" />
+              </div>
+              <div className="pad ped-body">
+                <p className="kicker accent">{pedestal.role} · <span className="muted">{pedestal.period}</span></p>
+                <h3 className="display-lg">{pedestal.name}</h3>
+                <p className="ped-tag">{pedestal.tagline}</p>
+                <p className="muted">{pedestal.pitch}</p>
+                <ul className="dotlist">{pedestal.built.map((b) => <li key={b}>{b}</li>)}</ul>
+                <div className="tags">{pedestal.stack.map((s) => <span key={s} className="tag">{s}</span>)}</div>
+                <div className="ped-foot"><span className="pill"><span className="pulse"></span>{pedestal.status}</span><span className="link">Visit pedestaltech.dev ↗</span></div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <section className="section fg" data-types={typesOf(uniLead).join(" ")} id="built">
+          <div className="wrap">
+            <Header eyebrow="University & personal" title="Built with a team, evaluated honestly." intro="Projects from my Master's at UNSW, and a product I built for myself. Real data, real results, limits stated. Numbers come from the reports. Where a result was negative, it says so." />
+            <div className="grid2 pc">{uniLead.map((slug) => <UniCard key={slug} slug={slug} />)}</div>
+          </div>
+        </section>
+
+        <section className="section fg" data-types={groupTypes.casework.join(" ")} id="casework">
+          <div className="wrap">
+            <Header eyebrow="Casework" title="Case studies you play, not read." intro="Five core AI PM skills: PRDs, evals, launch plans, risk and safety, and metrics. Each grounded in a real product from a company you know, and turned into a decision you actually make. Unofficial concept work, everything in mock mode." />
+            <div className="grid2 cw">
+              {caseStudies.map((c, i) => (
+                <XLink key={c.slug} href={`${caseworkUrl}/${c.slug}`} className={`card spot up ${i === 0 ? "span2" : ""}`}>
+                  <div className={`shot cw-shot ${i === 0 ? "wide" : ""}`}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={dfImg(c.shot ?? `casework-${c.slug}`)} alt={`${c.title} case study screen`} loading="lazy" />
+                  </div>
+                  <div className="pad">
+                    <div className="cw-meta"><span className="kicker accent">{c.skill}</span><span className="muted">{c.company}</span><span className="muted cw-min">~{c.minutes} min</span></div>
+                    <h3 className="cw-t">{c.title}</h3>
+                    <p className="cw-hook">{c.hook}</p>
+                    <p className="muted cw-twist">{c.twist}</p>
+                    <span className="link">Play it →</span>
+                  </div>
+                </XLink>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section fg" data-types={groupTypes.products.join(" ")} id="products">
+          <div className="wrap">
+            <Header title="Four AI products, two lenses each." intro="Evaluation, RAG, multimodal, and safe agents. Each one is a working demo, then reads two ways: an engineering case study for how it's built, and a product case study for why. Every demo runs in mock mode, so it works with no API keys." />
+            <div className="grid2 pc">
+              {projects.map((p) => (
+                <article key={p.slug} className="card spot up pcard">
+                  <XLink href={`/projects/${p.slug}`} className="shot pc-shot" tabIndex={-1} ariaHidden>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={`/df/${SHOT[p.slug]}.jpg`} alt="" loading="lazy" />
+                  </XLink>
+                  <div className="pad pc-body">
+                    <div className="pc-top"><span className="kicker accent">{p.category}</span><span className={`status s-${p.status}`}>{STATUS[p.status] || p.status}</span></div>
+                    <h3 className="display-lg"><XLink href={`/projects/${p.slug}`}>{p.title}</XLink></h3>
+                    <p className="muted">{p.pitch}</p>
+                    <div className="tags role">{p.roleSignals.map((r) => <span key={r} className="tag mono">{r}</span>)}</div>
+                    <div className="tags">{p.stack.slice(0, 4).map((s) => <span key={s} className="tag">{s}</span>)}</div>
+                    <div className="pc-links">
+                      <XLink href={`/projects/${p.slug}`} className="link">Case study →</XLink>
+                      {p.liveUrl ? <XLink href={p.liveUrl} className="muted plain">Live demo</XLink> : <span className="muted">Demo soon</span>}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section fg" data-types={typesOf(SIDE).join(" ")} id="builds">
+          <div className="wrap">
+            <Header eyebrow="Side builds" title="Smaller things, shipped for fun." intro="Built for myself: a pitch coach, and a music tool because I swim." />
+            <div className="grid2 pc">
+              <a className="card spot pad up build" data-types={itemTypes["pitchscore-ai"].join(" ")} href={pitchscore.url} target="_blank" rel="noopener noreferrer">
+                <p className="kicker accent">Voice AI · web app</p>
+                <h3 className="display-lg">{pitchscore.title}</h3>
+                <p className="muted">{pitchscore.pitch}</p>
+                <div className="tags">{pitchscore.stack.map((s) => <span key={s} className="tag">{s}</span>)}</div>
+                <span className="link">View on GitHub ↗</span>
+              </a>
+              {uniSide.map((slug) => <UniCard key={slug} slug={slug} />)}
+            </div>
+          </div>
+        </section>
+
+        <section className="section fg" data-types={groupTypes.lab.join(" ")} id="lab">
+          <div className="wrap">
+            <ProjectsLabTeaser />
+          </div>
+        </section>
+      </ProjectsShowAll>
+    </div>
   );
 }
