@@ -43,3 +43,6 @@ next-env.d.ts
 
 # Raw source media (optimized versions live in public/water/)
 /water media/
+
+# Lens raw/working media
+/lens media/
