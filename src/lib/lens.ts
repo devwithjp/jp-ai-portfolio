@@ -37,7 +37,7 @@ export const reels: LensReel[] = [
     slug: "blue",
     title: "Blue",
     kicker: "Underwater",
-    length: "0:20",
+    length: "0:18",
     place: "Andaman Islands",
     craft: ["Per-shot underwater colour recovery", "Beat-locked cuts and punch-ins", "Split-screen reveals", "Muffled-to-open sound drop"],
   },
@@ -45,7 +45,7 @@ export const reels: LensReel[] = [
     slug: "reef",
     title: "Reef",
     kicker: "Marine life",
-    length: "0:12",
+    length: "0:13",
     place: "Andaman Islands",
     craft: ["Natural underwater colour, shot by shot", "Subject-first framing at reel speed", "Punch-ins on the beat", "Split-screen schools"],
   },
@@ -71,7 +71,7 @@ export const film = {
   slug: "andaman",
   title: "Island days",
   kicker: "Film · 16:9",
-  length: "0:40",
+  length: "0:34",
   place: "Andaman Islands",
   blurb: "Roads, reefs, a backflip off the rocks and the light after. One trip, cut to one track.",
   /** set when the full-quality cut is uploaded to YouTube/Vimeo */
@@ -151,6 +151,9 @@ export const photos: LensPhoto[] = [
   { slug: "table-coral", title: "Butterflyfish", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1599, species: "Chaetodon sp.", selected: 11 },
   { slug: "trevally", title: "Trevally", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Carangidae" },
   { slug: "yellow-snappers", title: "Bluestripe snappers", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Lutjanus kasmira" },
+  { slug: "giant-moray", title: "Giant moray", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1599, species: "Gymnothorax javanicus" },
+  { slug: "moray-crevice", title: "Moray eel", place: "Andaman Islands", date: "", cat: "underwater", w: 1273, h: 1590, species: "Muraenidae" },
+  { slug: "clownfish-colony", title: "Ocellaris clownfish", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Amphiprion ocellaris" },
 ];
 
 export const selectedPhotos = photos
