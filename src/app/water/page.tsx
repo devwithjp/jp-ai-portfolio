@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { water, waterIntro, waterHighlights } from "@/lib/story";
+import { water, waterIntro } from "@/lib/story";
 import { WaterFx } from "@/components/df/water-fx";
 
 export const metadata: Metadata = {
@@ -34,13 +34,6 @@ export default function WaterPage() {
           <canvas id="storyCanvas" aria-hidden="true" />
           <div className="wrap w-beats">{water.map((p, i) => <p className={`w-beat${i ? "" : " on"}`} key={i}>{p}</p>)}</div>
           <div className="w-dots wrap" aria-hidden="true">{water.map((_, i) => <i className={i ? "" : "on"} key={i} />)}</div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="wrap">
-          <p className="kicker accent scr">Selected highlights</p>
-          <ul className="w-hl">{waterHighlights.map((h) => <li className="up" key={h}>{h}</li>)}</ul>
         </div>
       </section>
 
