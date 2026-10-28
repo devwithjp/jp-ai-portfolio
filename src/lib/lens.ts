@@ -67,7 +67,7 @@ export const reels: LensReel[] = [
 
 export const film = {
   slug: "andaman",
-  title: "Andaman",
+  title: "Island days",
   kicker: "Film · 16:9",
   length: "0:40",
   place: "Andaman Islands",
@@ -98,7 +98,6 @@ export const gear = ["GoPro HERO9 Black", "Sony α58", "SJCAM 4K", "Phone (Samsu
 
 export const photos: LensPhoto[] = [
   { slug: "elephants-dawn", title: "Dawn crossing", place: "Dubare, Karnataka", date: "2017", cat: "wildlife", w: 2400, h: 1600, selected: 3 },
-  { slug: "mahout-backlight", title: "Morning bath", place: "Dubare, Karnataka", date: "2017", cat: "wildlife", w: 1919, h: 2400, selected: 9 },
   { slug: "trunk-silhouette", title: "Trunk", place: "Dubare, Karnataka", date: "2017", cat: "wildlife", w: 2400, h: 1600 },
   { slug: "cormorant-snag", title: "Lookout", place: "Dubare, Karnataka", date: "2017", cat: "wildlife", w: 1919, h: 2400 },
   { slug: "vine-snake", title: "Vine snake", place: "Dandeli, Karnataka", date: "Oct 2018", cat: "wildlife", w: 1601, h: 2001, selected: 0 },

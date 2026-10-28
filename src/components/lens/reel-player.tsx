@@ -189,10 +189,9 @@ export function FilmFeature({ film }: { film: { slug: string; title: string; kic
           <button type="button" onClick={start} className="group absolute inset-0 flex items-end bg-gradient-to-t from-[#03141a]/90 via-[#03141a]/45 to-transparent p-6 text-left sm:p-10" aria-label={`Play ${film.title} with sound`}>
             <div>
               <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
-                {film.kicker} · {film.place} · {film.length}
+                {film.kicker} · {film.length}
               </span>
               <h3 className="font-display mt-2 text-5xl font-medium leading-none tracking-tight text-[#eef6f7] sm:text-7xl">{film.title}</h3>
-              <p className="mt-3 max-w-md text-[#d3e6e9]">{film.blurb}</p>
               <span className="mt-5 inline-flex h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-medium text-accent-fg transition-transform group-hover:-translate-y-0.5">
                 <svg width="10" height="12" viewBox="0 0 10 12" aria-hidden>
                   <path d="M0 0l10 6-10 6z" fill="currentColor" />
