@@ -39,9 +39,17 @@ function Lightbox({ list, index, onClose, onStep }: { list: LensPhoto[]; index: 
       }}
     >
       <div className="relative m-4 mt-16 flex-1" onClick={(e) => e.stopPropagation()}>
-        <Image src={`/lens/photos/${p.slug}.jpg`} alt={`${p.title}, ${p.place}`} fill sizes="100vw" className="object-contain" priority />
+        <Image src={`/lens/photos/${p.slug}.jpg`} alt={p.species ? `${p.title} (${p.species})` : p.title} fill sizes="100vw" className="object-contain" priority />
       </div>
-      <div className="flex items-end justify-end gap-4 px-5 pb-6" onClick={(e) => e.stopPropagation()} style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 1.5rem)" }}>
+      <div className="flex items-end justify-between gap-4 px-5 pb-6" onClick={(e) => e.stopPropagation()} style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 1.5rem)" }}>
+        <div>
+          {p.species ? (
+            <>
+              <p className="font-display text-2xl font-medium tracking-tight text-[#eef6f7]">{p.title}</p>
+              <p className="mt-1 font-mono text-[11px] italic tracking-[0.06em] text-[#9fbcc2]">{p.species}</p>
+            </>
+          ) : null}
+        </div>
         <div className="flex gap-2">
           <button type="button" onClick={() => onStep(-1)} className="rounded-full border border-white/15 px-4 py-2 font-mono text-xs text-white/80 hover:border-accent hover:text-accent" aria-label="Previous photo">
             ←
@@ -82,13 +90,19 @@ export function SelectedGrid({ photos }: { photos: LensPhoto[] }) {
             <button type="button" onClick={() => lb.setI(i)} className="absolute inset-0" aria-label={`Open ${p.title}`}>
               <Image
                 src={`/lens/photos/${p.slug}.jpg`}
-                alt={`${p.title}, ${p.place}`}
+                alt={p.species ? `${p.title} (${p.species})` : p.title}
                 fill
                 sizes="(max-width: 1024px) 50vw, 33vw"
                 loading={i < 3 ? "eager" : "lazy"}
                 className="object-cover transition-transform duration-[1200ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
               />
             </button>
+            {p.species ? (
+              <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#03141a]/85 to-transparent p-3 pt-10 opacity-100 transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100">
+                <p className="font-display text-base font-medium leading-tight text-[#eef6f7]">{p.title}</p>
+                <p className="mt-0.5 font-mono text-[10px] italic text-[#a8c4ca]">{p.species}</p>
+              </figcaption>
+            ) : null}
           </figure>
         ))}
       </div>
@@ -132,7 +146,12 @@ export function ArchiveStrip({ photos, categories }: { photos: LensPhoto[]; cate
             style={{ aspectRatio: `${p.w} / ${p.h}` }}
             aria-label={`Open ${p.title}`}
           >
-            <Image src={`/lens/photos/${p.slug}.jpg`} alt={`${p.title}, ${p.place}`} fill sizes="(max-width: 640px) 80vw, 40vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+            <Image src={`/lens/photos/${p.slug}.jpg`} alt={p.species ? `${p.title} (${p.species})` : p.title} fill sizes="(max-width: 640px) 80vw, 40vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+            {p.species ? (
+              <span className="absolute bottom-2 left-2 rounded-full bg-[#03141a]/70 px-2.5 py-1 font-mono text-[10px] tracking-[0.06em] text-[#d9ecee] opacity-0 transition-opacity group-hover:opacity-100">
+                {p.title}
+              </span>
+            ) : null}
           </button>
         ))}
       </div>
