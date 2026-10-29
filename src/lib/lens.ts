@@ -99,6 +99,9 @@ export const services = [
 export const gear = ["GoPro HERO9 Black", "Sony α58", "SJCAM 4K", "Phone (Samsung / OnePlus)", "Edit: DaVinci Resolve, ffmpeg, custom grading"];
 
 export const photos: LensPhoto[] = [
+  { slug: "heron-snag", title: "Asian openbill at first light", place: "Dubare, Karnataka", date: "2017", cat: "wildlife", w: 2400, h: 1602, species: "Anastomus oscitans", selected: 2.5 },
+  { slug: "dawn-snags", title: "Drowned forest, sunrise", place: "Dubare, Karnataka", date: "2017", cat: "landscape", w: 2400, h: 1602, selected: 9.2 },
+  { slug: "sun-snag", title: "Still water, low sun", place: "Dubare, Karnataka", date: "2017", cat: "landscape", w: 1602, h: 2400 },
   { slug: "cormorant-snag", title: "Cormorant", place: "Dubare, Karnataka", date: "2017", cat: "wildlife", w: 1919, h: 2400, species: "Phalacrocoracidae" },
   { slug: "vine-snake", title: "Green vine snake", place: "Dandeli, Karnataka", date: "Oct 2018", cat: "wildlife", w: 1601, h: 2001, species: "Ahaetulla nasuta", selected: 0 },
   { slug: "spotted-deer", title: "Chital", place: "Dandeli, Karnataka", date: "Oct 2018", cat: "wildlife", w: 2400, h: 1600, species: "Axis axis" },
