@@ -158,7 +158,7 @@ export function LensReels({ reels }: { reels: LensReel[] }) {
                 <video muted loop playsInline preload="none" poster={`${rv(r.slug)}.jpg`} data-src={`${rv(r.slug)}.mp4`} tabIndex={-1} aria-hidden="true" />
                 <span className="ln-shade" />
                 <span className="ln-rtop kicker">{r.kicker}<i>{r.length}</i></span>
-                <span className="ln-rbot"><b className="condensed">{r.title}</b><span>{r.place}</span></span>
+                <span className="ln-rbot"><b className="condensed">{r.title}</b></span>
                 <span className="ln-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg></span>
               </span>
             </button>

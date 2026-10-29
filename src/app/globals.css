@@ -1015,3 +1015,19 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .p-lens .ln-rwrap { grid-template-columns: auto; grid-template-rows: minmax(0, 1fr); justify-items: center; }
 
 @media (min-width: 1240px) { .p-lens .ln-strip { scroll-padding-left: calc((100vw - 1240px) / 2 + 20px); } }
+/* Lens on phones: reels become a swipe rail of large cards; film text never covers the picture */
+@media (max-width: 819px) {
+  .p-lens .ln-reels { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(-1 * var(--gl)); padding: 4px var(--gl) 8px; scroll-padding-left: var(--gl); overscroll-behavior-x: contain; }
+  .p-lens .ln-reels::-webkit-scrollbar { display: none; }
+  .p-lens .ln-rcell { flex: 0 0 min(64vw, 300px); scroll-snap-align: start; margin-top: 0 !important; }
+  .p-lens .ln-rtop { display: flex; }
+  .p-lens .ln-rbot { left: 14px; right: 14px; bottom: 14px; }
+  .p-lens .ln-rbot b { font-size: 1.6rem; }
+  .p-lens .ln-film .ln-rbot span { display: none; }
+  .p-lens .ln-film .ln-rbot b { font-size: 1.4rem; }
+  .p-lens .ln-film .ln-rtop { display: none; }
+}
+@media (max-width: 819px) {
+  .p-lens .section { padding-block: 64px; }
+  .p-lens .ln-film .sh { margin-bottom: 18px; }
+}
