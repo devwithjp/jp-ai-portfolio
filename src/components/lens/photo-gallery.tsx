@@ -78,22 +78,55 @@ function useLightbox(len: number) {
   return { i, setI, step, close };
 }
 
+// Row-major masonry: each frame goes into the currently shortest column, so the
+// reading order runs across the page and the columns end level (the order in
+// lens.ts is tuned so both the 2- and 3-column layouts finish flush).
+function distribute(photos: LensPhoto[], n: number, gap: number) {
+  const cols = Array.from({ length: n }, () => ({ h: 0, items: [] as { p: LensPhoto; i: number }[] }));
+  photos.forEach((p, i) => {
+    let k = 0;
+    for (let j = 1; j < n; j++) if (cols[j].h < cols[k].h - 1e-4) k = j;
+    cols[k].items.push({ p, i });
+    cols[k].h += p.h / p.w + gap;
+  });
+  return cols.map((c) => c.items);
+}
+
 // Selected work: masonry columns, frames at their own aspect.
 export function SelectedGrid({ photos }: { photos: LensPhoto[] }) {
   const lb = useLightbox(photos.length);
+  const three = useMemo(() => distribute(photos, 3, 12 / 354.66), [photos]);
+  const two = useMemo(() => distribute(photos, 2, 8 / 176), [photos]);
+  const layout = (cols: { p: LensPhoto; i: number }[][], cls: string) => (
+    <div className={cls}>
+      {cols.map((col, c) => (
+        <div key={c} className="flex min-w-0 flex-1 flex-col gap-2 sm:gap-3">
+          {col.map(({ p, i }) => (
+            <Frame key={p.slug} p={p} eager={i < 3} onOpen={() => lb.setI(i)} />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
   return (
     <>
-      {/* masonry columns: every frame keeps its own aspect ratio, no holes */}
-      <div className="columns-2 gap-2 sm:gap-3 lg:columns-3">
-        {photos.map((p, i) => (
-          <figure key={p.slug} className="group relative mb-2 break-inside-avoid overflow-hidden rounded-xl bg-surface sm:mb-3" style={{ aspectRatio: `${p.w} / ${p.h}` }}>
-            <button type="button" onClick={() => lb.setI(i)} className="absolute inset-0" aria-label={`Open ${p.title}`}>
+      {layout(two, "flex gap-2 sm:gap-3 lg:hidden")}
+      {layout(three, "hidden gap-3 lg:flex")}
+      <Lightbox list={photos} index={lb.i} onClose={lb.close} onStep={lb.step} />
+    </>
+  );
+}
+
+function Frame({ p, eager, onOpen }: { p: LensPhoto; eager: boolean; onOpen: () => void }) {
+  return (
+          <figure className="group relative overflow-hidden rounded-xl bg-surface" style={{ aspectRatio: `${p.w} / ${p.h}` }}>
+            <button type="button" onClick={onOpen} className="absolute inset-0" aria-label={`Open ${p.title}`}>
               <Image
                 src={`/lens/photos/${p.slug}.jpg`}
                 alt={p.species ? `${p.title} (${p.species})` : p.title}
                 fill
                 sizes="(max-width: 1024px) 50vw, 33vw"
-                loading={i < 3 ? "eager" : "lazy"}
+                loading={eager ? "eager" : "lazy"}
                 className="object-cover transition-transform duration-[1200ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
               />
             </button>
@@ -104,10 +137,6 @@ export function SelectedGrid({ photos }: { photos: LensPhoto[] }) {
               </figcaption>
             ) : null}
           </figure>
-        ))}
-      </div>
-      <Lightbox list={photos} index={lb.i} onClose={lb.close} onStep={lb.step} />
-    </>
   );
 }
 
