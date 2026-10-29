@@ -136,8 +136,6 @@ export const photos: LensPhoto[] = [
   { slug: "barrel-coral", title: "Barrel sponge", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Xestospongia sp." },
   { slug: "blue-sea-star", title: "Blue sea star", place: "Andaman Islands", date: "", cat: "underwater", w: 905, h: 1131, species: "Linckia laevigata" },
   { slug: "brain-coral", title: "Brain coral", place: "Andaman Islands", date: "", cat: "underwater", w: 1156, h: 1444, species: "Platygyra sp.", selected: 14 },
-  { slug: "clownfish-anemone", title: "Clark's anemonefish", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Amphiprion clarkii" },
-  { slug: "clownfish-pair", title: "Clark's anemonefish", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Amphiprion clarkii" },
   { slug: "crinoid", title: "Feather star", place: "Andaman Islands", date: "", cat: "underwater", w: 1273, h: 1590, species: "Crinoidea" },
   { slug: "feather-star", title: "Feather star", place: "Andaman Islands", date: "", cat: "underwater", w: 1080, h: 1350, species: "Crinoidea" },
   { slug: "fish-school", title: "Fusiliers", place: "Andaman Islands", date: "", cat: "underwater", w: 1728, h: 2160, species: "Caesionidae", selected: 8 },
