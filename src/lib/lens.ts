@@ -71,7 +71,7 @@ export const film = {
   slug: "andaman",
   title: "Island days",
   kicker: "Film · 16:9",
-  length: "0:34",
+  length: "0:40",
   place: "Andaman Islands",
   blurb: "Roads, reefs, a backflip off the rocks and the light after. One trip, cut to one track.",
   /** set when the full-quality cut is uploaded to YouTube/Vimeo */
