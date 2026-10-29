@@ -11,22 +11,36 @@ gsap.registerPlugin(ScrollTrigger);
 
 const ph = (p: LensPhoto) => `/lens/photos/${p.slug}.jpg`;
 const num = (i: number) => String(i + 1).padStart(2, "0");
-const altOf = (p: LensPhoto) => `${p.title}, ${p.place}`;
-const metaOf = (p: LensPhoto) => [p.place, p.date].filter(Boolean).join(" · ") + (p.species ? ` · ${p.species}` : "");
+const altOf = (p: LensPhoto) => (p.species ? `${p.title} (${p.species})` : p.title);
+const metaOf = (p: LensPhoto) => p.species ?? "";
 
 const X = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>;
 const PREV = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M15 5l-7 7 7 7" /></svg>;
 const NEXT = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5l7 7-7 7" /></svg>;
 
-function Fig({ p, i, cls = "", onOpen }: { p: LensPhoto; i: number; cls?: string; onOpen: (i: number, img: HTMLImageElement) => void }) {
+function StripFig({ p, i, onOpen }: { p: LensPhoto; i: number; onOpen: (i: number, img: HTMLImageElement) => void }) {
   return (
-    <figure className={`ln-ph ${cls}`} style={{ "--ar": `${p.w}/${p.h}` } as React.CSSProperties}>
-      <button type="button" className="ln-open" onClick={(e) => { const im = e.currentTarget.querySelector("img"); if (im) onOpen(i, im); }} aria-label={`Open ${p.title}, ${p.place}`}>
+    <figure className="ln-ph ln-sph" style={{ "--ar": `${p.w}/${p.h}` } as React.CSSProperties}>
+      <button type="button" className="ln-open" onClick={(e) => { const im = e.currentTarget.querySelector("img"); if (im) onOpen(i, im); }} aria-label={`Open ${p.title}`}>
         <span className="ln-z">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={ph(p)} alt={altOf(p)} width={p.w} height={p.h} loading="lazy" decoding="async" draggable={false} />
         </span>
-        <span className="ln-cap"><b>{p.title}</b><span>{p.place}{p.date ? ` · ${p.date}` : ""}</span></span>
+      </button>
+      <figcaption className="ln-scap"><span className="ln-snum">{num(i)}</span><span className="ln-st">{p.title}</span>{p.species ? <i>{p.species}</i> : null}</figcaption>
+    </figure>
+  );
+}
+
+function Fig({ p, i, cls = "", onOpen }: { p: LensPhoto; i: number; cls?: string; onOpen: (i: number, img: HTMLImageElement) => void }) {
+  return (
+    <figure className={`ln-ph ${cls}`} style={{ "--ar": `${p.w}/${p.h}` } as React.CSSProperties}>
+      <button type="button" className="ln-open" onClick={(e) => { const im = e.currentTarget.querySelector("img"); if (im) onOpen(i, im); }} aria-label={`Open ${p.title}`}>
+        <span className="ln-z">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={ph(p)} alt={altOf(p)} width={p.w} height={p.h} loading="lazy" decoding="async" draggable={false} />
+        </span>
+        <span className="ln-cap"><b>{p.title}</b>{p.species ? <span>{p.species}</span> : null}</span>
       </button>
     </figure>
   );
@@ -49,6 +63,7 @@ export function LensPhotos({ selected, photos, categories }: { selected: LensPho
   const drag = useRef({ on: false, x: 0, sl: 0, moved: false });
   const firstStrip = useRef(true);
   const moveRef = useRef<(() => void) | null>(null);
+  const [pos, setPos] = useState({ i: 0, p: 0, start: true, end: false });
 
   const present = useMemo(() => categories.filter((c) => photos.some((p) => p.cat === c.key)), [categories, photos]);
   const cnt = (k: string) => (k === "all" ? photos.length : photos.filter((p) => p.cat === k).length);
@@ -68,6 +83,33 @@ export function LensPhotos({ selected, photos, categories }: { selected: LensPho
     const tw = gsap.from(strip.querySelectorAll(".ln-sph"), { x: 60, opacity: 0, duration: 0.8, ease: "expo.out", stagger: 0.04, clearProps: "all" });
     return () => { tw.kill(); };
   }, [filter]);
+
+  /* Archive: counter, progress line, edge state */
+  useEffect(() => {
+    const strip = stripRef.current;
+    if (!strip) return;
+    const m = () => {
+      const max = strip.scrollWidth - strip.clientWidth;
+      const kids = [...strip.querySelectorAll<HTMLElement>(".ln-sph")];
+      const pl = parseFloat(getComputedStyle(strip).paddingLeft) || 0;
+      let k = 0;
+      kids.forEach((c, j) => { if (c.offsetLeft - pl <= strip.scrollLeft + strip.clientWidth * 0.2) k = j; });
+      const end = strip.scrollLeft >= max - 4;
+      setPos({ i: end ? kids.length - 1 : k, p: max > 0 ? strip.scrollLeft / max : 0, start: strip.scrollLeft <= 4, end });
+    };
+    m();
+    strip.addEventListener("scroll", m, { passive: true });
+    addEventListener("resize", m);
+    return () => { strip.removeEventListener("scroll", m); removeEventListener("resize", m); };
+  }, [list]);
+
+  const goTo = (d: number) => {
+    const strip = stripRef.current;
+    if (!strip) return;
+    const kids = [...strip.querySelectorAll<HTMLElement>(".ln-sph")];
+    const t = kids[Math.max(0, Math.min(kids.length - 1, pos.i + d))];
+    if (t) strip.scrollTo({ left: t.offsetLeft - kids[0].offsetLeft, behavior: reduced() ? "auto" : "smooth" });
+  };
 
   /* Tabs indicator follows selection */
   useEffect(() => {
@@ -256,7 +298,11 @@ export function LensPhotos({ selected, photos, categories }: { selected: LensPho
         <div className="wrap">
           <div className="sh-row">
             {head("Archive", "Everything else worth keeping.")}
-            <p className="kicker ln-hint">Drag or scroll</p>
+            <div className="ln-snav">
+              <p className="kicker ln-scount" aria-live="polite"><b>{num(pos.i)}</b> / {String(list.length).padStart(2, "0")}</p>
+              <button type="button" className="iconbtn" onClick={() => goTo(-1)} disabled={pos.start} aria-label="Previous frames">{PREV}</button>
+              <button type="button" className="iconbtn" onClick={() => goTo(1)} disabled={pos.end} aria-label="Next frames">{NEXT}</button>
+            </div>
           </div>
           <div className="tabs ln-tabs" role="tablist" aria-label="Filter the archive" id="lnTabs" ref={tabsRef} onKeyDown={onTabs}>
             {[{ key: "all" as const, label: "All" }, ...present].map((c) => (
@@ -266,11 +312,12 @@ export function LensPhotos({ selected, photos, categories }: { selected: LensPho
             ))}
           </div>
         </div>
-        <div className="ln-strip" id="lnStrip" ref={stripRef} tabIndex={0} aria-label="Archive photos, scrollable">
+        <div className={`ln-strip${pos.start ? " at-start" : ""}${pos.end ? " at-end" : ""}`} id="lnStrip" ref={stripRef} tabIndex={0} aria-label="Archive photos, scrollable">
           <div className="ln-srow">
-            {list.map((p, i) => <Fig key={`${filter}-${p.slug}`} p={p} i={i} cls="ln-sph" onOpen={openArc} />)}
+            {list.map((p, i) => <StripFig key={`${filter}-${p.slug}`} p={p} i={i} onOpen={openArc} />)}
           </div>
         </div>
+        <div className="wrap"><div className="ln-sprog"><span style={{ width: `${Math.max(4, pos.p * 100)}%` }} /></div></div>
       </section>
 
       <div className="ln-lb" ref={lbRef} role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>

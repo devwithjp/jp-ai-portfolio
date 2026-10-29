@@ -36,6 +36,7 @@ export const site = {
     { href: "/projects", label: "Projects" },
     { href: "/skills", label: "Skills" },
     { href: "/water", label: "Water" },
+    { href: "/lens", label: "Lens" },
     { href: "/writing", label: "Writing" },
     { href: "/about", label: "About" },
     { href: "/resume", label: "Resume" },
