@@ -3,7 +3,7 @@ import { Container, Section, SectionHeader } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { ReelRail, FilmFeature } from "@/components/lens/reel-player";
 import { SelectedGrid, ArchiveStrip } from "@/components/lens/photo-gallery";
-import { lensIntro, reels, film, photos, selectedPhotos, categories } from "@/lib/lens";
+import { lensIntro, reels, film, photos, selectedPhotos, archivePhotos, categories } from "@/lib/lens";
 
 export const metadata: Metadata = {
   title: "Lens",
@@ -74,7 +74,7 @@ export default function LensPage() {
           <SectionHeader eyebrow="Archive" title="Everything else worth keeping." />
         </Reveal>
         <div className="mt-10">
-          <ArchiveStrip photos={photos} categories={categories} />
+          <ArchiveStrip photos={archivePhotos} categories={categories} />
         </div>
       </Section>
 

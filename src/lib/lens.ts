@@ -123,7 +123,6 @@ export const photos: LensPhoto[] = [
   { slug: "clownfish", title: "Ocellaris clownfish", place: "Andaman Islands", date: "2023", cat: "underwater", w: 1440, h: 1800, species: "Amphiprion ocellaris", selected: 2 },
   { slug: "wake", title: "Wake", place: "Andaman Sea", date: "Apr 2022", cat: "seascape", w: 1459, h: 1824 },
   { slug: "palm-road", title: "Palm road", place: "Goa", date: "Oct 2021", cat: "landscape", w: 1504, h: 1880 },
-  { slug: "toward-the-sun", title: "Toward the sun", place: "Gokarna", date: "Jan 2022", cat: "seascape", w: 2400, h: 1600 },
   { slug: "gaur", title: "Indian gaur", place: "Masinagudi, Nilgiris", date: "Jul 2022", cat: "wildlife", w: 2400, h: 1599, species: "Bos gaurus", selected: 1 },
   { slug: "vulture-flock", title: "White-rumped vultures", place: "Masinagudi, Nilgiris", date: "Jul 2022", cat: "wildlife", w: 2400, h: 1350, species: "Gyps bengalensis · Critically Endangered", selected: 3 },
   { slug: "vultures-wings", title: "White-rumped vultures", place: "Masinagudi, Nilgiris", date: "Jul 2022", cat: "wildlife", w: 2400, h: 1600, species: "Gyps bengalensis · Critically Endangered" },
@@ -144,23 +143,21 @@ export const photos: LensPhoto[] = [
   { slug: "sea-fan", title: "Sea fan & sea goldies", place: "Andaman Islands", date: "", cat: "underwater", w: 1080, h: 1350, species: "Pseudanthias squamipinnis", selected: 4 },
   { slug: "sea-krait", title: "Banded sea krait", place: "Andaman Islands", date: "", cat: "underwater", w: 2280, h: 1520, species: "Laticauda colubrina" },
   { slug: "staghorn-anthias", title: "Staghorn coral", place: "Andaman Islands", date: "", cat: "underwater", w: 1520, h: 1900, species: "Acropora sp.", selected: 7 },
-  { slug: "sweetlips", title: "Titan triggerfish", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1599, species: "Balistoides viridescens" },
+  { slug: "sweetlips", title: "Titan triggerfish", place: "Andaman Islands", date: "", cat: "underwater", w: 2000, h: 1333, species: "Balistoides viridescens" },
   { slug: "table-coral", title: "Butterflyfish", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1599, species: "Chaetodon sp.", selected: 11 },
   { slug: "trevally", title: "Trevally", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Carangidae" },
-  { slug: "yellow-snappers", title: "Bluestripe snappers", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Lutjanus kasmira" },
-  { slug: "giant-moray", title: "Giant moray", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1599, species: "Gymnothorax javanicus" },
+  { slug: "giant-moray", title: "Giant moray", place: "Andaman Islands", date: "", cat: "underwater", w: 2067, h: 3102, species: "Gymnothorax javanicus" },
   { slug: "moray-crevice", title: "Moray eel", place: "Andaman Islands", date: "", cat: "underwater", w: 1273, h: 1590, species: "Muraenidae" },
-  { slug: "clownfish-colony", title: "Ocellaris clownfish", place: "Andaman Islands", date: "", cat: "underwater", w: 2400, h: 1600, species: "Amphiprion ocellaris" },
   // from Instagram (JP's own edits)
   { slug: "pink-driftwood", title: "Driftwood at dusk", place: "Andaman Islands", date: "Jan 2024", cat: "seascape", w: 1078, h: 565, selected: 9.5 },
-  { slug: "valley-dusk", title: "Valley at last light", place: "India", date: "Jan 2024", cat: "landscape", w: 1078, h: 565 },
-  { slug: "mountain-wildflowers", title: "Wildflowers under the range", place: "India", date: "May 2025", cat: "landscape", w: 1440, h: 1800 },
+  { slug: "valley-dusk", title: "Valley at last light", place: "India", date: "Jan 2024", cat: "landscape", w: 1078, h: 565, selected: 1.5 },
+  { slug: "mountain-wildflowers", title: "Wildflowers under the range", place: "India", date: "May 2025", cat: "landscape", w: 1440, h: 1800, selected: 6.5 },
   { slug: "ocean-pool", title: "Ocean pool", place: "Sydney", date: "May 2025", cat: "seascape", w: 1440, h: 1800, selected: 7.5 },
-  { slug: "beached-boat", title: "Low tide, last light", place: "Andaman Islands", date: "Mar 2023", cat: "seascape", w: 1440, h: 1080 },
-  { slug: "moon-boat", title: "Moonlight on the bay", place: "Andaman Islands", date: "Apr 2023", cat: "seascape", w: 1440, h: 754 },
+  { slug: "beached-boat", title: "Low tide, last light", place: "Andaman Islands", date: "Mar 2023", cat: "seascape", w: 1440, h: 1080, selected: 9.7 },
+  { slug: "moon-boat", title: "Moonlight on the bay", place: "Andaman Islands", date: "Apr 2023", cat: "seascape", w: 1440, h: 754, selected: 15.5 },
   { slug: "rainbow-surf", title: "Rainbow over the break", place: "Sydney", date: "May 2025", cat: "seascape", w: 1440, h: 1800, selected: 3.5 },
   { slug: "arch-window", title: "Window in the rock", place: "Andaman Islands", date: "Mar 2024", cat: "adventure", w: 1080, h: 1350, selected: 5.5 },
-  { slug: "harbour-fireworks", title: "New Year over the harbour", place: "Sydney", date: "Jan 2025", cat: "landscape", w: 1440, h: 640 },
+  { slug: "harbour-fireworks", title: "New Year over the harbour", place: "Sydney", date: "Jan 2025", cat: "landscape", w: 1440, h: 640, selected: 13.5 },
   { slug: "moonrise-cliff", title: "Moonrise over the headland", place: "Sydney", date: "2026", cat: "seascape", w: 1440, h: 1800 },
   { slug: "eucalypt-sunset", title: "Sun down behind the gums", place: "Sydney", date: "2026", cat: "landscape", w: 2400, h: 1350 },
   { slug: "blue-break", title: "Blue break", place: "Sydney", date: "2026", cat: "seascape", w: 2400, h: 1350 },
@@ -176,3 +173,4 @@ export const photos: LensPhoto[] = [
 export const selectedPhotos = photos
   .filter((p) => p.selected !== undefined)
   .sort((a, b) => (a.selected ?? 0) - (b.selected ?? 0));
+export const archivePhotos = photos.filter((p) => p.selected === undefined);
