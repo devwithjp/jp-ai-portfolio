@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { NightJelly } from "@/components/df/night-jelly";
 import { Ambient, Enhance, PageTransition, ScrollProgress, SiteFooter, SiteNav, SmoothScroll } from "@/components/df/shell";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -131,6 +132,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SiteNav />
         <main id="main">{children}</main>
         <SiteFooter />
+        <NightJelly />
         <PageTransition />
         <Enhance />
       </body>

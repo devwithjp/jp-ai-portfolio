@@ -554,7 +554,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .p-skills .sk-gt { flex: 1; min-width: 0; font: 800 clamp(1.5rem, 2.4vw, 2rem)/0.95 var(--display); font-variation-settings: "wdth" 75; text-transform: uppercase; letter-spacing: -0.01em; }
 .p-skills .sk-n { font: 500 12px var(--mono); color: var(--accent); border: 1px solid var(--line); border-radius: 999px; padding: 4px 9px; }
 .p-skills .sk-group:hover { border-color: color-mix(in oklab, var(--accent) 45%, var(--line)); }
-.p-skills .sk-chip { transition: transform 0.35s var(--ease), box-shadow 0.35s, border-color 0.25s, color 0.25s, background 0.25s; }
+.p-skills .sk-chip { transition: transform 0.35s var(--ease), box-shadow 0.35s, border-color 0.25s, color 0.25s, background 0.25s, opacity 0.3s, filter 0.3s; }
+/* Hovering one skill switches the rest off. */
+@media (hover: hover) {
+  .p-skills .sk-body:has(.sk-chip:hover) .sk-chip:not(:hover) { opacity: 0.18; filter: grayscale(1); }
+}
 .p-skills .sk-chip:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 26px -10px var(--glow), 0 0 0 1px color-mix(in oklab, var(--accent) 40%, transparent); background: color-mix(in oklab, var(--accent) 8%, transparent); }
 .p-skills .sk-chip[aria-pressed="true"] { box-shadow: 0 0 22px -4px var(--glow); }
 .p-skills .sk-ltitle { font-size: clamp(2.6rem, 6vw, 5rem); line-height: 0.86; background: linear-gradient(100deg, var(--fg), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -997,3 +1001,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 /* Reel viewer shows only the video now, centred. */
 .p-lens .ln-rwrap { grid-template-columns: auto; grid-template-rows: minmax(0, 1fr); justify-items: center; }
 
+
+/* Night mode: a crystal jelly rises up the right edge once the theme switches to dark. */
+.night-jelly { position: fixed; top: 0; right: max(2vw, env(safe-area-inset-right, 0px)); width: clamp(64px, 7vw, 104px); aspect-ratio: 120 / 280; z-index: 40; pointer-events: none; visibility: hidden; opacity: 0; color: #45e6cb; filter: drop-shadow(0 0 6px rgba(69, 230, 203, 0.55)) drop-shadow(0 0 18px rgba(56, 189, 242, 0.3)); will-change: transform; }
+.night-jelly .nj-glow { filter: drop-shadow(0 0 2.5px currentColor); }
+@media (prefers-reduced-motion: reduce) { .night-jelly { display: none; } }
