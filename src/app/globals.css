@@ -143,8 +143,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @media (max-width: 900px) {
   .navlinks { display: none; }
   .menubtn { display: grid; }
-  .mobmenu.open { display: block; border-top: 1px solid var(--line); }
-  .mobmenu .wrap { display: grid; padding-block: 10px 18px; }
+  .mobmenu.open { display: block; border-top: 1px solid var(--line); position: relative; background: var(--bg); max-height: calc(100svh - 64px - env(safe-area-inset-top, 0px)); overflow-y: auto; overscroll-behavior: contain; box-shadow: 0 0 0 100vmax rgb(2 10 14 / 0.6); clip-path: inset(0 0 -100vmax 0); }
+  .nav:has(.mobmenu.open) { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .mobmenu a { color: var(--fg); }
+  .mobmenu .wrap { display: grid; height: auto; justify-content: stretch; align-items: stretch; padding-block: 10px 18px; }
   .mobmenu a { padding: 12px 4px; text-decoration: none; font: 600 22px/1.1 var(--display); border-bottom: 1px solid var(--line); }
   .mobmenu a[aria-current="page"] { color: var(--accent); }
 }
@@ -930,6 +932,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .p-lens .ln-cap b { font: 600 16px/1.2 var(--display); letter-spacing: -0.01em; }
 .p-lens .ln-cap span { font: 500 11.5px/1.3 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; }
 .p-lens .ln-open:hover .ln-cap, .p-lens .ln-open:focus-visible .ln-cap { transform: none; opacity: 1; }
+.p-lens .ln-open > .ln-yr { position: absolute; right: 10px; bottom: 8px; z-index: 1; font: 500 9.5px/1 var(--mono); letter-spacing: 0.14em; color: #fff; opacity: 0.42; text-shadow: 0 1px 3px rgb(0 0 0 / 0.5); pointer-events: none; transition: opacity 0.4s; }
+.p-lens .ln-open:hover > .ln-yr, .p-lens .ln-open:focus-visible > .ln-yr { opacity: 0.7; }
+.p-lens .ln-scap .ln-yr { margin-left: auto; padding-left: 8px; font-size: 10px; opacity: 0.5; font-variant-numeric: tabular-nums; }
 @media (hover: none) { .p-lens .ln-cap { transform: none; opacity: 1; padding-top: 28px; } .p-lens .ln-cap span { display: none; } }
 @media (max-width: 899px) { .p-lens .ln-mason { columns: 2; column-gap: 10px; } .p-lens .ln-ph { margin-bottom: 10px; } }
 @media (prefers-reduced-motion: reduce) { .p-lens .ln-z img { top: 0; height: 100%; } }

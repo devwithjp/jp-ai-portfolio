@@ -12,7 +12,8 @@ gsap.registerPlugin(ScrollTrigger);
 const ph = (p: LensPhoto) => `/lens/photos/${p.slug}.jpg`;
 const num = (i: number) => String(i + 1).padStart(2, "0");
 const altOf = (p: LensPhoto) => (p.species ? `${p.title} (${p.species})` : p.title);
-const metaOf = (p: LensPhoto) => p.species ?? "";
+const yearOf = (p: LensPhoto) => p.date.match(/\d{4}/)?.[0] ?? "";
+const metaOf = (p: LensPhoto) => [p.species, yearOf(p)].filter(Boolean).join("  ·  ");
 
 const X = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>;
 const PREV = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M15 5l-7 7 7 7" /></svg>;
@@ -27,7 +28,7 @@ function StripFig({ p, i, onOpen }: { p: LensPhoto; i: number; onOpen: (i: numbe
           <img src={ph(p)} alt={altOf(p)} width={p.w} height={p.h} loading="lazy" decoding="async" draggable={false} />
         </span>
       </button>
-      <figcaption className="ln-scap"><span className="ln-snum">{num(i)}</span><span className="ln-st">{p.title}</span>{p.species ? <i>{p.species}</i> : null}</figcaption>
+      <figcaption className="ln-scap"><span className="ln-snum">{num(i)}</span><span className="ln-st">{p.title}</span>{p.species ? <i>{p.species}</i> : null}{yearOf(p) ? <span className="ln-yr">{yearOf(p)}</span> : null}</figcaption>
     </figure>
   );
 }
@@ -41,6 +42,7 @@ function Fig({ p, i, cls = "", onOpen }: { p: LensPhoto; i: number; cls?: string
           <img src={ph(p)} alt={altOf(p)} width={p.w} height={p.h} loading="lazy" decoding="async" draggable={false} />
         </span>
         <span className="ln-cap"><b>{p.title}</b>{p.species ? <span>{p.species}</span> : null}</span>
+        {yearOf(p) ? <span className="ln-yr" aria-hidden="true">{yearOf(p)}</span> : null}
       </button>
     </figure>
   );
@@ -80,7 +82,7 @@ export function LensPhotos({ selected, photos, categories }: { selected: LensPho
     if (firstStrip.current) { firstStrip.current = false; return; }
     ScrollTrigger.refresh();
     if (reduced()) return;
-    const tw = gsap.from(strip.querySelectorAll(".ln-sph"), { x: 60, opacity: 0, duration: 0.8, ease: "expo.out", stagger: 0.04, clearProps: "all" });
+    const tw = gsap.from(strip.querySelectorAll(".ln-sph"), { x: 60, opacity: 0, duration: 0.8, ease: "expo.out", stagger: 0.04, clearProps: "transform,opacity" });
     return () => { tw.kill(); };
   }, [filter]);
 
