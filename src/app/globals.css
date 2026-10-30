@@ -987,8 +987,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .p-lens .ln-lb { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; }
 .p-lens .ln-lb[hidden] { display: none; }
 .p-lens .ln-lb-bg { position: absolute; inset: 0; background: color-mix(in oklab, var(--bg-deep) 94%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-.p-lens .ln-stage { position: absolute; inset: 0; display: grid; place-items: center; padding: 72px clamp(16px, 7vw, 110px) 96px; touch-action: pan-y; }
-.p-lens .ln-stage img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 10px; box-shadow: var(--shadow); user-select: none; }
+.p-lens .ln-stage { position: absolute; inset: 0; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center; padding: 72px clamp(16px, 7vw, 110px) 96px; touch-action: pan-y; }
+.p-lens .ln-stage img { max-width: 100%; max-height: min(100%, calc(100svh - 168px)); width: auto; height: auto; object-fit: contain; border-radius: 10px; box-shadow: var(--shadow); user-select: none; }
 .p-lens .ln-lb-info { position: absolute; left: var(--gl); right: 80px; bottom: 24px; display: grid; gap: 2px; pointer-events: none; }
 .p-lens .ln-lb-t { font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 0.9; margin: 0; }
 .p-lens .ln-lb-count { position: absolute; top: 28px; left: var(--gl); }
